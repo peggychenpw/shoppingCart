@@ -45,27 +45,26 @@ if($totalCatogories > 0) {
         <thead>
             <tr>
                 <th class="border">勾選</th>
-                <th class="border">課程名稱</th>
-                <th class="border">課程圖片</th>
-                <th class="border">課程價格</th>
-                <th class="border">人數限制</th>
-                <th class="border">課程分類</th>
-                <th class="border">上課時間</th>
-                <th class="border">開課廠商</th>
+                <th class="border">商品名稱</th>
+                <th class="border">商品照片路徑</th>
+                <th class="border">商品價格</th>
+                <th class="border">商品數量</th>
+                <th class="border">商品種類</th>
+                <th class="border">新增時間</th>
+                <th class="border">更新時間</th>
                 <th class="border">功能</th>
             </tr>
         </thead>
         <tbody>
         <?php
         //SQL 敘述
-        $sql = "SELECT `class`.`classId`,`class`.`className`,`class`.`classImg`,`class`.`classPrice`,`class`.`classPeopleLimit`,`c`.`classCategoryName`,
-                `class`.`classTime`,`s`.`shopName`
-                FROM `class` LEFT JOIN `shop` AS `s`
-                ON `class`.`shopId` = `s`.`shopId`
-                INNER JOIN `classCategory` AS `c`
-                ON `class`.`classCategoryId` = `c`.classCategoryId                
-                ORDER BY `class`.`classCategoryId` ASC 
-                LIMIT ?,?";
+        $sql = "SELECT `items`.`itemId`, `items`.`itemName`, `items`.`itemImg`, `items`.`itemPrice`, 
+                        `items`.`itemQty`, `items`.`itemCategoryId`, `items`.`created_at`, `items`.`updated_at`,
+                        `categories`.`categoryName`
+                FROM `items` INNER JOIN `categories`
+                ON `items`.`itemCategoryId` = `categories`.`categoryId`
+                ORDER BY `items`.`itemId` ASC 
+                LIMIT ?, ? ";
 
         //設定繫結值
         $arrParam = [($page - 1) * $numPerPage, $numPerPage];
@@ -73,6 +72,7 @@ if($totalCatogories > 0) {
         //查詢分頁後的商品資料
         $stmt = $pdo->prepare($sql);
         $stmt->execute($arrParam);
+
         //若數量大於 0，則列出商品
         if($stmt->rowCount() > 0) {
             $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -80,20 +80,19 @@ if($totalCatogories > 0) {
         ?>
             <tr>
                 <td class="border">
-                    <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['classId']; ?>" />
+                    <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['itemId']; ?>" />
                 </td>
-                <td class="border"><?php echo $arr[$i]['className']; ?></td>
-                <td class="border"><img class="itemImg" src="../images/items/<?php echo $arr[$i]['classImg']; ?>" /></td>
-                <td class="border"><?php echo $arr[$i]['classPrice']; ?></td>
-                <td class="border"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
-                <td class="border"><?php echo $arr[$i]['classCategoryName']; ?></td>
-                <td class="border"><?php echo $arr[$i]['classTime']; ?></td>
-                <td class="border"><?php echo $arr[$i]['shopName']; ?></td>
+                <td class="border"><?php echo $arr[$i]['itemName']; ?></td>
+                <td class="border"><img class="itemImg" src="../images/items/<?php echo $arr[$i]['itemImg']; ?>" /></td>
+                <td class="border"><?php echo $arr[$i]['itemPrice']; ?></td>
+                <td class="border"><?php echo $arr[$i]['itemQty']; ?></td>
+                <td class="border"><?php echo $arr[$i]['categoryName']; ?></td>
+                <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
+                <td class="border"><?php echo $arr[$i]['updated_at']; ?></td>
                 <td class="border">
-                    <a class='popupBtn' href="javascript:;">點擊</a>|
-                    <a href="./edit.php?itemId=<?php echo $arr[$i]['classId']; ?>">商品編輯</a> | 
-                    <a href="./multipleImages.php?itemId=<?php echo $arr[$i]['classId']; ?>">多圖設定</a> | 
-                    <a href="./comments.php?itemId=<?php echo $arr[$i]['classId']; ?>">回覆評論</a>
+                    <a href="./edit.php?itemId=<?php echo $arr[$i]['itemId']; ?>">商品編輯</a> | 
+                    <a href="./multipleImages.php?itemId=<?php echo $arr[$i]['itemId']; ?>">多圖設定</a> | 
+                    <a href="./comments.php?itemId=<?php echo $arr[$i]['itemId']; ?>">回覆評論</a>
                 </td>
             </tr>
         <?php
@@ -130,12 +129,5 @@ if($totalCatogories > 0) {
     //引入尚未建立商品種類的文字描述
     require_once('./templates/noCategory.php');
 }?>
-
-<script>
-        let popupBtn = document.querySelector('.popupBtn');
-        popupBtn.addeventlistener('click', =>() {
-            let _div = document.createElement
-        })      
-</script>
 </body>
 </html>

@@ -1,12 +1,1 @@
-<!DOCTYPYE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>我的 PHP 程式</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="./templates/style.css" rel="stylesheet">
-  </head>
-<body>
-  <div class='d-flex'>
- 
-  
+這裡是後端管理頁面 | <a href="./category.php">編輯類別</a> | <a href="./paymentType.php">編輯付款方式</a> | <a href="./admin.php">商品列表</a> | <a href="./new.php">新增商品</a> | <a href="./orders.php">訂單一覽</a> | <a href="../logout.php?logout=1">登出</a>
