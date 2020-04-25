@@ -1,7 +1,7 @@
 /* color template */
 :root {
   --main-bg-white: #FAFAFA;
-  --sub-bg-grey: #6c6c6d;
+  --nav-bg-grey: #6c6c6d;
   --main-text-black: #000008;
   --main-logo-blue: #6381a8;
   --main-light-blue: #ACC5E1;
@@ -101,6 +101,6 @@ body {
   font-size: 14px;
   text-decoration: none;
   padding: 10px;
-  background-color: var( --main-padding-grey);
+  background-color: var( --nav-bg-grey);
 }
 
