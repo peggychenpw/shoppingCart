@@ -28,6 +28,7 @@ require_once('./templates/rightContainer.php'); // 3. 引入rightContainer
 //若有建立商品種類，則顯示商品清單
 if ($totalCatogories > 0) {
 ?>
+  <!-- Table 樣板 -->
   <form name="myForm" entype="multipart/form-data" method="POST" action="delete.php">
     <table class="table table-striped table-gray">
       <thead class="thead-dark">
