@@ -92,6 +92,7 @@ body {
   font-size: 16px;
   text-decoration: none;
   padding: 20px;
+  margin-left: 20px;
   border-bottom: 1px solid var(--main-bg-white);
 }
 
@@ -101,6 +102,7 @@ body {
   font-size: 16px;
   text-decoration: none;
   padding: 24px;
+  margin-left: 20px;
   background-color: var( --nav-bg-grey);
 }
 

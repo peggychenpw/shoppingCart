@@ -11,7 +11,7 @@ require_once('./templates/rightContainer.php');
 <h3>訂單一覽</h3>
 
 <form name="myForm" method="POST" action="./deleteCheck.php">
-  <table class="border">
+  <table class="border table-gray">
     <thead>
       <tr>
         <th scope="col" class="border">
