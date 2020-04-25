@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:8889
--- 產生時間： 2020 年 04 月 25 日 05:48
+-- 產生時間： 2020 年 04 月 25 日 06:05
 -- 伺服器版本： 5.7.26
 -- PHP 版本： 7.4.2
 
@@ -78,7 +78,7 @@ CREATE TABLE `brand` (
 CREATE TABLE `categories` (
   `categoryId` int(11) NOT NULL COMMENT '流水號',
   `categoryName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '類別名稱',
-  `categoryParentId` int(11) DEFAULT NULL COMMENT '上層編號',
+  `categoryParentId` int(11) NOT NULL DEFAULT '0' COMMENT '上層編號',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='類別資料表';
@@ -88,7 +88,12 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`categoryId`, `categoryName`, `categoryParentId`, `created_at`, `updated_at`) VALUES
-(4, '身體保養', 0, '2020-04-23 15:20:11', '2020-04-23 15:20:11');
+(4, '身體保養', 0, '2020-04-23 15:20:11', '2020-04-23 15:20:11'),
+(6, 'jhhh', 0, '2020-04-25 13:54:10', '2020-04-25 13:54:10'),
+(7, 'hhjh', 0, '2020-04-25 13:54:18', '2020-04-25 13:54:18'),
+(8, 'hhhhh', 0, '2020-04-25 13:54:29', '2020-04-25 13:54:29'),
+(9, 'saaa', 4, '2020-04-25 13:57:10', '2020-04-25 13:57:10'),
+(10, 'gfgff', 0, '2020-04-25 13:57:19', '2020-04-25 13:57:19');
 
 -- --------------------------------------------------------
 
@@ -214,7 +219,10 @@ CREATE TABLE `items` (
 INSERT INTO `items` (`itemId`, `itemNumber`, `itemName`, `itemImg`, `itemImg2`, `itemImg3`, `itemSize`, `itemPrice`, `itemQty`, `itemCategoryId`, `brandId`, `formulationId`, `fragranceId`, `created_at`, `updated_at`) VALUES
 (1, '', 'Maison Margiela_’REPLICA’ Beach Walk', 'item_20200423092036.jpg', '', '', 100, 1532, 10, 4, '', '', '', '2020-04-23 15:20:36', '2020-04-24 23:03:28'),
 (6, '', 'aaaa', 'item_20200423120510.png', '', '', 0, 1111, 111, 4, '', '', '', '2020-04-23 18:05:10', '2020-04-23 18:05:10'),
-(7, '', '000', 'item_20200424080734.png', '', '', 0, 100, 1, 4, '', '', '', '2020-04-24 14:07:33', '2020-04-24 14:07:33');
+(7, '', '000', 'item_20200424080734.png', '', '', 0, 100, 1, 4, '', '', '', '2020-04-24 14:07:33', '2020-04-24 14:07:33'),
+(11, NULL, 'tttt', 'item_20200425055246.jpg', NULL, NULL, NULL, 11111, 111, 4, NULL, NULL, NULL, '2020-04-25 13:52:46', '2020-04-25 13:52:46'),
+(12, NULL, '1111', 'item_20200425055300.jpg', NULL, NULL, NULL, 111, 111, 4, NULL, NULL, NULL, '2020-04-25 13:53:00', '2020-04-25 13:53:00'),
+(13, NULL, '55555', 'item_20200425055324.jpg', NULL, NULL, NULL, 111, 111, 4, NULL, NULL, NULL, '2020-04-25 13:53:24', '2020-04-25 13:53:24');
 
 -- --------------------------------------------------------
 
@@ -304,6 +312,7 @@ CREATE TABLE `orders` (
   `orderCode` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '訂單編號',
   `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者帳號',
   `orderPrice` int(100) DEFAULT NULL,
+  `orderStatus` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '訂單狀態',
   `paymentTypeId` int(11) DEFAULT NULL COMMENT '付款方式',
   `couponId` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '優惠券編號',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
@@ -314,12 +323,12 @@ CREATE TABLE `orders` (
 -- 傾印資料表的資料 `orders`
 --
 
-INSERT INTO `orders` (`orderId`, `orderCode`, `username`, `orderPrice`, `paymentTypeId`, `couponId`, `created_at`, `updated_at`) VALUES
-(1, '', 'rose123@gmail.com', 0, 1, '1', '2020-04-23 13:13:34', '2020-04-23 16:58:42'),
-(2, '', 'abc', 0, 1, NULL, '2020-04-23 17:20:32', '2020-04-23 17:20:32'),
-(3, '', 'abc', 0, 1, NULL, '2020-04-23 18:05:42', '2020-04-23 18:05:42'),
-(4, '', 'abc', 0, 1, NULL, '2020-04-23 18:08:59', '2020-04-23 18:08:59'),
-(5, '', 'rose123@gmail.com', 0, 1, NULL, '2020-04-24 09:56:41', '2020-04-24 09:56:41');
+INSERT INTO `orders` (`orderId`, `orderCode`, `username`, `orderPrice`, `orderStatus`, `paymentTypeId`, `couponId`, `created_at`, `updated_at`) VALUES
+(1, '', 'rose123@gmail.com', 0, NULL, 1, '1', '2020-04-23 13:13:34', '2020-04-23 16:58:42'),
+(2, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 17:20:32', '2020-04-23 17:20:32'),
+(3, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 18:05:42', '2020-04-23 18:05:42'),
+(4, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 18:08:59', '2020-04-23 18:08:59'),
+(5, '', 'rose123@gmail.com', 0, NULL, 1, NULL, '2020-04-24 09:56:41', '2020-04-24 09:56:41');
 
 -- --------------------------------------------------------
 
@@ -340,7 +349,8 @@ CREATE TABLE `payment_types` (
 --
 
 INSERT INTO `payment_types` (`paymentTypeId`, `paymentTypeName`, `paymentTypeImg`, `created_at`, `updated_at`) VALUES
-(1, 'credit', 'payment_type_20200423071155.jpg', '2020-04-23 13:11:56', '2020-04-23 13:11:56');
+(1, 'credit', 'payment_type_20200425055340.jpg', '2020-04-23 13:11:56', '2020-04-25 13:53:40'),
+(3, 'tttt', 'payment_type_20200425055354.jpg', '2020-04-25 13:53:54', '2020-04-25 13:53:54');
 
 -- --------------------------------------------------------
 
@@ -534,7 +544,7 @@ ALTER TABLE `brand`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=6;
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=11;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `class`
@@ -576,7 +586,7 @@ ALTER TABLE `fragrance`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `items`
 --
 ALTER TABLE `items`
-  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=10;
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=14;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `item_lists`
@@ -606,7 +616,7 @@ ALTER TABLE `orders`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `payment_types`
 --
 ALTER TABLE `payment_types`
-  MODIFY `paymentTypeId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=3;
+  MODIFY `paymentTypeId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=4;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `shop`

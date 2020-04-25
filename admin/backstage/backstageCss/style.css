@@ -8,6 +8,11 @@
   --main-padding-grey: #F6F6F6;
 }
 
+/* color */
+.table-gray{
+  background-color: var(--main-padding-grey) !important;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
 
 body {
@@ -61,35 +66,22 @@ body {
   text-align: center;
 }
 
-#sidebar header a {
+
+#sidebar header a:hover {
   color: var(--main-bg-white);
   text-decoration: none;
 }
 
-#sidebar header a:hover {
-  color: var(--main-bg-white);
-}
-/* #sidebar .nav{
-
-} */
 #sidebar .nav{
   flex-direction: column;
 }
+
 #sidebar .nav a{
   display: block;
   background: none;
-  /* border-bottom: 1px solid var(--main-bg-white); */
   color: var(--main-bg-white);
   font-size: 14px;
-  padding: 16px 24px;
+  text-decoration: none;
 }
 
-#sidebar .nav a:hover{
-  background-color: var(--sub-bg-grey);
-  color: var(--main-bg-white);
 
-}
-
-#sidebar .nav a i{
-  margin-right: 16px;
-}

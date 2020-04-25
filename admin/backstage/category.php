@@ -1,6 +1,6 @@
 <?php
 require_once('./checkAdmin.php'); //引入登入判斷
-require_once('../db.inc.php'); //引用資料庫連線
+require_once('./db.inc.php'); //引用資料庫連線
 
 //建立種類列表
 function buildTree($pdo, $parentId = 0)
@@ -28,9 +28,9 @@ function buildTree($pdo, $parentId = 0)
 }
 ?>
 <?php
-require_once('header.php');
-require_once('leftSideBar.php');
-require_once('rightContainer.php');
+require_once('./templates/header.php');
+require_once('./templates/leftSideBar.php');
+require_once('./templates/rightContainer.php');
 ?>
 <h3>編輯類別</h3>
 <form name="myForm" method="POST" action="./insertCategory.php">
@@ -59,5 +59,5 @@ require_once('rightContainer.php');
 
 </form>
 <?php
-require_once('footer.php');
+require_once('./templates/footer.php');
 ?>
