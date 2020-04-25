@@ -17,12 +17,12 @@ for($i = 0; $i < count($_POST['chk']); $i++){
     //有資料，則進行檔案刪除
     if($stmt_img->rowCount() > 0) {
         //取得檔案資料 (單筆)
-        $arr = $stmt_img->fetchAll(PDO::FETCH_ASSOC);
-        print_r($arr);
-        exit();
+        $arr = $stmt_img->fetchAll();
+        
         //刪除檔案
         $bool = unlink("../images/items/".$arr[0]['itemImg']);
         
+
         //若檔案刪除成功，則刪除資料???????????
         if($bool === true){
             //SQL 語法

@@ -42,6 +42,7 @@ $arrParam = [
     $_POST['itemQty'],
     $_POST['itemCategoryId']
 ];
+
 $stmt = $pdo->prepare($sql);
 $stmt->execute($arrParam);
 
