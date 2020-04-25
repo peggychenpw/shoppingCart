@@ -8,17 +8,19 @@
   --main-padding-grey: #F6F6F6;
 }
 
-/* color */
+/* table color */
 .table-gray{
   background-color: var(--main-padding-grey) !important;
 }
 
+/* font 中英文 */
+/* font-family: 'Noto Sans TC', sans-serif;
+font-family: 'Playfair Display', serif; */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
 
 body {
   overflow-x: hidden;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Noto Sans TC', sans-serif;
   font-size: 16px;
 }
 
@@ -67,10 +69,16 @@ body {
   text-align: center;
 }
 
+#sidebar header a {
+  color: var(--main-bg-white);
+  text-decoration: none;
+  font-family: 'Playfair Display', serif;
+}
 
 #sidebar header a:hover {
   color: var(--main-bg-white);
   text-decoration: none;
+  font-family: 'Playfair Display', serif;
 }
 
 #sidebar .nav{
