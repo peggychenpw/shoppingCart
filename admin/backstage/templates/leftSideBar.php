@@ -7,7 +7,7 @@
     <ul class="nav">
       <li>
         <a href="#">
-          <i class="zmdi zmdi-view-dashboard"></i> 會員管理
+        <i class="zmdi zmdi-account-box"></i>  會員管理
         </a>
       </li>
       <li>
@@ -17,7 +17,7 @@
       </li>
       <li>
         <a href="#">
-          <i class="zmdi zmdi-calendar-alt"></i> 訂單管理
+        <i class="zmdi zmdi-account-box"></i>  訂單管理
         </a>
       </li>
       <li>
@@ -27,7 +27,7 @@
       </li>
       <li>
         <a href="#">
-          <i class="zmdi zmdi-account-box"></i> 課程預約管理
+        <i class="zmdi zmdi-account-box"></i> 課程預約管理
         </a>
       <li>
         <a href="#">
