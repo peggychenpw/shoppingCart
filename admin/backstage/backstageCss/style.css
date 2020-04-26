@@ -104,3 +104,17 @@ body {
   background-color: var( --nav-bg-grey);
 }
 
+
+/* class zone */
+
+.classTd{
+  position: relative;
+}
+
+.classTd input[type="checkbox"]{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+

@@ -6,7 +6,7 @@
     </header>
     <ul class="nav">
       <li>
-        <a href="#">
+        <a href="./admin.php">
           <i class="zmdi zmdi-view-dashboard"></i> 會員管理
         </a>
       </li>
@@ -21,7 +21,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="./classManagement.php">
           <i class="zmdi zmdi-money-box"></i> 課程管理
         </a>
       </li>

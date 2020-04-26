@@ -80,7 +80,6 @@ if ($totalCatogories > 0) {
               <td class="border"><?php echo $arr[$i]['updated_at']; ?></td>
               <td class="border">
                 <a href="./edit.php?itemId=<?php echo $arr[$i]['itemId']; ?>">商品編輯</a> |
-                <a href="./multipleImages.php?itemId=<?php echo $arr[$i]['itemId']; ?>">多圖設定</a> |
                 <a href="./comments.php?itemId=<?php echo $arr[$i]['itemId']; ?>">回覆評論</a>
               </td>
             </tr>
@@ -110,7 +109,7 @@ if ($totalCatogories > 0) {
           </tr>
         <?php } ?>
 
-        </tfoo>
+      </tfoot>
     </table>
   </form>
 <?php
