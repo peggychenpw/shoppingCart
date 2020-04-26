@@ -1,11 +1,10 @@
 <div class="wrapper">
   <!-- Content -->
   <div id="content">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-right">
-
-          <li><a href="#">Admin</a></li>
+    <nav class="navbar header-grey">
+      <div class="container-fluid d-flex justify-content-end pt-2">
+        <ul>
+          <li><a href="#" >Admin</a></li>
         </ul>
       </div>
     </nav>
