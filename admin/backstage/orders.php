@@ -8,11 +8,12 @@ require_once('./templates/leftSideBar.php');
 require_once('./templates/rightContainer.php');
 ?>
 
-<h3>訂單一覽</h3>
+
+<h3 class="pt-2 pb-2 d-flex justify-content-center">訂單一覽</h3>
 
 <form name="myForm" method="POST" action="./deleteCheck.php">
-  <table class="border">
-    <thead>
+  <table class="table table-striped table-gray">
+    <thead class="thead-dark">
       <tr>
         <th scope="col" class="border">
           <div class="p-2 px-3 text-uppercase">訂單編號</div>
@@ -24,7 +25,7 @@ require_once('./templates/rightContainer.php');
           <div class="py-2 text-uppercase">詳細資訊</div>
         </th>
         <th scope="col" class="border">
-          <div class="py-2 text-uppercase">功能</div>
+          <div class="py-2 text-uppercase">刪除訂單</div>
         </th>
       </tr>
     </thead>
