@@ -9,7 +9,7 @@
   --main-text-black: #000008;
   --main-logo-blue: #6381a8;
   --main-light-blue: #ACC5E1;
-  --main-padding-grey: #F6F6F6;
+  --main-padding-grey: rgb(230, 228, 228);
 }
 
 /* component color */
@@ -18,13 +18,8 @@
 }
 
 .header-grey {
-  background-color: var(--main-padding-grey);
+  background-color: var(--main-padding-grey) !important;
   height: 60px;
-}
-
-.admin-box {
-  width: 30px;
-  height: 20px;
 }
 
 /* reset */
@@ -103,15 +98,16 @@ body {
   font-size: 16px;
   text-decoration: none;
   padding: 20px;
-  border-bottom: 1px solid var(--main-bg-white);
+  border-bottom: 0.5px solid var(--main-padding-grey);
 }
 
 #sidebar .nav a:hover {
   display: block;
-  color: var(--main-bg-white);
+  color: var(--main-logo-blue);
   font-size: 16px;
   text-decoration: none;
-  padding: 24px;
-  background-color: var(--nav-bg-grey);
+  padding: 22px;
+  background-color: var(--main-bg-white);
+  border-bottom: 0.5px solid var(--main-padding-grey);
 }
 

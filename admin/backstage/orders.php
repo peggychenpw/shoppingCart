@@ -25,7 +25,7 @@ require_once('./templates/rightContainer.php');
           <div class="py-2 text-uppercase">詳細資訊</div>
         </th>
         <th scope="col" class="border">
-          <div class="py-2 text-uppercase">功能</div>
+          <div class="py-2 text-uppercase">刪除訂單</div>
         </th>
       </tr>
     </thead>

@@ -17,17 +17,17 @@
       </li>
       <li>
         <a href="#">
-        <i class="zmdi zmdi-account-box"></i>  訂單管理
+        <i class="zmdi zmdi-money-box"></i>  訂單管理
         </a>
       </li>
       <li>
         <a href="#">
-          <i class="zmdi zmdi-money-box"></i> 課程管理
+        <i class="zmdi zmdi-folder-star-alt"></i> 課程管理
         </a>
       </li>
       <li>
         <a href="#">
-        <i class="zmdi zmdi-account-box"></i> 課程預約管理
+        <i class="zmdi zmdi-calendar-check"></i> 課程預約管理
         </a>
       <li>
         <a href="#">
