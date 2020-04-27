@@ -34,8 +34,10 @@ if ($totalCatogories > 0) {
       <thead class="thead-dark">
         <tr>
           <th class="border">勾選</th>
+          <th class="border">商品編號</th>
           <th class="border">商品名稱</th>
           <th class="border">商品照片路徑</th>
+          <th class="border">商品規格</th>
           <th class="border">商品價格</th>
           <th class="border">商品數量</th>
           <th class="border">商品種類</th>
