@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once('./checkAdmin.php'); //引入登入判斷
-require_once('./db.inc.php'); //引用資料庫連線
+require_once('../action/checkAdmin.php'); //引入登入判斷
+require_once('../action/db.inc.php'); //引用資料庫連線
 
 // echo $_POST['searchMethod'];
 // exit();
@@ -171,9 +171,9 @@ $page = $page > $totalPages ? $totalPages : $page; //若 page 大於 總頁數�
 $sqlTotalClasses = "SELECT count(1) FROM `class`";
 $totalClasses = $pdo->query($sqlTotalClasses)->fetch(PDO::FETCH_NUM)[0];
 
-require_once('./templates/header.php'); //  1.引入header
-require_once('./templates/leftSideBar.php'); // 2. 引入leftSiderBar
-require_once('./templates/rightContainer.php'); // 3. 引入rightContainer
+require_once('../templates/header.php'); //  1.引入header
+require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
+require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
 
     <h3>預約課程列表</h3>
@@ -330,5 +330,5 @@ require_once('./templates/rightContainer.php'); // 3. 引入rightContainer
     } ?>
 
 
-<?php require_once('./templates/footer.php'); // 最後在引入footer
+<?php require_once('../templates/footer.php'); // 最後在引入footer
 ?>
