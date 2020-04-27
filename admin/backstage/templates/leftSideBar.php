@@ -21,7 +21,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="./classManagement.php">
           <i class="zmdi zmdi-folder-star-alt"></i> 課程管理
         </a>
       </li>
