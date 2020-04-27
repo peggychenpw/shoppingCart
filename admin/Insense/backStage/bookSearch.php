@@ -328,7 +328,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
         //引入尚未建立商品種類的文字描述
         echo "<div>無任何課程</div>";
     } ?>
-
+ 
 
 <?php require_once('../templates/footer.php'); // 最後在引入footer
 ?>
