@@ -8,10 +8,6 @@ require_once('./templates/leftSideBar.php');
 require_once('./templates/rightContainer.php');
 ?>
 
-<script>
-alert('hihi')
-</script>
-
 <h3 class="pt-2 pb-2 d-flex justify-content-center">訂單管理</h3>
 
 <form name="myForm" method="POST" action="./deleteCheck.php">
