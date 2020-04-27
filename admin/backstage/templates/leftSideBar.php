@@ -16,7 +16,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="./orders.php">
         <i class="zmdi zmdi-money-box"></i>  訂單管理
         </a>
       </li>

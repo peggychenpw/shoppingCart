@@ -1,6 +1,6 @@
 <?php
 require_once('./checkAdmin.php'); //引入登入判斷
-require_once('../db.inc.php'); //引用資料庫連線
+require_once('./db.inc.php'); //引用資料庫連線
 
 $count = 0;
 $arrParam =[
@@ -39,14 +39,14 @@ for($i = 0; $i < count( $arrParam ); $i++){
 }
 
 if($count > 0) {
-    header("Refresh:3;url=./admin.php");
+    header("Refresh:3;url=./orders.php");
     $objResponse['success'] = true;
     $objResponse['code'] = 200;
     $objResponse['info'] = "刪除成功";
     echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
     exit();
 } else {
-    header("Refresh:3;url=./admin.php");
+    header("Refresh:3;url=./orders.php");
     $objResponse['success'] = false;
     $objResponse['code'] = 500;
     $objResponse['info'] = "刪除失敗";

@@ -65,6 +65,7 @@ body {
   margin-left: -250px;
   overflow-y: auto;
   background:var(--main-logo-blue);
+        
 }
 
 #sidebar header {
@@ -73,6 +74,7 @@ body {
   font-size: 25px;
   line-height: 60px;
   text-align: center;
+  border-bottom: 0.5px dashed var(--main-padding-grey);
 }
 
 #sidebar header a {
@@ -98,7 +100,7 @@ body {
   font-size: 16px;
   text-decoration: none;
   padding: 20px;
-  border-bottom: 0.5px solid var(--main-padding-grey);
+  border-bottom: 0.5px dashed var(--main-padding-grey);
 }
 
 #sidebar .nav a:hover {
@@ -108,6 +110,6 @@ body {
   text-decoration: none;
   padding: 22px;
   background-color: var(--main-bg-white);
-  border-bottom: 0.5px solid var(--main-padding-grey);
+  border-bottom: 0.5px dashed var(--main-padding-grey);
 }
 
