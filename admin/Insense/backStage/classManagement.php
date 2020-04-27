@@ -21,6 +21,7 @@ $sqlTotalClassCatogories = "SELECT count(1) FROM `classcategory` ";
 $totalClassCatogories = $pdo->query($sqlTotalClassCatogories)->fetch(PDO::FETCH_NUM)[0];
 ?>
 
+<?php echo test ?>
 <!-- #################### content #################### -->
 <style>
   /* class zone */
