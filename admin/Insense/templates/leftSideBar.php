@@ -11,7 +11,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="../backStage/admin.php">
           <i class="zmdi zmdi-collection-plus"></i> 商品管理
         </a>
       </li>
