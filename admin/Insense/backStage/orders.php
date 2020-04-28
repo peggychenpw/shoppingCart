@@ -8,11 +8,10 @@ require_once('../templates/leftSideBar.php');
 require_once('../templates/rightContainer.php');
 ?>
 
-
-<h3 class="pt-2 pb-2 d-flex justify-content-center">訂單一覽</h3>
+<h3 class="pt-2 pb-2 d-flex justify-content-center">訂單管理</h3>
 
 <form name="myForm" method="POST" action="../action/deleteCheck.php">
-  <table class="table table-striped table-gray">
+  <table class="table">
     <thead class="thead-dark">
       <tr>
         <th scope="col" class="border">

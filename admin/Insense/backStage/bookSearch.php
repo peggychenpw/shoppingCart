@@ -18,7 +18,7 @@ if (!isset($_GET['page'])) {
   $_SESSION['searchDirection'] = "future";
   $_SESSION['searchStartDate'] = "{$dateToday}";
   $_SESSION['searchEndDate'] = "";
-  $_SESSION['sortOrder'] = "byClassTime";
+  $_SESSION['sortOrder'] = "byClassDate";
   $_SESSION['searchOrder'] = "forward";
 }
 
@@ -36,7 +36,7 @@ if (isset($_POST["searchMethod"])) {
   $_SESSION['searchOrder'] =  $_POST['searchOrder'];
 }
 
-$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `book`.`bookQty`,`book`.`created_at` 
+$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `book`.`bookQty`,`book`.`created_at` 
         FROM `book`  
         INNER JOIN `class`
         ON `book`.`classId` = `class`.`classId`
@@ -46,6 +46,7 @@ $sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`
 //驗證SESSION存在
 // echo $_SESSION["searchMethod"];
 // echo $_SESSION["searchText"];
+
 function getSql($colFirst, $colSec)
 {
   $searchSql = "WHERE `$colFirst`.`$colSec` LIKE '%{$_SESSION['searchText']}%'";
@@ -58,7 +59,6 @@ function getSql($colFirst, $colSec)
 //搜尋方式
 switch ($_SESSION["searchMethod"]) {
   case "bookId":
-
     $sql .= getSql('book', 'bookId');
     // echo $sql;
     // $sql .= "WHERE `book`.`bookId` LIKE '%{$_SESSION['searchText']}%'";
@@ -100,28 +100,28 @@ switch ($_SESSION['searchStatus']) {
 //搜尋時間
 switch ($_SESSION['searchDirection']) {
   case "future":
-    $sql .= "AND `class`.`classTime` >= '{$dateToday}'";
+    $sql .= "AND `class`.`classDate` >= '{$dateToday}'";
     $futureCheck = 'checked="true"';
     break;
   case "past":
-    $sql .= "AND `class`.`classTime` <= '{$dateToday}'";
+    $sql .= "AND `class`.`classDate` <= '{$dateToday}'";
     $pastCheck = 'checked="true"';
     break;
   case "dateRange":
     $dateRangeCheck = 'checked="true"';
     if ($_SESSION['searchStartDate'] !== "") {
-      $sql .= "AND `class`.`classTime` >= '{$_SESSION['searchStartDate']}'";
+      $sql .= "AND `class`.`classDate` >= '{$_SESSION['searchStartDate']}'";
     }
     if ($_SESSION['searchEndDate'] !== "") {
-      $sql .= "AND `class`.`classTime` <= '{$_SESSION['searchEndDate']}'";
+      $sql .= "AND `class`.`classDate` <= '{$_SESSION['searchEndDate']}'";
     }
 }
 
 //排序方式
 switch ($_SESSION["sortOrder"]) {
-  case "byClassTime":
-    $sql .= "ORDER BY `class`.`classTime` ";
-    $byClassTimeCheck = 'checked="true"';
+  case "byClassDate":
+    $sql .= "ORDER BY `class`.`classDate` ";
+    $byClassDateCheck = 'checked="true"';
     break;
   case "byBookId":
     $sql .= "ORDER BY `book`.`bookId` ";
@@ -220,116 +220,159 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
         <input id="dateEnd" type="date" name="searchEndDate" value="<?php echo $_SESSION['searchEndDate'] ?>">
       </label>
     </div>
+    <div class="collapse" id="searchDivDetail">
+      <!-- 搜尋功能 -->
+      <form name="bookSearchForm" entype="multipart/form-data" method="POST" action="bookSearch.php">
+        <div>
+          <span>搜尋方式：</span>
+          <select name="searchMethod" id="">
+            <option value="bookId" <?php echo $bookIdSelect ?>>預約編號</option>
+            <option value="classId" <?php echo $classIdSelect ?>>課程編號</option>
+            <option value="className" <?php echo $classNameSelect ?>>課程名稱</option>
+            <option value="userId" <?php echo $userIdSelect ?>>會員編號</option>
+            <option value="userName" <?php echo $userNameSelect ?>>會員名稱</option>
+          </select>
+          <input type="text" name="searchText" value="<?php echo $_SESSION['searchText'] ?>">
+        </div>
 
-    <div>
-      <span>排序方式：</span>
-      <input type="radio" id="byClassTime" name="sortOrder" value="byClassTime" <?php echo $byClassTimeCheck ?>>
-      <label for="byClassTime">課程時間</label>
-      <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
-      <label for="byBookId">預約編號</label>
-      <input type="radio" id="byClassId" name="sortOrder" value="byClassId" <?php echo $byClassIdCheck ?>>
-      <label for="byClassId">課程編號</label>
-      <input type="radio" id="byUserId" name="sortOrder" value="byUserId" <?php echo $byUserIdCheck ?>>
-      <label for="byUserId">會員編號</label>
-      <select name="searchOrder" id="">
-        <option value="forward" <?php echo $forwardSelect ?>>由小至大</option>
-        <option value="backforward" <?php echo $backforwardSelect ?>>由大至小</option>
-      </select>
+        <div>
+          <span>預約狀態：</span>
+          <select name="searchStatus" id="">
+            <option value="all" <?php echo $allSelect ?>>全部</option>Ï
+            <option value="success" <?php echo $successSelect ?>>成功</option>
+            <option value="cancelled" <?php echo $cancelledSelect ?>>取消</option>
+          </select>
+        </div>
+
+        <div>
+          <span>搜尋時間：</span>
+          <input type="radio" id="future" name="searchDirection" value="future" <?php echo $futureCheck ?>>
+          <label for="future">未來預約</label>
+          <input type="radio" id="past" name="searchDirection" value="past" <?php echo $pastCheck ?>>
+          <label for="past">歷史紀錄</label>
+          <input type="radio" id="dateRange" name="searchDirection" value="dateRange" <?php echo $dateRangeCheck ?>>
+          <label for="dateRange">時間範圍:
+            <input id="dateStart" type="date" name="searchStartDate" value="<?php echo $_SESSION['searchStartDate'] ?>"> -
+            <input id="dateEnd" type="date" name="searchEndDate" value="<?php echo $_SESSION['searchEndDate'] ?>">
+          </label>
+        </div>
+
+        <div>
+          <span>排序方式：</span>
+          <input type="radio" id="byClassDate" name="sortOrder" value="byClassDate" <?php echo $byClassDateCheck ?>>
+          <label for="byClassDate">課程時間</label>
+          <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
+          <label for="byBookId">預約編號</label>
+          <input type="radio" id="byClassId" name="sortOrder" value="byClassId" <?php echo $byClassIdCheck ?>>
+          <label for="byClassId">課程編號</label>
+          <input type="radio" id="byUserId" name="sortOrder" value="byUserId" <?php echo $byUserIdCheck ?>>
+          <label for="byUserId">會員編號</label>
+          <select name="searchOrder" id="">
+            <option value="forward" <?php echo $forwardSelect ?>>由小至大</option>
+            <option value="backforward" <?php echo $backforwardSelect ?>>由大至小</option>
+          </select>
+        </div>
+
+        <input type="submit" name="smbSearch">
+        <a href="bookSearch.php">重新搜尋</a>
+      </form>
     </div>
 
-    <input type="submit" name="smbSearch">
-    <a href="bookSearch.php">重新搜尋</a>
-  </form>
-</div>
-
-<?php
-//若有課程存在，才顯示
-if ($totalClasses > 0) {
-?>
-  <form name="myForm" entype="multipart/form-data" method="POST" action="delete.php">
-    <table class="border">
-      <thead>
-        <tr>
-          <th class="border">勾選</th>
-          <th class="border">預約編號</th>
-          <th class="border">課程編號</th>
-          <th class="border">課程名稱</th>
-          <th class="border">課程時間</th>
-          <th class="border">會員編號</th>
-          <th class="border">會員名稱</th>
-          <th class="border">預約狀態</th>
-          <th class="border">預約人數</th>
-          <th class="border">新增時間</th>
-          <th class="border">功能</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        //各頁資料
-        $sql .= "LIMIT ?, ? ";
-        $arrParam = [($page - 1) * $numPerPage, $numPerPage];
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($arrParam);
-        // echo $sql;
-
-        //若數量大於 0，則列出商品
-        if ($stmt->rowCount() > 0) {
-
-          $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-          for ($i = 0; $i < count($arr); $i++) {
-        ?>
+    <?php
+    //若有課程存在，才顯示
+    if ($totalClasses > 0) {
+    ?>
+      <form name="myForm" entype="multipart/form-data" method="POST" action="delete.php">
+        <table class="border">
+          <thead>
             <tr>
-              <td class="border">
-                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['itemId']; ?>" />
-              </td>
-              <td class="border"><?php echo $arr[$i]['bookId']; ?></td>
-              <td class="border"><?php echo $arr[$i]['classId']; ?></td>
-              <td class="border"><?php echo $arr[$i]['className']; ?></td>
-              <td class="border"><?php echo $arr[$i]['classTime']; ?></td>
-              <td class="border"><?php echo $arr[$i]['userId']; ?></td>
-              <td class="border"><?php echo $arr[$i]['userName']; ?></td>
-              <td class="border"><?php echo $arr[$i]['bookStatus']; ?></td>
-              <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
-              <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
-              <td class="border">
-                <a href="">資料更改</a>
+              <th class="border">勾選</th>
+              <th class="border">預約編號</th>
+              <th class="border">課程編號</th>
+              <th class="border">課程名稱</th>
+              <th class="border">課程日期</th>
+              <th class="border">課程時間</th>
+              <th class="border">會員編號</th>
+              <th class="border">會員名稱</th>
+              <th class="border">預約狀態</th>
+              <th class="border">預約人數</th>
+              <th class="border">新增時間</th>
+              <th class="border">功能</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            //各頁資料
+            $sql .= "LIMIT ?, ? ";
+            $arrParam = [($page - 1) * $numPerPage, $numPerPage];
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($arrParam);
+            // echo $sql;
+
+            //若數量大於 0，則列出商品
+            if ($stmt->rowCount() > 0) {
+
+              $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+              // echo "<pre>";
+              // print_r($arr);
+              // echo "</pre>";
+              // exit();
+
+              for ($i = 0; $i < count($arr); $i++) {
+            ?>
+                <tr>
+                  <td class="border">
+                    <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['itemId']; ?>" />
+                  </td>
+                  <td class="border"><?php echo $arr[$i]['bookId']; ?></td>
+                  <td class="border"><?php echo $arr[$i]['classId']; ?></td>
+                  <td class="border"><?php echo $arr[$i]['className']; ?></td>
+                  <td class="border"><?php echo $arr[$i]['classDate']; ?></td>
+                  <td class="border"><?php echo $arr[$i]['classTime']; ?></td>
+                  <td class="border"><?php echo $arr[$i]['userId']; ?></td>
+                  <td class="border"><?php echo $arr[$i]['userName']; ?></td>
+                  <td class="border"><?php echo $arr[$i]['bookStatus']; ?></td>
+                  <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
+                  <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
+                  <td class="border">
+                    <a href="./bookEdit.php?bookId=<?php echo $arr[$i]['bookId'] ?>">資料更改</a>
+                  </td>
+                </tr>
+              <?php
+              }
+            } else {
+              ?>
+              <tr>
+                <td class="border" colspan="11">沒有資料</td>
+              </tr>
+            <?php
+            }
+            ?>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td class="border" colspan="11">
+                <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                  <a href="?page=<?= $i ?>"><?= $i ?></a>
+                <?php } ?>
               </td>
             </tr>
-          <?php
-          }
-        } else {
-          ?>
-          <tr>
-            <td class="border" colspan="11">沒有資料</td>
-          </tr>
-        <?php
-        }
-        ?>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td class="border" colspan="11">
-            <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-              <a href="?page=<?= $i ?>"><?= $i ?></a>
+
+            <?php if ($total > 0) { ?>
+              <tr>
+                <td class="border" colspan="11"><input type="submit" name="smb" value="刪除"></td>
+              </tr>
             <?php } ?>
-          </td>
-        </tr>
 
-        <?php if ($total > 0) { ?>
-          <tr>
-            <td class="border" colspan="11"><input type="submit" name="smb" value="刪除"></td>
-          </tr>
-        <?php } ?>
-
-        </tfoo>
-    </table>
-  </form>
-<?php
-} else {
-  //引入尚未建立商品種類的文字描述
-  echo "<div>無任何課程</div>";
-} ?>
+            </tfoo>
+        </table>
+      </form>
+    <?php
+    } else {
+      //引入尚未建立商品種類的文字描述
+      echo "<div>無任何課程</div>";
+    } ?>
 
 
-<?php require_once('../templates/footer.php'); // 最後在引入footer
-?>
+    <?php require_once('../templates/footer.php'); // 最後在引入footer
+    ?>
