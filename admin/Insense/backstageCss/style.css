@@ -13,10 +13,6 @@
 }
 
 /* component color */
-.table-gray{
-  background-color: var(--main-padding-grey) !important;
-}
-
 .header-grey {
   background-color: var(--main-padding-grey) !important;
   height: 60px;

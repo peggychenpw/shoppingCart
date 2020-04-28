@@ -30,9 +30,9 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
   <br>
   <label for="classTime">上課時間:</label>
   <select name="classTime" id="classTime">
-    <option value="13">13:00</option>
-    <option value="14">14:00</option>
-    <option value="15">15:00</option>
+    <option value="13:00">13:00</option>
+    <option value="14:00">14:00</option>
+    <option value="15:00">15:00</option>
   </select>
   <br>
   <input type="submit" value="送出">
