@@ -124,7 +124,6 @@ INSERT INTO `categories` (`categoryId`, `categoryName`, `categoryParentId`, `cre
 (12, '衣物清潔', 3, '2020-04-25 15:08:29', '2020-04-25 15:09:08');
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `class`
 --
