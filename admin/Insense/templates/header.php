@@ -11,7 +11,6 @@
     <!-- google font-->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,800;0,900;1,700&display=swap" rel="stylesheet">
     <link href="../backstageCss/style.css" rel="stylesheet">
-
   </head>
 
   <body>

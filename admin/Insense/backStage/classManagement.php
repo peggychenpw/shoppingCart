@@ -1,6 +1,6 @@
 <?php
 require_once('../action/checkAdmin.php'); //引入登入判斷
-require_once('../action//db.inc.php'); //引用資料庫連線
+require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
@@ -48,7 +48,7 @@ if ($totalClassCatogories > 0) {
           <th class="border">課程名稱</th>
           <th class="border">課程價格</th>
           <th class="border">課程類別</th>
-          <th class="border">上線人數</th>
+          <th class="border">上限人數</th>
           <th class="border">上課日期</th>
           <th class="border">上線時間</th>
           <th class="border">功能</th>
