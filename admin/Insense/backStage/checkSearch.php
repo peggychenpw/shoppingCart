@@ -12,7 +12,7 @@ require_once('../templates/rightContainer.php');
         <h3 class="pt-3 pb-2 d-flex justify-content-center">訂單管理</h3>
             
             <form name="myForm" method="POST" action="./checkSearch.php" class="ml-3">
-           找訂單  <input type="text" name="checkSearch" required >
+           訂單號  <input type="text" name="checkSearch" required >
 
 
             <tr>
