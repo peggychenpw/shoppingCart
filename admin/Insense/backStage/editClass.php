@@ -35,6 +35,12 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
     <option value="15:00">15:00</option>
   </select>
   <br>
+  <label for="shopName">廠商名稱</label>
+  <select name="shopName" id="shopName">
+    <option value="S_001">隨便</option>
+    <option value="S_002">青菜</option>
+  </select>
+  <br>
   <input type="submit" value="送出">
 </form>
 

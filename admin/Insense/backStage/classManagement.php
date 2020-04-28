@@ -48,7 +48,7 @@ if ($totalClassCatogories > 0) {
           <th class="border">課程名稱</th>
           <th class="border">課程價格</th>
           <th class="border">課程類別</th>
-          <th class="border">上線人數</th>
+          <th class="border">上限人數</th>
           <th class="border">上課日期</th>
           <th class="border">上線時間</th>
           <th class="border">功能</th>

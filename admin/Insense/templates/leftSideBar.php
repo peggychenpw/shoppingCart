@@ -16,12 +16,12 @@
         </a>
       </li>
       <li>
-        <a href="./orders.php">
-        <i class="zmdi zmdi-money-box"></i>  訂單管理
+        <a href="../backStage/orders.php">
+          <i class="zmdi zmdi-money-box"></i> 訂單管理
         </a>
       </li>
       <li>
-        <a href="./classManagement.php">
+        <a href="../backStage/classManagement.php">
           <i class="zmdi zmdi-folder-star-alt"></i> 課程管理
         </a>
       </li>

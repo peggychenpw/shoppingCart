@@ -25,18 +25,18 @@ if (isset($_GET['id'])) {
 ?>
     <form method="POST" enctype="multipart/form-data" action="../action/updateClass.php">
       <label for="classId">課程編號：</label>
-      <input type="text" id="classId" value="<?php echo $arr['classId'] ?>" disabled>
+      <input name="classId" type="text" id="classId" value="<?php echo $arr['classId'] ?>" disabled>
       <br>
       <label for="className">課程名稱:</label>
-      <input type="text" id="className" value="<?php echo $arr['className'] ?>">
+      <input name="className" type="text" id="className" value="<?php echo $arr['className'] ?>">
       <br>
       <label for="classPeopleLimit">人數上限:</label>
-      <input type="text" id="classPeopleLimit" value="<?php echo $arr['classPeopleLimit'] ?>">
+      <input name="classPeopleLimit" type="text" id="classPeopleLimit" value="<?php echo $arr['classPeopleLimit'] ?>">
       <br>
       <label for="classPrice">課程價格:</label>
-      <input type="text" id="classPrice" value="<?php echo $arr['classPrice'] ?>">
+      <input name="classPrice" type="text" id="classPrice" value="<?php echo $arr['classPrice'] ?>">
       <br>
-      <label for="classCategoryName">課程類別:</label>
+      <label for="classCategoryId">課程類別:</label>
       <select name="classCategoryId" id="classCategoryId">
         <?php $categoryName = $arr['classCategoryName'] ?>
         <option value="c_perfume" <?php if ($categoryName === '香水體驗') echo 'selected' ?>>香水體驗</option>
@@ -44,7 +44,7 @@ if (isset($_GET['id'])) {
       </select>
       <br>
       <label for="classDate">課程日期:</label>
-      <input type="date" id="classDate" value="<?php echo $arr['classDate'] ?>">
+      <input name="classDate" type="date" id="classDate" value="<?php echo $arr['classDate'] ?>">
       <br>
       <label for="classTime">課程時間:</label>
       <select name="classTime" id="classTime">
@@ -60,12 +60,16 @@ if (isset($_GET['id'])) {
         </option>
       </select>
       <br>
+      <label for="shopName">廠商名稱:</label>
+      <input type="text" name="shopName" id="shopName" value="<?php echo $arr['shopName'] ?>" disabled>
+      <br>
       <label for="created_at">新增時間:</label>
       <input type="text" id="created_at" value="<?php echo $arr['created_at'] ?>" disabled>
       <br>
       <label for="updated_at">更新時間:</label>
       <input type="text" id="updated_at" value="<?php echo $arr['updated_at'] ?>" disabled>
       <br>
+      <input name="id" type="hidden" value="<?php echo $_GET['id'] ?>">
       <input type="submit" value="修改">
     </form>
 
