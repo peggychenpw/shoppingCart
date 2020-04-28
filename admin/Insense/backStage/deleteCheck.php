@@ -1,7 +1,12 @@
-<!-- !!! -->
 <?php
-require_once('./checkAdmin.php'); //引入登入判斷
-require_once('./db.inc.php'); //引用資料庫連線
+
+require_once('../action/checkAdmin.php'); //引入登入判斷
+require_once('../action/db.inc.php'); //引用資料庫連線
+
+require_once('../templates/header.php');
+require_once('../templates/leftSideBar.php');
+require_once('../templates/rightContainer.php');
+
 
 $count = 0;
 $arrParam =[

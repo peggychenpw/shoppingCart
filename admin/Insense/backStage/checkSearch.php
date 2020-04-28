@@ -1,10 +1,8 @@
 <?php
 session_start();
 
-// require_once('./checkAdmin.php'); //引入登入判斷
-// require_once('./db.inc.php'); //引用資料庫連線
-require_once('../action/checkAdmin.php'); //引入登入判斷
-require_once('../action/db.inc.php'); //引用資料庫連線
+require_once('./checkAdmin.php'); //引入登入判斷
+require_once('./db.inc.php'); //引用資料庫連線
 
 // echo $_POST['searchMethod'];
 // exit();
