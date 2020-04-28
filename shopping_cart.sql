@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:8889
--- 產生時間： 2020 年 04 月 25 日 06:05
+-- 產生時間： 2020 年 04 月 27 日 04:45
 -- 伺服器版本： 5.7.26
 -- PHP 版本： 7.4.2
 
@@ -45,7 +45,7 @@ INSERT INTO `admin` (`id`, `username`, `pwd`, `name`, `created_at`, `updated_at`
 
 CREATE TABLE `book` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `bookId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '預約編號',
+  `bookId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '預約編號',
   `classId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程編號',
   `userId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '會員編號',
   `bookStatus` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '預約狀態',
@@ -77,7 +77,7 @@ CREATE TABLE `brand` (
 
 CREATE TABLE `categories` (
   `categoryId` int(11) NOT NULL COMMENT '流水號',
-  `categoryName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '類別名稱',
+  `categoryName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '類別名稱',
   `categoryParentId` int(11) NOT NULL DEFAULT '0' COMMENT '上層編號',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
@@ -103,17 +103,29 @@ INSERT INTO `categories` (`categoryId`, `categoryName`, `categoryParentId`, `cre
 
 CREATE TABLE `class` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `classId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '課程編號',
+  `classId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '課程編號',
   `className` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程名稱',
   `classImg` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程圖片',
   `classPeopleLimit` tinyint(3) DEFAULT NULL COMMENT '人數限制',
   `classPrice` int(11) DEFAULT NULL COMMENT '課程價格',
   `classCategoryId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程分類',
-  `classTime` date DEFAULT NULL COMMENT '上課日期',
+  `classDate` date DEFAULT NULL COMMENT '上課日期',
+  `classTime` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '上課時間',
   `shopId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '廠商編號',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 傾印資料表的資料 `class`
+--
+
+INSERT INTO `class` (`id`, `classId`, `className`, `classImg`, `classPeopleLimit`, `classPrice`, `classCategoryId`, `classDate`, `classTime`, `shopId`, `created_at`, `updated_at`) VALUES
+(18, 'C_000000018', '香皂教室5', NULL, 30, 1500, 'c_perfume', '2020-04-23', '13:00', NULL, '2020-04-27 09:38:53', '2020-04-27 09:38:53'),
+(19, 'C_19', '香皂教室5', NULL, 30, 1500, 'c_perfume', '2020-04-23', '13:00', NULL, '2020-04-27 09:39:23', '2020-04-27 09:39:23'),
+(20, 'C_20', '香皂教室5', NULL, 30, 1500, 'c_perfume', '2020-04-01', '13:00', NULL, '2020-04-27 12:16:02', '2020-04-27 12:16:02'),
+(21, '0', '香皂教室5', NULL, 30, 1500, 'c_perfume', '2020-04-01', '13:00', NULL, '2020-04-27 12:16:23', '2020-04-27 12:16:23'),
+(22, '0', '香皂教室5', NULL, 30, 1500, 'c_perfume', '2020-04-01', '13:00', NULL, '2020-04-27 12:16:23', '2020-04-27 12:16:23');
 
 -- --------------------------------------------------------
 
@@ -123,11 +135,19 @@ CREATE TABLE `class` (
 
 CREATE TABLE `classcategory` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `classCategoryId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '課程分類',
+  `classCategoryId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '課程分類',
   `classCategoryName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程索引',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 傾印資料表的資料 `classcategory`
+--
+
+INSERT INTO `classcategory` (`id`, `classCategoryId`, `classCategoryName`, `created_at`, `updated_at`) VALUES
+(1, 'c_perfume', '香水體驗', '2020-04-26 12:46:48', '2020-04-26 12:46:48'),
+(2, 'c_soap', '香皂體驗', '2020-04-26 12:47:21', '2020-04-26 12:47:21');
 
 -- --------------------------------------------------------
 
@@ -217,12 +237,15 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`itemId`, `itemNumber`, `itemName`, `itemImg`, `itemImg2`, `itemImg3`, `itemSize`, `itemPrice`, `itemQty`, `itemCategoryId`, `brandId`, `formulationId`, `fragranceId`, `created_at`, `updated_at`) VALUES
-(1, '', 'Maison Margiela_’REPLICA’ Beach Walk', 'item_20200423092036.jpg', '', '', 100, 1532, 10, 4, '', '', '', '2020-04-23 15:20:36', '2020-04-24 23:03:28'),
+(1, '', 'Maison Margiela_’REPLICA’ Beach Walk', 'item_20200427021756.jpg', '', '', 100, 1532, 10, 4, '', '', '', '2020-04-23 15:20:36', '2020-04-27 10:17:56'),
 (6, '', 'aaaa', 'item_20200423120510.png', '', '', 0, 1111, 111, 4, '', '', '', '2020-04-23 18:05:10', '2020-04-23 18:05:10'),
 (7, '', '000', 'item_20200424080734.png', '', '', 0, 100, 1, 4, '', '', '', '2020-04-24 14:07:33', '2020-04-24 14:07:33'),
 (11, NULL, 'tttt', 'item_20200425055246.jpg', NULL, NULL, NULL, 11111, 111, 4, NULL, NULL, NULL, '2020-04-25 13:52:46', '2020-04-25 13:52:46'),
 (12, NULL, '1111', 'item_20200425055300.jpg', NULL, NULL, NULL, 111, 111, 4, NULL, NULL, NULL, '2020-04-25 13:53:00', '2020-04-25 13:53:00'),
-(13, NULL, '55555', 'item_20200425055324.jpg', NULL, NULL, NULL, 111, 111, 4, NULL, NULL, NULL, '2020-04-25 13:53:24', '2020-04-25 13:53:24');
+(13, NULL, '55555', 'item_20200425055324.jpg', NULL, NULL, NULL, 111, 111, 4, NULL, NULL, NULL, '2020-04-25 13:53:24', '2020-04-25 13:53:24'),
+(14, NULL, 'uuuu', 'item_20200427021918.jpg', NULL, NULL, NULL, 111, 111, 4, NULL, NULL, NULL, '2020-04-27 10:19:18', '2020-04-27 10:19:18'),
+(15, NULL, 'ytt', 'item_20200427022128.jpg', NULL, NULL, NULL, 11, 111, 4, NULL, NULL, NULL, '2020-04-27 10:21:28', '2020-04-27 10:21:28'),
+(16, NULL, '1111', 'item_20200427022845.jpg', NULL, NULL, NULL, 11111, 111, 4, NULL, NULL, NULL, '2020-04-27 10:28:45', '2020-04-27 10:28:45');
 
 -- --------------------------------------------------------
 
@@ -254,7 +277,16 @@ INSERT INTO `item_lists` (`itemListId`, `orderId`, `itemId`, `itemSize`, `checkP
 (5, 4, 1, 0, 3950, 1, 3950, '2020-04-23 18:08:59', '2020-04-23 18:08:59'),
 (6, 4, 6, 0, 1111, 1, 1111, '2020-04-23 18:08:59', '2020-04-23 18:08:59'),
 (7, 5, 6, 0, 1111, 1, 1111, '2020-04-24 09:56:41', '2020-04-24 09:56:41'),
-(8, 5, 6, 0, 1111, 1, 1111, '2020-04-24 09:56:41', '2020-04-24 09:56:41');
+(8, 5, 6, 0, 1111, 1, 1111, '2020-04-24 09:56:41', '2020-04-24 09:56:41'),
+(9, 0, 6, NULL, 1111, 1, 1111, '2020-04-27 11:45:00', '2020-04-27 11:45:00'),
+(10, 0, 6, NULL, 1111, 1, 1111, '2020-04-27 12:03:39', '2020-04-27 12:03:39'),
+(11, 0, 6, NULL, 1111, 1, 1111, '2020-04-27 12:03:39', '2020-04-27 12:03:39'),
+(12, 0, 7, NULL, 100, 1, 100, '2020-04-27 12:31:07', '2020-04-27 12:31:07'),
+(13, 0, 6, NULL, 1111, 1, 1111, '2020-04-27 12:32:03', '2020-04-27 12:32:03'),
+(14, 0, 6, NULL, 1111, 1, 1111, '2020-04-27 12:38:21', '2020-04-27 12:38:21'),
+(15, 0, 6, NULL, 1111, 1, 1111, '2020-04-27 12:38:21', '2020-04-27 12:38:21'),
+(16, 6, 6, NULL, 1111, 1, 1111, '2020-04-27 12:39:52', '2020-04-27 12:39:52'),
+(17, 6, 6, NULL, 1111, 1, 1111, '2020-04-27 12:39:52', '2020-04-27 12:39:52');
 
 -- --------------------------------------------------------
 
@@ -309,7 +341,7 @@ INSERT INTO `multiple_images` (`multipleImageId`, `multipleImageImg`, `itemId`, 
 
 CREATE TABLE `orders` (
   `orderId` int(11) NOT NULL COMMENT '流水號',
-  `orderCode` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '訂單編號',
+  `orderCode` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '訂單編號',
   `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者帳號',
   `orderPrice` int(100) DEFAULT NULL,
   `orderStatus` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '訂單狀態',
@@ -328,7 +360,8 @@ INSERT INTO `orders` (`orderId`, `orderCode`, `username`, `orderPrice`, `orderSt
 (2, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 17:20:32', '2020-04-23 17:20:32'),
 (3, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 18:05:42', '2020-04-23 18:05:42'),
 (4, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 18:08:59', '2020-04-23 18:08:59'),
-(5, '', 'rose123@gmail.com', 0, NULL, 1, NULL, '2020-04-24 09:56:41', '2020-04-24 09:56:41');
+(5, '', 'rose123@gmail.com', 0, NULL, 1, NULL, '2020-04-24 09:56:41', '2020-04-24 09:56:41'),
+(6, '0', 'test', NULL, NULL, 1, NULL, '2020-04-27 12:39:52', '2020-04-27 12:39:52');
 
 -- --------------------------------------------------------
 
@@ -360,7 +393,7 @@ INSERT INTO `payment_types` (`paymentTypeId`, `paymentTypeName`, `paymentTypeImg
 
 CREATE TABLE `shop` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `shopId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '廠商編號',
+  `shopId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '廠商編號',
   `shopName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '廠商名稱',
   `shopAddress` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '廠商地址',
   `shopPhone` bigint(10) DEFAULT NULL COMMENT '廠商電話',
@@ -372,6 +405,13 @@ CREATE TABLE `shop` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 傾印資料表的資料 `shop`
+--
+
+INSERT INTO `shop` (`id`, `shopId`, `shopName`, `shopAddress`, `shopPhone`, `shopEmail`, `shopAccount`, `shopPassword`, `shopBank`, `created_at`, `updated_at`) VALUES
+(1, 'S_001', '隨便', '台北', 911333444, 'xxxxx@gmail.com', 'test', 'test', '123456789', '2020-04-26 16:54:39', '2020-04-26 16:54:39');
+
 -- --------------------------------------------------------
 
 --
@@ -380,7 +420,7 @@ CREATE TABLE `shop` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `userId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '使用者編號',
+  `userId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '使用者編號',
   `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者帳號',
   `pwd` char(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者密碼',
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '姓名',
@@ -550,13 +590,13 @@ ALTER TABLE `categories`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `class`
 --
 ALTER TABLE `class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=25;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `classcategory`
 --
 ALTER TABLE `classcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=3;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `comments`
@@ -586,13 +626,13 @@ ALTER TABLE `fragrance`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `items`
 --
 ALTER TABLE `items`
-  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=14;
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=17;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `item_lists`
 --
 ALTER TABLE `item_lists`
-  MODIFY `itemListId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=9;
+  MODIFY `itemListId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=18;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `item_tracking`
@@ -610,7 +650,7 @@ ALTER TABLE `multiple_images`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=6;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=7;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `payment_types`
@@ -622,7 +662,7 @@ ALTER TABLE `payment_types`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=2;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `users`
