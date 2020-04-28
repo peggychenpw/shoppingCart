@@ -11,7 +11,7 @@ $totalPages = ceil($total / $numPerPage); // 總頁數
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; //目前第幾頁
 $page = $page < 1 ? 1 : $page; //若 page 小於 1，則回傳 1
 
-
+  
 
 //商品種類 SQL 敘述
 $sqlTotalCatogories = "SELECT count(1) FROM `categories`";
