@@ -16,21 +16,21 @@
         </a>
       </li>
       <li>
-        <a href="../backStage/checkSearch.php">
-          <i class="zmdi zmdi-money-box"></i> 訂單管理
+        <a href="./orders.php">
+        <i class="zmdi zmdi-money-box"></i>  訂單管理
         </a>
       </li>
       <li>
-        <a href="../backStage/classManagement.php">
+        <a href="./classManagement.php">
           <i class="zmdi zmdi-folder-star-alt"></i> 課程管理
         </a>
       </li>
       <li>
-        <a href="../backStage/bookSearch.php">
+        <a href="#">
           <i class="zmdi zmdi-calendar-check"></i> 課程預約管理
         </a>
       <li>
-        <a href="#">
+        <a href="../backStage/adminCoupon.php">
           <i class="zmdi zmdi-shopping-cart"></i> 購物車優惠卷
         </a>
       </li>
