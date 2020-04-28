@@ -30,7 +30,7 @@ require_once('../templates/rightContainer.php');
                         <tr>
                                         
                         <th scope="col" class="border">
-                                <div class="py-2 text-uppercase">取消</div>
+                                <div class="py-2 text-uppercase">多選</div>
                             </th>
                             
                             <th scope="col" class="border">

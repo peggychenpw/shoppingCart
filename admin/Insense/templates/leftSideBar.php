@@ -11,17 +11,22 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="../backStage/admin.php">
           <i class="zmdi zmdi-collection-plus"></i> 商品管理
         </a>
       </li>
       <li>
+<<<<<<< HEAD
         <a href="./checkSearch.php">
         <i class="zmdi zmdi-money-box"></i>  訂單管理
+=======
+        <a href="../backStage/checkSearch.php">
+          <i class="zmdi zmdi-money-box"></i> 訂單管理
+>>>>>>> 6bd44084048f688af419e929a919c5d0641f532b
         </a>
       </li>
       <li>
-        <a href="./classManagement.php">
+        <a href="../backStage/classManagement.php">
           <i class="zmdi zmdi-folder-star-alt"></i> 課程管理
         </a>
       </li>
@@ -30,7 +35,7 @@
           <i class="zmdi zmdi-calendar-check"></i> 課程預約管理
         </a>
       <li>
-        <a href="#">
+        <a href="../backStage/adminCoupon.php">
           <i class="zmdi zmdi-shopping-cart"></i> 購物車優惠卷
         </a>
       </li>
