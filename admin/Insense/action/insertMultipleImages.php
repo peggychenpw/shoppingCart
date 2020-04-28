@@ -22,11 +22,11 @@ for ($i = 0; $i < count($_FILES["multipleImageImg"]["name"]); $i++) {
 
     //若上傳成功，則將上傳檔案從暫存資料夾，移動到指定的資料夾或路徑
     if (!move_uploaded_file($_FILES["multipleImageImg"]["tmp_name"][$i], "../images/multiple_images/{$multipleImageImg}")) {
-      header("Refresh: 3; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
+      header("Refresh: 1; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
       $objResponse['success'] = false;
       $objResponse['code'] = 500;
       $objResponse['info'] = "上傳圖片失敗";
-      echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+      // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
       exit();
     }
   }
@@ -45,17 +45,17 @@ for ($i = 0; $i < count($_FILES["multipleImageImg"]["name"]); $i++) {
 }
 
 if ($count > 0) {
-  header("Refresh: 3; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
+  header("Refresh: 1; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
   $objResponse['success'] = true;
   $objResponse['code'] = 200;
   $objResponse['info'] = "新增成功";
-  echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
   exit();
 } else {
-  header("Refresh: 3; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
+  header("Refresh: 1; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
   $objResponse['success'] = false;
   $objResponse['code'] = 500;
   $objResponse['info'] = "沒有新增資料";
-  echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
   exit();
 }

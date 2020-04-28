@@ -27,7 +27,10 @@ require_once('../templates/header.php');
 require_once('../templates/leftSideBar.php');
 require_once('../templates/rightContainer.php');
 ?>
-
+<br>
+<a class="btn btn-outline-secondary ml-2" href="./admin.php"role="button">商品列表</a>
+<br>
+<br>
 <h3>新增商品</h3>
 <form name="myForm" enctype="multipart/form-data" method="POST" action="../action/add.php">
   <table class="border">
@@ -35,6 +38,7 @@ require_once('../templates/rightContainer.php');
       <tr>
         <th class="border">商品名稱</th>
         <th class="border">商品照片路徑</th>
+        <th class="border">商品規格</th>
         <th class="border">商品價格</th>
         <th class="border">商品數量</th>
         <th class="border">商品種類</th>
@@ -46,7 +50,10 @@ require_once('../templates/rightContainer.php');
           <input type="text" name="itemName" value="" maxlength="100" />
         </td>
         <td class="border">
-          <input type="file" name="itemImg" value="" />
+          <input type="file" name="itemImg" value=""/>
+        </td>
+        <td class="border">
+          <input type="text" name="itemSize" value="" maxlength="11" />
         </td>
         <td class="border">
           <input type="text" name="itemPrice" value="" maxlength="11" />
@@ -63,7 +70,7 @@ require_once('../templates/rightContainer.php');
     </tbody>
     <tfoot>
       <tr>
-        <td class="border" colspan="5"><input type="submit" name="smb" value="新增"></td>
+        <td class="border" colspan="6"><input type="submit" name="smb" value="新增"></td>
       </tr>
     </tfoot>
   </table>
