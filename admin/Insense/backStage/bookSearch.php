@@ -18,7 +18,7 @@ if (!isset($_GET['page'])) {
     $_SESSION['searchDirection'] = "future";
     $_SESSION['searchStartDate'] = "{$dateToday}";
     $_SESSION['searchEndDate'] = "";
-    $_SESSION['sortOrder'] = "byClassTime";
+    $_SESSION['sortOrder'] = "byClassDate";
     $_SESSION['searchOrder'] = "forward";
 }
 
@@ -36,7 +36,7 @@ if (isset($_POST["searchMethod"])) {
     $_SESSION['searchOrder'] =  $_POST['searchOrder'];
 }
 
-$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `book`.`bookQty`,`book`.`created_at` 
+$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `book`.`bookQty`,`book`.`created_at` 
         FROM `book`  
         INNER JOIN `class`
         ON `book`.`classId` = `class`.`classId`
@@ -46,6 +46,7 @@ $sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`
 //驗證SESSION存在
 // echo $_SESSION["searchMethod"];
 // echo $_SESSION["searchText"];
+
 function getSql($colFirst, $colSec){
     $searchSql ="WHERE `$colFirst`.`$colSec` LIKE '%{$_SESSION['searchText']}%'";
     return $searchSql;
@@ -57,7 +58,6 @@ function getSql($colFirst, $colSec){
 //搜尋方式
 switch ($_SESSION["searchMethod"]) {
     case "bookId":
-        
         $sql .= getSql('book','bookId');
         // echo $sql;
         // $sql .= "WHERE `book`.`bookId` LIKE '%{$_SESSION['searchText']}%'";
@@ -99,28 +99,28 @@ switch ($_SESSION['searchStatus']) {
 //搜尋時間
 switch ($_SESSION['searchDirection']) {
     case "future":
-        $sql .= "AND `class`.`classTime` >= '{$dateToday}'";
+        $sql .= "AND `class`.`classDate` >= '{$dateToday}'";
         $futureCheck = 'checked="true"';
         break;
     case "past":
-        $sql .= "AND `class`.`classTime` <= '{$dateToday}'";
+        $sql .= "AND `class`.`classDate` <= '{$dateToday}'";
         $pastCheck = 'checked="true"';
         break;
     case "dateRange":
         $dateRangeCheck = 'checked="true"';
         if ($_SESSION['searchStartDate'] !== "") {
-            $sql .= "AND `class`.`classTime` >= '{$_SESSION['searchStartDate']}'";
+            $sql .= "AND `class`.`classDate` >= '{$_SESSION['searchStartDate']}'";
         }
         if ($_SESSION['searchEndDate'] !== "") {
-            $sql .= "AND `class`.`classTime` <= '{$_SESSION['searchEndDate']}'";
+            $sql .= "AND `class`.`classDate` <= '{$_SESSION['searchEndDate']}'";
         }
 }
 
 //排序方式
 switch ($_SESSION["sortOrder"]) {
-    case "byClassTime":
-        $sql .= "ORDER BY `class`.`classTime` ";
-        $byClassTimeCheck = 'checked="true"';
+    case "byClassDate":
+        $sql .= "ORDER BY `class`.`classDate` ";
+        $byClassDateCheck = 'checked="true"';
         break;
     case "byBookId":
         $sql .= "ORDER BY `book`.`bookId` ";
@@ -222,8 +222,8 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 
             <div>
                 <span>排序方式：</span>
-                <input type="radio" id="byClassTime" name="sortOrder" value="byClassTime" <?php echo $byClassTimeCheck ?>>
-                <label for="byClassTime">課程時間</label>
+                <input type="radio" id="byClassDate" name="sortOrder" value="byClassDate" <?php echo $byClassDateCheck ?>>
+                <label for="byClassDate">課程時間</label>
                 <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
                 <label for="byBookId">預約編號</label>
                 <input type="radio" id="byClassId" name="sortOrder" value="byClassId" <?php echo $byClassIdCheck ?>>
@@ -253,6 +253,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
                         <th class="border">預約編號</th>
                         <th class="border">課程編號</th>
                         <th class="border">課程名稱</th>
+                        <th class="border">課程日期</th>
                         <th class="border">課程時間</th>
                         <th class="border">會員編號</th>
                         <th class="border">會員名稱</th>
@@ -275,6 +276,11 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
                     if ($stmt->rowCount() > 0) {
 
                         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        // echo "<pre>";
+                        // print_r($arr);
+                        // echo "</pre>";
+                        // exit();
+
                         for ($i = 0; $i < count($arr); $i++) {
                     ?>
                             <tr>
@@ -284,6 +290,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
                                 <td class="border"><?php echo $arr[$i]['bookId']; ?></td>
                                 <td class="border"><?php echo $arr[$i]['classId']; ?></td>
                                 <td class="border"><?php echo $arr[$i]['className']; ?></td>
+                                <td class="border"><?php echo $arr[$i]['classDate']; ?></td>
                                 <td class="border"><?php echo $arr[$i]['classTime']; ?></td>
                                 <td class="border"><?php echo $arr[$i]['userId']; ?></td>
                                 <td class="border"><?php echo $arr[$i]['userName']; ?></td>
@@ -291,7 +298,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
                                 <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
                                 <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
                                 <td class="border">
-                                    <a href="">資料更改</a>
+                                    <a href="./bookEdit.php?bookId=<?php echo $arr[$i]['bookId']?>">資料更改</a>
                                 </td>
                             </tr>
                         <?php
