@@ -12,18 +12,18 @@ if (isset($_GET['deleteCategoryId'])) {
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
   if ($stmt->rowCount() > 0) {
-    header("Refresh: 3; url=../backStage/category.php");
+    header("Refresh: 1; url=../backStage/category.php");
     $objResponse['success'] = true;
     $objResponse['code'] = 200;
     $objResponse['info'] = "刪除成功";
-    echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+    // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
     exit();
   } else {
-    header("Refresh: 3; url=../backStage/category.php");
+    header("Refresh: 1; url=../backStage/category.php");
     $objResponse['success'] = false;
     $objResponse['code'] = 400;
     $objResponse['info'] = "刪除失敗";
-    echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+    // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
     exit();
   }
 }
