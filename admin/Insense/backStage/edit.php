@@ -27,25 +27,34 @@ require_once('../templates/header.php');
 require_once('../templates/leftSideBar.php');
 require_once('../templates/rightContainer.php');
 ?>
+<style>
+
+</style>
+<br>
+<a class="btn btn-outline-secondary ml-3" href="./new.php" role="button">新增商品</a>
+<a class="btn btn-outline-secondary ml-2" href="./admin.php"role="button">商品列表</a>
+<br>
+<br>
 
 <h3>商品列表</h3>
 <form name="myForm" enctype="multipart/form-data" method="POST" action="../action/update.php">
-  <table class="border">
-    <thead>
+  <table class="table">
+    <thead class="thead-light">
       <tr>
+        <th class="border">商品編號</th>
         <th class="border">商品名稱</th>
         <th class="border">商品照片路徑</th>
+        <th class="border">商品規格</th>
         <th class="border">商品價格</th>
         <th class="border">商品數量</th>
         <th class="border">商品種類</th>
-        <th class="border">新增時間</th>
         <th class="border">更新時間</th>
       </tr>
     </thead>
     <tbody>
       <?php
       //SQL 敘述
-      $sql = "SELECT `items`.`itemId`, `items`.`itemName`, `items`.`itemImg`, `items`.`itemPrice`, 
+      $sql = "SELECT `items`.`itemId`, `items`.`itemName`, `items`.`itemImg`,`items`.`itemSize`, `items`.`itemPrice`, 
                         `items`.`itemQty`, `items`.`itemCategoryId`, `items`.`created_at`, `items`.`updated_at`,
                         `categories`.`categoryId`, `categories`.`categoryName`
                 FROM `items` INNER JOIN `categories`
@@ -53,7 +62,7 @@ require_once('../templates/rightContainer.php');
                 WHERE `itemId` = ? ";
 
       $arrParam = [
-        (int) $_GET['itemId']
+        $_GET['itemId']
       ];
 
       //查詢
@@ -64,13 +73,20 @@ require_once('../templates/rightContainer.php');
       if ($stmt->rowCount() > 0) {
         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
       ?>
+
         <tr>
+        <td class="border">
+            <input type="text" name="itemId" value="<?php echo $arr[0]['itemId']; ?>" maxlength="6" />
+          </td>
           <td class="border">
             <input type="text" name="itemName" value="<?php echo $arr[0]['itemName']; ?>" maxlength="100" />
           </td>
           <td class="border">
-            <img class="itemImg" src="../images/items/<?php echo $arr[0]['itemImg']; ?>" /><br />
+            <img class="itemImg" src="../images/items/<?php echo $arr[0]['itemImg'].".png"; ?>" width="150px"/><br />
             <input type="file" name="itemImg" value="" />
+          </td>
+          <td class="border">
+            <input type="text" name="itemSize" value="<?php echo $arr[0]['itemSize']; ?>" maxlength="7" />
           </td>
           <td class="border">
             <input type="text" name="itemPrice" value="<?php echo $arr[0]['itemPrice']; ?>" maxlength="11" />
@@ -84,14 +100,13 @@ require_once('../templates/rightContainer.php');
               <?php buildTree($pdo, 0); ?>
             </select>
           </td>
-          <td class="border"><?php echo $arr[0]['created_at']; ?></td>
           <td class="border"><?php echo $arr[0]['updated_at']; ?></td>
         </tr>
       <?php
       } else {
       ?>
         <tr>
-          <td colspan="7">沒有資料</td>
+          <td colspan="9">沒有資料</td>
         </tr>
       <?php
       }
@@ -99,11 +114,11 @@ require_once('../templates/rightContainer.php');
     </tbody>
     <tfoot>
       <tr>
-        <td class="border" colspan="7"><input type="submit" name="smb" value="更新"></td>
+        <td class="border" colspan="9"><input type="submit" name="smb" value="更新"></td>
       </tr>
       </tfoo>
   </table>
-  <input type="hidden" name="itemId" value="<?php echo (int) $_GET['itemId']; ?>">
+  <input type="hidden" name="itemId" value="<?php echo $_GET['itemId']; ?>">
 </form>
 <?php
 require_once('../templates/footer.php');
