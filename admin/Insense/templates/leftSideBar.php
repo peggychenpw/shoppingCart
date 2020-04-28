@@ -16,13 +16,8 @@
         </a>
       </li>
       <li>
-<<<<<<< HEAD
-        <a href="./checkSearch.php">
-        <i class="zmdi zmdi-money-box"></i>  訂單管理
-=======
         <a href="../backStage/checkSearch.php">
           <i class="zmdi zmdi-money-box"></i> 訂單管理
->>>>>>> 6bd44084048f688af419e929a919c5d0641f532b
         </a>
       </li>
       <li>
