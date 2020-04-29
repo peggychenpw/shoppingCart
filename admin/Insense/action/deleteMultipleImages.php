@@ -21,7 +21,7 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
     $arr = $stmt_img->fetchAll(PDO::FETCH_ASSOC);
 
     //刪除檔案
-    $bool = unlink("../images/multiple_images/" . $arr[0]['multipleImageImg']);
+    $bool = unlink("../images/multiple_images/" . $arr[0]['multipleImageImg'].".png");
 
     //若檔案刪除成功，則刪除資料
     if ($bool === true) {
@@ -37,17 +37,17 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
 }
 
 if ($count > 0) {
-  header("Refresh: 3; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
+  header("Refresh: 1; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
   $objResponse['success'] = true;
   $objResponse['code'] = 204;
   $objResponse['info'] = "刪除成功";
-  echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
   exit();
 } else {
-  header("Refresh: 3; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
+  header("Refresh: 1; url=../backStage/multipleImages.php?itemId={$_POST["itemId"]}");
   $objResponse['success'] = false;
   $objResponse['code'] = 500;
   $objResponse['info'] = "刪除失敗";
-  echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
   exit();
 }

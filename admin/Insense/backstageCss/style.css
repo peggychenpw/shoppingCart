@@ -27,12 +27,12 @@ body {
   overflow-x: hidden;
   font-family: 'Noto Sans TC', sans-serif;
   font-size: 16px;
-  position: relative;
+  
 }
 
 /* Toggle Styles */
 #viewport {
-  padding-left: 250px;
+  padding-left: 15vw;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -46,8 +46,6 @@ body {
 #content {
   width: 100%;
   height: 52px;
-  position: relative;
-  margin-right: 0;
 }
 
 /* Sidebar Styles */
@@ -56,7 +54,7 @@ body {
   z-index: 1000;
   position: fixed;
   left: 250px;
-  width: 250px;
+  width: 15vw;
   height: 100%;
   margin-left: -250px;
   overflow-y: auto;

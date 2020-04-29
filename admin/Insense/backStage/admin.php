@@ -5,12 +5,12 @@ require_once('../action/db.inc.php'); //引用資料庫連線
 
 $sqlTotal = "SELECT count(1) FROM `items`"; //SQL 敘述
 $total = $pdo->query($sqlTotal)->fetch(PDO::FETCH_NUM)[0]; //取得總筆數
-$numPerPage = 5; //每頁幾筆
+$numPerPage = 10; //每頁幾筆
 $totalPages = ceil($total / $numPerPage); // 總頁數
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; //目前第幾頁
 $page = $page < 1 ? 1 : $page; //若 page 小於 1，則回傳 1
 
-
+  
 
 //商品種類 SQL 敘述
 $sqlTotalCatogories = "SELECT count(1) FROM `categories`";
@@ -23,6 +23,22 @@ require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
+
+<style>
+  h3{
+    padding: 1vw 2vw;
+  }
+  .page_num{
+    font-size: 32px;
+    color:  #6c6c6d;
+    margin: 8px;
+  }
+</style>
+<br>
+<a class="btn btn-outline-secondary ml-4" href="./new.php" role="button">新增商品</a>
+<a class="btn btn-outline-secondary ml-2" href="./category.php" role="button">編輯類別</a>
+<br>
+<br>
 <h3>商品列表</h3>
 <?php
 //若有建立商品種類，則顯示商品清單
@@ -30,8 +46,8 @@ if ($totalCatogories > 0) {
 ?>
   <!-- Table 樣板 -->
   <form name="myForm" entype="multipart/form-data" method="POST" action="../action/delete.php">
-    <table class="table table-striped table-gray">
-      <thead class="thead-dark">
+    <table class="table">
+      <thead class="thead-light">
         <tr>
           <th class="border">勾選</th>
           <th class="border">商品編號</th>
@@ -49,7 +65,7 @@ if ($totalCatogories > 0) {
       <tbody>
         <?php
         //SQL 敘述
-        $sql = "SELECT `items`.`itemId`, `items`.`itemName`, `items`.`itemImg`, `items`.`itemPrice`, 
+        $sql = "SELECT `items`.`id`,`items`.`itemId`, `items`.`itemName`, `items`.`itemImg`, `items`.`itemSize`,`items`.`itemPrice`, 
                         `items`.`itemQty`, `items`.`itemCategoryId`, `items`.`created_at`, `items`.`updated_at`,
                         `categories`.`categoryName`
                 FROM `items` INNER JOIN `categories`
@@ -73,16 +89,18 @@ if ($totalCatogories > 0) {
               <td class="border">
                 <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['itemId']; ?>" />
               </td>
+              <td class="border"><?php echo $arr[$i]['itemId']; ?></td>
               <td class="border"><?php echo $arr[$i]['itemName']; ?></td>
-              <td class="border"><img class="itemImg" src="../images/items/<?php echo $arr[$i]['itemImg']; ?>" /></td>
+              <td class="border"><img class="itemImg" src="../images/items/<?php echo $arr[$i]['itemImg'].'.png'; ?>" width="150px"/></td>
+              <td class="border"><?php echo $arr[$i]['itemSize']; ?></td>
               <td class="border"><?php echo $arr[$i]['itemPrice']; ?></td>
               <td class="border"><?php echo $arr[$i]['itemQty']; ?></td>
               <td class="border"><?php echo $arr[$i]['categoryName']; ?></td>
               <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
               <td class="border"><?php echo $arr[$i]['updated_at']; ?></td>
               <td class="border">
-                <a href="../action/edit.php?itemId=<?php echo $arr[$i]['itemId']; ?>">商品編輯</a> |
-                <a href="./comments.php?itemId=<?php echo $arr[$i]['itemId']; ?>">回覆評論</a>
+                <a href="./edit.php?itemId=<?php echo $arr[$i]['itemId']; ?>">商品編輯</a> |
+                <a href="./multipleImages.php?itemId=<?php echo $arr[$i]['itemId']; ?>">多圖設定</a>
               </td>
             </tr>
           <?php
@@ -90,7 +108,7 @@ if ($totalCatogories > 0) {
         } else {
           ?>
           <tr>
-            <td class="border" colspan="9">沒有資料</td>
+            <td class="border" colspan="10">沒有資料</td>
           </tr>
         <?php
         }
@@ -98,16 +116,16 @@ if ($totalCatogories > 0) {
       </tbody>
       <tfoot>
         <tr>
-          <td class="border" colspan="9">
+          <td class="border" colspan="10">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-              <a href="?page=<?= $i ?>"><?= $i ?></a>
+              <a href="?page=<?= $i ?>" class="page_num"><?= $i ?></a>
             <?php } ?>
           </td>
         </tr>
 
         <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="9"><input type="submit" name="smb" value="刪除"></td>
+            <td class="border" colspan="10"><input type="submit" name="smb" value="刪除"></td>
           </tr>
         <?php } ?>
 
