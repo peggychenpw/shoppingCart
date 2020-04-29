@@ -236,7 +236,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
                 </select>
             </div>
 
-            <input type="submit" name="smbSearch">
+            <input class="btn btn-primary" type="submit" name="smbSearch" value="search">
             <a href="bookSearch.php">重新搜尋</a>
         </form>
     </div>
@@ -298,7 +298,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
                                 <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
                                 <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
                                 <td class="border">
-                                    <a href="./bookEdit.php?bookId=<?php echo $arr[$i]['bookId']?>">資料更改</a>
+                                    <a href="./bookEdit.php?page=<?php echo $page?>&bookId=<?php echo $arr[$i]['bookId']?>">資料更改</a>
                                 </td>
                             </tr>
                         <?php
@@ -323,7 +323,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 
                     <?php if ($total > 0) { ?>
                         <tr>
-                            <td class="border" colspan="11"><input type="submit" name="smb" value="刪除"></td>
+                            <td class="border" colspan="11"><input class="btn btn-primary" type="submit" name="smb" value="刪除"></td>
                         </tr>
                     <?php } ?>
 
