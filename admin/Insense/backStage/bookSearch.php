@@ -179,7 +179,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
 
 <h3>預約課程列表</h3>
-
+<!--       search start              -->
 <div>
   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
     關鍵字搜尋
@@ -243,7 +243,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
       <a href="bookSearch.php">重新搜尋</a>
     </div>
 </div>
-
+<!--       search end              -->
 <?php
 //若有課程存在，才顯示
 if ($totalClasses > 0) {
