@@ -21,7 +21,7 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
     $arr = $stmt_img->fetchAll(PDO::FETCH_ASSOC);
 
     //刪除檔案
-    $bool = unlink("../images/multiple_images/" . $arr[0]['multipleImageImg']);
+    $bool = unlink("../images/multiple_images/" . $arr[0]['multipleImageImg'].".png");
 
     //若檔案刪除成功，則刪除資料
     if ($bool === true) {
