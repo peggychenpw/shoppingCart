@@ -25,6 +25,9 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
 
 <style>
+  h3{
+    padding: 1vw 2vw;
+  }
   .page_num{
     font-size: 32px;
     color:  #6c6c6d;
@@ -32,7 +35,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
   }
 </style>
 <br>
-<a class="btn btn-outline-secondary ml-3" href="./new.php" role="button">新增商品</a>
+<a class="btn btn-outline-secondary ml-4" href="./new.php" role="button">新增商品</a>
 <a class="btn btn-outline-secondary ml-2" href="./category.php" role="button">編輯類別</a>
 <br>
 <br>

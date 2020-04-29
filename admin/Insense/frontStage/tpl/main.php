@@ -29,6 +29,14 @@
             $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
             for($i = 0; $i < count($arr); $i++) {
         ?>
+        <style>
+            .card{
+                min-height:50vh; 
+            }
+            .list-item{
+                max-height:40vh;
+            }
+        </style>
             <div class="col-md-3 col-sm-6">
                 <div class="card mb-3 shadow-sm">
                     <a href="./itemDetail.php?itemId=<?php echo $arr[$i]['itemId']; ?>">
@@ -41,7 +49,7 @@
                                 <!-- <button type="button" class="btn btn-sm btn-outline-secondary">詳細</button> -->
                                 <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
                             </div>
-                            <small class="text-muted">上架日期：<?php echo $arr[$i]['created_at']; ?></small>
+                            <!-- <small class="text-muted">上架日期：<?php echo $arr[$i]['created_at']; ?></small> -->
                         </div>
                     </div>
                 </div>

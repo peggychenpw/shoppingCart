@@ -1,6 +1,6 @@
 <div class="wrapper">
   <!-- Content -->
-  <div id="content">
+  <div>
     <nav class="navbar header-grey">
       <div class="container-fluid d-flex justify-content-end pt-2">
         <ul>
@@ -9,4 +9,5 @@
       </div>
     </nav>
   </div>
-  <div class='main my-3'>
+  <div id="content"class='main'>
+    
