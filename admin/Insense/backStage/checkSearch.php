@@ -1,3 +1,5 @@
+                  
+<!-- 更新資料庫資後撈不到資料，categories撈不到orderId-->
 <?php
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
@@ -13,7 +15,6 @@ require_once('../templates/rightContainer.php');
             
             <form name="myForm" method="POST" action="./checkSearch.php" class="ml-3">
            訂單號  <input type="text" name="checkSearch" required >
-
 
             <tr>
                 <td class="border" colspan="2">
@@ -113,13 +114,16 @@ require_once('../templates/rightContainer.php');
                 </table>
                 <form name="myForm" method="GET" action="./Alldelete.php">
 
-                <td class="border" colspan="2"><button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">取消訂單</button>
+                <td class="border" colspan="2">
+                    <button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">
+                    取消訂單
+                    </button>
                  </td>
                  </form>
         </div>
 
         </form>
- 
+
 <?php
 require_once('../templates/footer.php');
 ?>      
