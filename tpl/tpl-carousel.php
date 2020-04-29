@@ -6,7 +6,7 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://visualparadox.com/images/photos/beacwav800.jpg" class="d-block w-100" alt="...">
+      <img src="https://m.sephora.com/productimages/sku/s2289403-main-zoom.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>PGM Switch 底座</h5>
         <p>視訊底座 電視盒 支架 HDMI 視訊轉換盒 Nintendo TV dock 電視底座</p>

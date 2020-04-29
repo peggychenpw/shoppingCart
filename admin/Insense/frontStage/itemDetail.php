@@ -40,7 +40,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
             <div class="row">
               <div class="col-md-5">
                 <div class="row mb-3 d-flex justify-content-center">
-                  <img class="item-view border" src="./images/items/<?php echo $arr[0]["itemImg"]; ?>">
+                  <img class="item-view border" src="../images/items/<?php echo $arr[0]["itemImg"].'.png'; ?>">
                 </div>
                 <div class="row">
                   <img class="item-preview img-thumbnail border" src="./images/items/<?php echo $arr[0]["itemImg"]; ?>" alt="...">

@@ -32,7 +32,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="card mb-3 shadow-sm">
                     <a href="./itemDetail.php?itemId=<?php echo $arr[$i]['itemId']; ?>">
-                        <img class="list-item" src="./images/items/<?php echo $arr[$i]['itemImg']; ?>">
+                        <img class="list-item img-fluid" src="../images/items/<?php echo $arr[$i]["itemImg"].'.png'; ?>">
                     </a>
                     <div class="card-body">
                         <p class="card-text list-item-card"><?php echo $arr[$i]['itemName']; ?></p>

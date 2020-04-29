@@ -1,5 +1,6 @@
                   
-<!-- 更新資料庫資後撈不到資料，categories撈不到orderId-->
+<!-- 更新資料庫資後撈不到資料，categories撈不到orderId 或是 shopping_cart 改shoppingCart（正確版本）-->
+<!-- itemLists的itemId手動改成P0001模式才會出現詳細資料 -->
 <?php
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
@@ -18,7 +19,7 @@ require_once('../templates/rightContainer.php');
 
             <tr>
                 <td class="border" colspan="2">
-                    <button class="btn btn-outline-dark" type="submit" name="smb_add">
+                    <button class="btn btn-outline-secondary" type="submit" name="smb_add">
                      搜尋
                     </button>
                 </td>
@@ -27,11 +28,11 @@ require_once('../templates/rightContainer.php');
             </form>
             <form name="myForm" method="POST" action="./deleteCheck.php">
                 <table class="border table table-hover">
-                    <thead class="thead-dark">
+                    <thead class="thead-light">
                         <tr>
                                         
                         <th scope="col" class="border">
-                                <div class="py-2 text-uppercase">多選</div>
+                                <div class="py-2 text-uppercase">取消訂單</div>
                             </th>
                             
                             <th scope="col" class="border">
@@ -115,8 +116,8 @@ require_once('../templates/rightContainer.php');
                 <form name="myForm" method="GET" action="./Alldelete.php">
 
                 <td class="border" colspan="2">
-                    <button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">
-                    取消訂單
+                    <button class="btn btn-outline-secondary ml-3" type="submit" name="smb_add">
+                    取消全部
                     </button>
                  </td>
                  </form>
