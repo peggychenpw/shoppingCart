@@ -5,6 +5,8 @@ require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 
+// search
+
 
 $sqlTotal = "SELECT COUNT(1) FROM `class` ";
 $total = $pdo->query($sqlTotal)->fetch(PDO::FETCH_NUM)[0];
@@ -15,10 +17,46 @@ $page = $page < 1 ? 1 : $page; //若 page 小於 1，則回傳 1
 
 
 //課程種類 SQL 敘述
-$sqlTotalClassCatogories = "SELECT count(1) FROM `classcategory` ";
+$sqlTotalClass = "SELECT count(1) FROM `class` ";
 
 //取得課程種類總筆數
-$totalClassCatogories = $pdo->query($sqlTotalClassCatogories)->fetch(PDO::FETCH_NUM)[0];
+$totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
+
+
+//SQL 敘述
+$sql = "SELECT `class`.`id`,`class`.`classId`, `class`.`className`, `class`.`classPrice`, `classcategory`.`classCategoryName`, 
+`class`.`classPeopleLimit`, `class`.`classDate`, `class`.`classTime`, `class`.`created_at`,
+`class`.`updated_at`
+FROM `class` INNER JOIN `classcategory`
+ON `class`.`classCategoryId` = `classcategory`.`classCategoryId` ";
+
+switch ($_POST['class']) {
+  case 'className':
+    $sql .= "WHERE `class`.`className` LIKE '%{$_POST['searchName']}%' ";
+    $sql .= "ORDER BY `class`.`id` ASC ";
+    $classNameCheck = 'checked';
+    break;
+  case 'classPrice':
+    $sql .= "ORDER BY `class`.`classPrice` ";
+    if ($_POST['classPriceSequence'] === 'ASC') {
+      $sql .= "ASC ";
+    } elseif ($_POST['classPriceSequence'] === 'DESC') {
+      $sql .= "DESC ";
+    }
+    $classPriceCheck = 'checked';
+    break;
+  case 'classCategories':
+    $sql .= "WHERE `class`.`classCategoryId` = '{$_POST['classCategory']}' ";
+    $sql .= "ORDER BY `class`.`id` ASC ";
+    $classCategorySelect = 'selected';
+    break;
+  case 'classPeopleLimit':
+    $sql .= "WHERE `class`.`classPeopleLimit` >= {$_POST['miniPeople']} AND `class`.`classPeopleLimit` <= {$_POST['maxPeople']} ";
+    $sql .= "ORDER BY `class`.`id` ASC ";
+    $classPeopleLimitCheck = 'checked';
+    break;
+}
+
 ?>
 
 <!-- #################### content #################### -->
@@ -36,9 +74,40 @@ $totalClassCatogories = $pdo->query($sqlTotalClassCatogories)->fetch(PDO::FETCH_
     transform: translate(-50%, -50%);
   }
 </style>
+<form method="POST" action="classManagement.php">
+  <p>搜尋方式：</p>
+  <input type="radio" name="class" id="className" value="className">
+  <label for="className">名稱:</label>
+  <input type="text" name="searchName">
+  <br>
+  <input type="radio" name="class" id="classPrice" value="classPrice">
+  <label for="classPrice">價格:</label>
+  <select name="classPriceSequence" id="">
+    <option value="DESC">▼</option>
+    <option value="ASC">▲</option>
+  </select>
+  <br>
+  <input type="radio" name="class" id="classCategories" value="classCategories">
+  <label for="classCategories">課程類別:</label>
+  <select name="classCategory" id="">
+    <option value="c_perfume">香水體驗</option>
+    <option value="c_soap">香皂體驗</option>
+  </select>
+  <br>
+  <input type="radio" name="class" id="classPeopleLimit" value="classPeopleLimit">
+  <label for="classPeopleLimit">人數限制:</label>
+  <input type="text" name="miniPeople" placeholder="最小值"> -
+  <input type="text" name="maxPeople" placeholder="最大值">
+  <br>
+  <input type="radio" name="class" id="classDate" value="classDate">
+  <label for="classDate">日期:</label>
+  <div>
+    <input type="submit" value="查詢">
+  </div>
+</form>
 <?php
 //若有建立商品種類，則顯示商品清單
-if ($totalClassCatogories > 0) {
+if ($totalClass > 0) {
 ?>
   <form method="POST" enctype="multipart/form-data" action="../action/deleteClass.php">
     <table class="table table-striped table-gray text-center">
@@ -56,22 +125,15 @@ if ($totalClassCatogories > 0) {
       </thead>
       <tbody>
         <?php
-        //SQL 敘述
-        $sql = "SELECT `class`.`id`,`class`.`classId`, `class`.`className`, `class`.`classPrice`, `classcategory`.`classCategoryName`, 
-                        `class`.`classPeopleLimit`, `class`.`classDate`, `class`.`classTime`, `class`.`created_at`,
-                        `class`.`updated_at`
-                FROM `class` INNER JOIN `classcategory`
-                ON `class`.`classCategoryId` = `classcategory`.`classCategoryId`
-                ORDER BY `class`.`id` ASC 
-                LIMIT ?, ? ";
-
+        $sql .= "LIMIT ?, ? ";
         //設定繫結值
         $arrParam = [($page - 1) * $numPerPage, $numPerPage];
+
+
 
         //查詢分頁後的商品資料
         $stmt = $pdo->prepare($sql);
         $stmt->execute($arrParam);
-
         //若數量大於 0，則列出商品
         if ($stmt->rowCount() > 0) {
           $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
