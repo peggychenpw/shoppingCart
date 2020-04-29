@@ -40,7 +40,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
             <div class="row">
               <div class="col-md-5">
                 <div class="row mb-3 d-flex justify-content-center">
-                  <img class="item-view border" src="../images/items/<?php echo $arr[0]["itemImg"].".png"; ?>">
+                  <img class="item-view border" src="../images/items/<?php echo $arr[0]["itemImg"].'.png'; ?>">
                 </div>
                 <div class="row">
                   <img class="item-preview img-thumbnail border" src="../images/items/<?php echo $arr[0]["itemImg"].".png"; ?>" alt="...">
@@ -69,7 +69,8 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 <form name="cartForm" id="cartForm" method="POST" action="./addCart.php">
                   <label>數量: </label>
                   <input type="text" name="cartQty" id="cartQty" value="1" maxlength="5">
-                  <button type="button" class="btn btn-primary btn-lg" id="btn_addCart">加入購物車</button>
+                  <button type="button" class="btn btn-primary btn-lg" id="btn_addCart" data-item-id="<?php echo $_GET['itemId'] ?>">加入購物車</button>
+                  <button type="button" class="btn btn-info btn-lg" id="btn_addItemTracking" data-item-id="<?php echo $_GET['itemId'] ?>">追蹤此商品</button>
                   <input type="hidden" name="itemId" id="itemId" value="<?php echo $_GET['itemId'] ?>">
                 </form>
               </div>

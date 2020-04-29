@@ -2,16 +2,16 @@
 -- version 4.9.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Apr 29, 2020 at 07:37 AM
--- Server version: 5.7.26
--- PHP Version: 7.4.2
+-- 主機： localhost:8889
+-- 產生時間： 2020 年 04 月 28 日 13:30
+-- 伺服器版本： 5.7.26
+-- PHP 版本： 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `shopping_cart`
+-- 資料庫： `shopping_cart`
 --
 
 -- --------------------------------------------------------

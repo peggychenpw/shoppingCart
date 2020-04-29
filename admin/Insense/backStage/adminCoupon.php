@@ -23,7 +23,7 @@ require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
-<h3>我的優惠券</h3>
+<h3>我的優惠券!!</h3>
 <a href="./createCoupon.php">新增優惠券</a>
 <hr/>
 <?php
