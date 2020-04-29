@@ -14,7 +14,7 @@ $count = 0;
 
 if (!isset($_POST['chk'])) {
     header('refresh:0.1;url=./checkSearch.php');  //改成checkSearch.php  popup效果先用alert替代
-    echo "<script type='text/javascript'>alert(`你沒選到要取消的訂單呦 >\\\<`);</script>";
+    echo "<script type='text/javascript'>alert(`你沒選到要取消的訂單呦 >w<`);</script>";
 ?>
     
         <!-- <div class="con">
