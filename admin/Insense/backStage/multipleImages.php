@@ -5,7 +5,10 @@ require_once('../templates/header.php');
 require_once('../templates/leftSideBar.php');
 require_once('../templates/rightContainer.php');
 ?>
-
+<br>
+<a class="btn btn-outline-secondary ml-2" href="./admin.php"role="button">商品列表</a>
+<br>
+<br>
 <h3>多圖設定</h3>
 
 <form name="myForm" method="POST" action="../action/deleteMultipleImages.php">
@@ -13,18 +16,19 @@ require_once('../templates/rightContainer.php');
     <thead>
       <tr>
         <th class="border">選擇</th>
+        <th class="border">商品編號</th>
         <th class="border">圖片路徑</th>
       </tr>
     </thead>
     <tbody>
       <?php
-      $sql = "SELECT `multipleImageId`, `multipleImageImg`, `created_at`, `updated_at`
+      $sql = "SELECT `multipleImageId`, `multipleImageImg`,`itemId`, `created_at`, `updated_at`
             FROM `multiple_images`
             WHERE `itemId` = ?
             ORDER BY `multipleImageId` ASC";
       $stmt = $pdo->prepare($sql);
       $arrParam = [
-        (int) $_GET['itemId']
+         $_GET['itemId']
       ];
       $stmt->execute($arrParam);
       if ($stmt->rowCount() > 0) {
@@ -36,7 +40,10 @@ require_once('../templates/rightContainer.php');
               <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['multipleImageId']; ?>" />
             </td>
             <td class="border">
-              <img class="previous_images" src="../images/multiple_images/<?php echo $arr[$i]['multipleImageImg'] ?>">
+              <input type="text"  value="<?php echo $arr[$i]['itemId']; ?>" />
+            </td>
+            <td class="border">
+              <img class="previous_images" src="../images/multiple_images/<?php echo $arr[$i]['multipleImageImg'] ?>" width="300px">
             </td>
           </tr>
 
@@ -54,7 +61,7 @@ require_once('../templates/rightContainer.php');
       ?>
   </table>
   <input type="submit" name="smb_delete" value="刪除">
-  <input type="hidden" name="itemId" value="<?php echo (int) $_GET['itemId']; ?>">
+  <input type="hidden" name="itemId" value="<?php echo $_GET['itemId']; ?>">
 </form>
 
 <hr />
@@ -79,7 +86,7 @@ require_once('../templates/rightContainer.php');
       </tr>
     </tfoot>
   </table>
-  <input type="hidden" name="itemId" value="<?php echo (int) $_GET['itemId']; ?>">
+  <input type="hidden" name="itemId" value="<?php echo $_GET['itemId']; ?>">
 </form>
 
 <?php

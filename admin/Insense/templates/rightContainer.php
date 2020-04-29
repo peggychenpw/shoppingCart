@@ -4,7 +4,7 @@
     <nav class="navbar header-grey">
       <div class="container-fluid d-flex justify-content-end pt-2">
         <ul>
-          <li><a href="#" >Admin</a></li>
+          <li><a href="#">Admin</a></li>
         </ul>
       </div>
     </nav>

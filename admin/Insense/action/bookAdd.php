@@ -39,8 +39,7 @@ $arrFindClass = $stmtFindclass->fetchAll(PDO::FETCH_ASSOC)[0];
 
 $bookPrice = $arrFindClass['classPrice'];
 $classPeopleLimit = $arrFindClass['classPeopleLimit'];
-echo $bookPrice;
-echo $classPeopleLimit;
+
 
 //找目前上課人數
 $sqlFindPeople = "SELECT `bookQty`
@@ -48,14 +47,14 @@ $sqlFindPeople = "SELECT `bookQty`
                   WHERE `classId` = '{$_POST['classChoice']}'
                   AND `bookStatus` = '成功'";
 
-echo $sqlFindPeople;
 $stmtFindPeople = $pdo->query($sqlFindPeople);
 $arrFindPeople = $stmtFindPeople->fetchAll(PDO::FETCH_ASSOC);
 
-$currentPeople = 0;
+for ($i = 0; $i < count($arrFindPeople); $i++) {
+    $currentPeople += $arrFindPeople[$i]['bookQty'];
+}
 
-// for ($i;)
-
+echo $currentPeople;
 echo "<pre>";
 print_r($arrFindPeople);
 echo "</pre>";
