@@ -7,21 +7,65 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 
 // search
 
+// 到了首頁清空SESSION
+if (!isset($_GET['page'])) {
+  $_SESSION['class'] = "";
+  $_SESSION['searchName'] = "";
+  $_SESSION['miniPrice'] = "";
+  $_SESSION['maxPrice'] = "";
+  $_SESSION['classCategory'] = "";
+  $_SESSION['classPeopleLimitSequence'] = "";
+  $_SESSION['classDate'] = "";
+}
 
-$sqlTotal = "SELECT COUNT(1) FROM `class` ";
-$total = $pdo->query($sqlTotal)->fetch(PDO::FETCH_NUM)[0];
-$numPerPage = 5; //每頁幾筆
-$totalPages = ceil($total / $numPerPage); // 總頁數
-$page = isset($_GET['page']) ? (int) $_GET['page'] : 1; //目前第幾頁
-$page = $page < 1 ? 1 : $page; //若 page 小於 1，則回傳 1
-
-
-//課程種類 SQL 敘述
-$sqlTotalClass = "SELECT count(1) FROM `class` ";
-
-//取得課程種類總筆數
-$totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
-
+// 如果class存在則存在SESSION並判斷class值等於多少,來決定存誰的SESSION
+if ($_POST['class']) {
+  $_SESSION['class'] = $_POST['class'];
+  if ($_SESSION['class'] === 'className') {
+    $_SESSION['searchName'] = $_POST['searchName'];
+    $_SESSION['miniPrice'] = "";
+    $_SESSION['maxPrice'] = "";
+    $_SESSION['classCategory'] = "";
+    $_SESSION['classPeopleLimitSequence'] = "";
+    $_SESSION['classDate'] = "";
+  } elseif ($_SESSION['class'] === 'classPrice') {
+    if (isset($_POST['miniPrice']) && isset($_POST['maxPrice'])) {
+      $_SESSION['miniPrice'] = $_POST['miniPrice'];
+      $_SESSION['maxPrice'] = $_POST['maxPrice'];
+    } elseif (isset($_POST['miniPrice'])) {
+      $_SESSION['miniPrice'] = $_POST['miniPrice'];
+      $_SESSION['maxPrice'] = "";
+    } elseif (isset($_POST['maxPrice'])) {
+      $_SESSION['maxPrice'] = $_POST['maxPrice'];
+      $_SESSION['miniPrice'] = "";
+    }
+    $_SESSION['searchName'] = "";
+    $_SESSION['classCategory'] = "";
+    $_SESSION['classPeopleLimitSequence'] = "";
+    $_SESSION['classDate'] = "";
+  } elseif ($_SESSION['class'] === 'classCategories') {
+    $_SESSION['classCategory'] = $_POST['classCategory'];
+    $_SESSION['searchName'] = "";
+    $_SESSION['miniPrice'] = "";
+    $_SESSION['maxPrice'] = "";
+    $_SESSION['classPeopleLimitSequence'] = "";
+    $_SESSION['classDate'] = "";
+  } elseif ($_SESSION['class'] === 'classPeopleLimit') {
+    $_SESSION['classPeopleLimitSequence'] = $_POST['classPeopleLimitSequence'];
+    $_SESSION['searchName'] = "";
+    $_SESSION['miniPrice'] = "";
+    $_SESSION['maxPrice'] = "";
+    $_SESSION['classCategory'] = "";
+    $_SESSION['classDate'] = "";
+  } elseif ($_SESSION['class'] === 'classDate') {
+    $_SESSION['classDate'] = $_POST['classDate'];
+    $_SESSION['searchName'] = "";
+    $_SESSION['miniPrice'] = "";
+    $_SESSION['maxPrice'] = "";
+    $_SESSION['classCategory'] = "";
+    $_SESSION['classPeopleLimitSequence'] = "";
+  }
+}
 
 //SQL 敘述
 $sql = "SELECT `class`.`id`,`class`.`classId`, `class`.`className`, `class`.`classPrice`, `classcategory`.`classCategoryName`, 
@@ -30,33 +74,58 @@ $sql = "SELECT `class`.`id`,`class`.`classId`, `class`.`className`, `class`.`cla
 FROM `class` INNER JOIN `classcategory`
 ON `class`.`classCategoryId` = `classcategory`.`classCategoryId` ";
 
-switch ($_POST['class']) {
+switch ($_SESSION['class']) {
   case 'className':
-    $sql .= "WHERE `class`.`className` LIKE '%{$_POST['searchName']}%' ";
+    $sql .= "WHERE `class`.`className` LIKE '%{$_SESSION['searchName']}%' ";
     $sql .= "ORDER BY `class`.`id` ASC ";
     $classNameCheck = 'checked';
     break;
   case 'classPrice':
-    $sql .= "ORDER BY `class`.`classPrice` ";
-    if ($_POST['classPriceSequence'] === 'ASC') {
-      $sql .= "ASC ";
-    } elseif ($_POST['classPriceSequence'] === 'DESC') {
-      $sql .= "DESC ";
+    if (isset($_SESSION['maxPrice']) && isset($_SESSION['miniPrice'])) {
+      $sql .= "WHERE `class`.`classPrice` >= {$_SESSION['miniPrice']} AND `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
+    } elseif (isset($_SESSION['miniPrice']) && $_SESSION['maxPrice'] === "") {
+      $sql .= "WHERE `class`.`classPrice` >= {$_SESSION['miniPrice']} ";
+    } elseif (isset($_SESSION['maxPrice']) && $_SESSION['miniPrice'] === "") {
+      $sql .= "WHERE `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
     }
+    $sql .= "ORDER BY `class`.`classPrice` ASC ";
     $classPriceCheck = 'checked';
     break;
   case 'classCategories':
-    $sql .= "WHERE `class`.`classCategoryId` = '{$_POST['classCategory']}' ";
+    $sql .= "WHERE `class`.`classCategoryId` = '{$_SESSION['classCategory']}' ";
     $sql .= "ORDER BY `class`.`id` ASC ";
     $classCategorySelect = 'selected';
+    $classCategoryCheck = 'checked';
     break;
   case 'classPeopleLimit':
-    $sql .= "WHERE `class`.`classPeopleLimit` >= {$_POST['miniPeople']} AND `class`.`classPeopleLimit` <= {$_POST['maxPeople']} ";
-    $sql .= "ORDER BY `class`.`id` ASC ";
+    $sql .= "ORDER BY `class`.`classPeopleLimit` ";
+    if ($_SESSION['classPeopleLimitSequence'] === 'ASC') {
+      $sql .= "ASC ";
+    } elseif ($_SESSION['classPeopleLimitSequence'] === 'DESC') {
+      $sql .= "DESC ";
+    }
+    $classPeopleLimitSelect = 'selected';
     $classPeopleLimitCheck = 'checked';
     break;
+  case 'classDate':
+    $sql .= "WHERE `class`.`classDate` LIKE '%{$_SESSION['classDate']}%' ";
+    $sql .= "ORDER BY `class`.`id` ASC ";
+    $classDateCheck = 'checked';
 }
 
+//找到條件塞選過後的課程,之後再依照課程多寡製作分頁
+$sqlTotal = "SELECT COUNT(1) FROM ({$sql}) AS `requireSql` ";
+$total = $pdo->query($sqlTotal)->fetch(PDO::FETCH_NUM)[0];
+
+$numPerPage = 5; //每頁幾筆
+$totalPages = ceil($total / $numPerPage); // 總頁數
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1; //目前第幾頁
+$page = $page < 1 ? 1 : $page; //若 page 小於 1，則回傳 1
+
+
+//找到所有課程
+$sqlTotalClass = "SELECT count(1) FROM `class` ";
+$totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
 ?>
 
 <!-- #################### content #################### -->
@@ -76,31 +145,32 @@ switch ($_POST['class']) {
 </style>
 <form method="POST" action="classManagement.php">
   <p>搜尋方式：</p>
-  <input type="radio" name="class" id="className" value="className">
+  <input type="radio" name="class" id="className" value="className" <?php echo $classNameCheck ?>>
   <label for="className">名稱:</label>
-  <input type="text" name="searchName">
+  <input type="text" name="searchName" value="<?php echo $_SESSION['searchName'] ?>">
   <br>
-  <input type="radio" name="class" id="classPrice" value="classPrice">
+  <input type="radio" name="class" id="classPrice" value="classPrice" <?php echo $classPriceCheck ?>>
   <label for="classPrice">價格:</label>
-  <select name="classPriceSequence" id="">
-    <option value="DESC">▼</option>
-    <option value="ASC">▲</option>
-  </select>
+  <input type="text" name="miniPrice" placeholder="最小值" value="<?php echo $_SESSION['miniPrice'] ?>"> -
+  <input type="text" name="maxPrice" placeholder="最大值" value="<?php echo $_SESSION['maxPrice'] ?>">
   <br>
-  <input type="radio" name="class" id="classCategories" value="classCategories">
+  <input type="radio" name="class" id="classCategories" value="classCategories" <?php echo $classCategoryCheck ?>>
   <label for="classCategories">課程類別:</label>
   <select name="classCategory" id="">
-    <option value="c_perfume">香水體驗</option>
-    <option value="c_soap">香皂體驗</option>
+    <option value="c_perfume" <?php if ($_SESSION['classCategory'] === 'c_perfume') echo $classCategorySelect ?>>香水體驗</option>
+    <option value="c_soap" <?php if ($_SESSION['classCategory'] === 'c_soap') echo $classCategorySelect ?>>香皂體驗</option>
   </select>
   <br>
-  <input type="radio" name="class" id="classPeopleLimit" value="classPeopleLimit">
+  <input type="radio" name="class" id="classPeopleLimit" value="classPeopleLimit" <?php echo $classPeopleLimitCheck ?>>
   <label for="classPeopleLimit">人數限制:</label>
-  <input type="text" name="miniPeople" placeholder="最小值"> -
-  <input type="text" name="maxPeople" placeholder="最大值">
+  <select name="classPeopleLimitSequence" id="">
+    <option value="DESC" <?php if ($_SESSION['classPeopleLimitSequence'] === 'DESC') echo $classPeopleLimitSelect ?>>▼</option>
+    <option value="ASC" <?php if ($_SESSION['classPeopleLimitSequence'] === 'ASC') echo $classPeopleLimitSelect ?>>▲</option>
+  </select>
   <br>
-  <input type="radio" name="class" id="classDate" value="classDate">
+  <input type="radio" name="class" id="classDate" value="classDate" <?php echo $classDateCheck ?>>
   <label for="classDate">日期:</label>
+  <input type="text" name='classDate' value="<?php echo $_SESSION['classDate'] ?>">
   <div>
     <input type="submit" value="查詢">
   </div>
@@ -128,10 +198,6 @@ if ($totalClass > 0) {
         $sql .= "LIMIT ?, ? ";
         //設定繫結值
         $arrParam = [($page - 1) * $numPerPage, $numPerPage];
-
-
-
-        //查詢分頁後的商品資料
         $stmt = $pdo->prepare($sql);
         $stmt->execute($arrParam);
         //若數量大於 0，則列出商品
