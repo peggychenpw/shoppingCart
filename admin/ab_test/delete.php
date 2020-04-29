@@ -22,7 +22,7 @@ if($stmtGetImg->rowCount() > 0) {
     //取得指定 id 的學生資料 (1筆)
     $arrImg = $stmtGetImg->fetchAll(PDO::FETCH_ASSOC)[0];
 
-    //若是 studentImg 裡面不為空值，代表過去有上傳過
+    //若是 members 裡面不為空值，代表過去有上傳過
     if($arrImg['member_img'] !== NULL){
         //刪除實體檔案
         @unlink("./files/".$arrImg['member_img']);

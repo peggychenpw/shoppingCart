@@ -4,7 +4,7 @@ $db_host = "localhost";
 $db_username = "root";
 // $db_password = "use2@localhost";
 $db_password = "root";
-$db_name = "members_data";
+$db_name = "shopping_cart";
 $db_charset = "utf8mb4";
 $db_collate = "utf8mb4_unicode_ci";
 
