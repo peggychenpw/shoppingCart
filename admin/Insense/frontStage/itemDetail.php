@@ -25,7 +25,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                     WHERE `itemId` = ? ";
 
         $arrParam = [
-          (int) $_GET['itemId']
+          $_GET['itemId']
         ];
 
         //查詢
