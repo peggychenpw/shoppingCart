@@ -1,5 +1,6 @@
 <?php
-session_start();
+// session_start();
+error_reporting(0);
 
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
@@ -35,6 +36,7 @@ if (isset($_POST["searchMethod"])) {
     $_SESSION['sortOrder'] = $_POST['sortOrder'];
     $_SESSION['searchOrder'] =  $_POST['searchOrder'];
 }
+
 
 $sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `class`.`isAlive`, `book`.`bookQty`,`book`.`created_at` 
         FROM `book`  
