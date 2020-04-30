@@ -58,7 +58,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
 
                   for ($i = 0; $i < count($_SESSION["cart"]); $i++) {
                     $arrParam = [
-                      (int) $_SESSION["cart"][$i]["itemId"]
+                      $_SESSION["cart"][$i]["itemId"]
                     ];
 
                     //查詢
@@ -80,7 +80,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                     <tr>
                       <th scope="row" class="border-0">
                         <div class="p-2">
-                          <img src="./images/items/<?php echo $arr[$i]["itemImg"] ?>" alt="" width="70" class="img-fluid rounded shadow-sm">
+                          <img src="../images/items/<?php echo $arr[$i]["itemImg"] . '.png' ?>" alt="" width="70" class="img-fluid rounded shadow-sm">
                           <div class="ml-3 d-inline-block align-middle">
                             <h5 class="mb-0"><a href="#" class="text-dark d-inline-block align-middle"><?php echo $arr[$i]["itemName"] ?></a></h5>
                             <span class="text-muted font-weight-normal font-italic d-block">Category: <?php echo $arr[$i]["categoryName"] ?></span>
@@ -122,7 +122,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 <div class="col-md-2">
                   <input type="radio" name="paymentTypeId" id="paymentTypeId" value="<?php echo $arrPaymentType[$j]['paymentTypeId'] ?>">
                   <?php echo $arrPaymentType[$j]['paymentTypeName'] ?>
-                  <img class="payment_type_icon" src="./images/payment_types/<?php echo $arrPaymentType[$j]['paymentTypeImg'] ?>">
+                  <img class="payment_type_icon" src="../images/payment_types/<?php echo $arrPaymentType[$j]['paymentTypeImg'] ?>">
                 </div>
             <?php
               }

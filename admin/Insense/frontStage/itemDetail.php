@@ -25,7 +25,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                     WHERE `itemId` = ? ";
 
         $arrParam = [
-          (int) $_GET['itemId']
+          $_GET['itemId']
         ];
 
         //查詢
@@ -40,10 +40,10 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
             <div class="row">
               <div class="col-md-5">
                 <div class="row mb-3 d-flex justify-content-center">
-                  <img class="item-view border" src="../images/items/<?php echo $arr[0]["itemImg"].'.png'; ?>">
+                  <img class="item-view border" src="../images/items/<?php echo $arr[0]["itemImg"] . '.png'; ?>">
                 </div>
                 <div class="row">
-                  <img class="item-preview img-thumbnail border" src="../images/items/<?php echo $arr[0]["itemImg"].".png"; ?>" alt="...">
+                  <img class="item-preview img-thumbnail border" src="../images/items/<?php echo $arr[0]["itemImg"] . ".png"; ?>" alt="...">
                   <?php
                   //找出預覽圖片
                   $sqlMultipleImages = "SELECT `multipleImageId`, `multipleImageImg`
