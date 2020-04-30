@@ -16,5 +16,5 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
   $count += $stmt->rowCount();
 }
 if ($count > 0) {
-  header("Refresh: 0;url=../backStage/classManagement.php");
+  header("Refresh: 0;url=../backStage/classManagement.php?page={$_POST['pageNum']}");
 }

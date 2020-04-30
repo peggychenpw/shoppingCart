@@ -32,12 +32,12 @@ if ($_POST['class']) {
     if (isset($_POST['miniPrice']) && isset($_POST['maxPrice'])) {
       $_SESSION['miniPrice'] = $_POST['miniPrice'];
       $_SESSION['maxPrice'] = $_POST['maxPrice'];
-      // } elseif (isset($_POST['miniPrice'])) {
-      //   $_SESSION['miniPrice'] = $_POST['miniPrice'];
-      //   $_SESSION['maxPrice'] = "";
-      // } elseif (isset($_POST['maxPrice'])) {
-      //   $_SESSION['maxPrice'] = $_POST['maxPrice'];
-      //   $_SESSION['miniPrice'] = "";
+    } elseif (isset($_POST['miniPrice'])) {
+      $_SESSION['miniPrice'] = $_POST['miniPrice'];
+      $_SESSION['maxPrice'] = "";
+    } elseif (isset($_POST['maxPrice'])) {
+      $_SESSION['maxPrice'] = $_POST['maxPrice'];
+      $_SESSION['miniPrice'] = "";
     }
     $_SESSION['searchName'] = "";
     $_SESSION['classCategory'] = "";
@@ -85,12 +85,12 @@ switch ($_SESSION['class']) {
     $classNameCheck = 'checked';
     break;
   case 'classPrice':
-    if (isset($_SESSION['maxPrice']) && isset($_SESSION['miniPrice'])) {
+    if (isset($_SESSION['miniPrice']) && $_SESSION['maxPrice'] === "") {
+      $sql .= "AND `class`.`classPrice` >= {$_SESSION['miniPrice']} ";
+    } elseif (isset($_SESSION['maxPrice']) && $_SESSION['miniPrice'] === "") {
+      $sql .= "AND `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
+    } elseif (isset($_SESSION['maxPrice']) && isset($_SESSION['miniPrice'])) {
       $sql .= "AND `class`.`classPrice` >= {$_SESSION['miniPrice']} AND `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
-      // } if (isset($_SESSION['miniPrice']) && $_SESSION['maxPrice'] == "") {
-      //   $sql .= "WHERE `class`.`classPrice` >= {$_SESSION['miniPrice']} ";
-      // } if (isset($_SESSION['maxPrice']) && $_SESSION['miniPrice'] == "") {
-      //   $sql .= "WHERE `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
     }
     $sql .= "ORDER BY `class`.`classPrice` ASC ";
     $classPriceCheck = 'checked';
@@ -184,6 +184,7 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
 if ($totalClass > 0) {
 ?>
   <form method="POST" enctype="multipart/form-data" action="../action/deleteClass.php">
+    <input type="hidden" name="pageNum" value="<?php echo $page ?>">
     <table class="table table-striped table-gray text-center">
       <thead class="thead-dark">
         <tr>
@@ -223,7 +224,7 @@ if ($totalClass > 0) {
                 <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classTime']; ?></td>
                 <td class="border">
                   <a class="_btn" href="./classInfo.php?id=<?php echo $arr[$i]['id'] ?>">詳細資訊</a> |
-                  <a href="./comments.php?itemId=<?php echo $arr[$i]['itemId']; ?>">回覆評論</a>
+                  <a href="./comments.php?itemId=<?php echo $arr[$i]['itemId']; ?>">上架</a>
                 </td>
               </tr>
           <?php
