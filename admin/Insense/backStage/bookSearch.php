@@ -1,5 +1,6 @@
 <?php
-session_start();
+// session_start();
+error_reporting(0);
 
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
@@ -36,7 +37,7 @@ if (isset($_POST["searchMethod"])) {
   $_SESSION['searchOrder'] =  $_POST['searchOrder'];
 }
 
-$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `book`.`bookQty`,`book`.`created_at` 
+$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`username`, `book`.`bookStatus`, `book`.`bookQty`,`book`.`created_at` 
         FROM `book`  
         INNER JOIN `class`
         ON `book`.`classId` = `class`.`classId`
@@ -191,7 +192,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
     <div>
       <span>搜尋方式：</span>
       <select name="searchMethod" id="">
-        <option value="bookId" <?php echo $bookIdSelect ?>>預約編號</option>
+        <option value="bookId" <?php $bookIdSelect=""; echo $bookIdSelect ?>>預約編號</option>
         <option value="classId" <?php echo $classIdSelect ?>>課程編號</option>
         <option value="className" <?php echo $classNameSelect ?>>課程名稱</option>
         <option value="userId" <?php echo $userIdSelect ?>>會員編號</option>
