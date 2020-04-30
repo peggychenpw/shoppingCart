@@ -46,15 +46,15 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
           for ($i = 0; $i < count($arr); $i++) {
         ?>
             <div class="col-md-4 col-sm-6 filter-items" data-price="<?php echo $arr[$i]['itemPrice']; ?>">
-              <div class="card mb-3 shadow-sm">
-                <a href="./itemDetail.php?itemId=<?php echo $arr[$i]['itemId']; ?>">
-                  <img class="list-item" src="./images/items/<?php echo $arr[$i]['itemImg']; ?>">
+              <div class="card mb-3 shadow-sm ">
+                <a href="./itemDetail.php?itemId=<?php echo $arr[$i]['itemId']; ?>" class="">
+                  <img class="list-item  img-fluid" src="../images/items/<?php echo $arr[$i]['itemImg'].".png"; ?>" >
                 </a>
                 <div class="card-body">
                   <p class="card-text list-item-card"><?php echo $arr[$i]['itemName']; ?></p>
                   <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">價格：<?php echo $arr[$i]['itemPrice']; ?></small>
-                    <small class="text-muted">上架日期：<?php echo $arr[$i]['created_at']; ?></small>
+                    <small class="text-muted">NT$<?php echo $arr[$i]['itemPrice']; ?></small>
+                    <!-- <small class="text-muted">上架日期：<?php echo $arr[$i]['created_at']; ?></small> -->
                   </div>
                 </div>
               </div>

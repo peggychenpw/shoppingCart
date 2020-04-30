@@ -18,13 +18,14 @@ color: #5a5a5a;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
+height: 90vh !important;
 bottom: 3rem;
 z-index: 10;
 }
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
-height: 32rem;
+height: 20rem;
 }
 .carousel-item > img {
 position: absolute;

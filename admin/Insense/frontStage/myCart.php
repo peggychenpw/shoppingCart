@@ -6,7 +6,7 @@ require_once('./tpl/header.php');
 require_once("./tpl/func-buildTree.php");
 require_once("./tpl/func-getRecursiveCategoryIds.php");
 ?>
-<form name="myForm" method="POST" action="./addCheck.php">
+<form name="myForm" method="POST" action="./addOrder.php">
 
   <div class="container-fluid">
     <div class="row">
@@ -45,6 +45,8 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 $total = 0;
 
                 if (isset($_SESSION["cart"]) && count($_SESSION["cart"]) > 0) {
+                  //重新排序索引
+                  $_SESSION["cart"] = array_values($_SESSION["cart"]);
 
                   //SQL 敘述
                   $sql = "SELECT `items`.`itemId`, `items`.`itemName`, `items`.`itemImg`, `items`.`itemPrice`, 

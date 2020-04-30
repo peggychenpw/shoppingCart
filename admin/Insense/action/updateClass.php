@@ -3,7 +3,7 @@ require_once('./checkAdmin.php'); //引入登入判斷
 require_once('./db.inc.php'); //引用資料庫連線
 
 $sql = "UPDATE `class` SET 
-        `className` = ? ,`classPeopleLimit` = ? ,`classPrice` = ?,`classCategoryId` = ?,`classDate` = ?,
+        `className` = ? ,`classPeopleLimit` = ? ,`classPrice` = ?,`classCategoryId` = ?, `isAlive` = ? ,`classDate` = ?,
         `classTime` = ?
         WHERE `id` = ? ";
 
@@ -12,6 +12,7 @@ $arrParam = [
   $_POST['classPeopleLimit'],
   $_POST['classPrice'],
   $_POST['classCategoryId'],
+  $_POST['classAlive'],
   $_POST['classDate'],
   $_POST['classTime'],
   $_POST['id']

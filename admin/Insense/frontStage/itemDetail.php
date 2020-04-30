@@ -40,10 +40,10 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
             <div class="row">
               <div class="col-md-5">
                 <div class="row mb-3 d-flex justify-content-center">
-                  <img class="item-view border" src="./images/items/<?php echo $arr[0]["itemImg"]; ?>">
+                  <img class="item-view border" src="../images/items/<?php echo $arr[0]["itemImg"].'.png'; ?>">
                 </div>
                 <div class="row">
-                  <img class="item-preview img-thumbnail border" src="./images/items/<?php echo $arr[0]["itemImg"]; ?>" alt="...">
+                  <img class="item-preview img-thumbnail border" src="../images/items/<?php echo $arr[0]["itemImg"].".png"; ?>" alt="...">
                   <?php
                   //找出預覽圖片
                   $sqlMultipleImages = "SELECT `multipleImageId`, `multipleImageImg`
@@ -55,7 +55,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                     $arrMultipleImages = $stmtMultipleImages->fetchAll(PDO::FETCH_ASSOC);
                     for ($i = 0; $i < count($arrMultipleImages); $i++) {
                   ?>
-                      <img class="item-preview img-thumbnail border" src="./images/multiple_images/<?php echo $arrMultipleImages[$i]['multipleImageImg']; ?>" alt="...">
+                      <img class="item-preview img-thumbnail border" src="../images/multiple_images/<?php echo $arrMultipleImages[$i]['multipleImageImg']; ?>" alt="...">
                   <?php
                     }
                   }
@@ -69,7 +69,8 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 <form name="cartForm" id="cartForm" method="POST" action="./addCart.php">
                   <label>數量: </label>
                   <input type="text" name="cartQty" id="cartQty" value="1" maxlength="5">
-                  <button type="button" class="btn btn-primary btn-lg" id="btn_addCart">加入購物車</button>
+                  <button type="button" class="btn btn-primary btn-lg" id="btn_addCart" data-item-id="<?php echo $_GET['itemId'] ?>">加入購物車</button>
+                  <button type="button" class="btn btn-info btn-lg" id="btn_addItemTracking" data-item-id="<?php echo $_GET['itemId'] ?>">追蹤此商品</button>
                   <input type="hidden" name="itemId" id="itemId" value="<?php echo $_GET['itemId'] ?>">
                 </form>
               </div>
