@@ -66,8 +66,8 @@ if (isset($_GET['id'])) {
       <label for="classAlive">課程狀態：</label>
       <select name="classAlive" id="classAlive">
         <?php $classAlive = $arr['isAlive'] ?>
-        <option value="上架" <?php if ($classAlive === '上架') echo 'selected'; ?>>上架</option>
-        <option value="下架" <?php if ($classAlive === '下架') echo 'selected'; ?>>下架</option>
+        <option value="開課" <?php if ($classAlive === '開課') echo 'selected'; ?>>開課</option>
+        <option value="停課" <?php if ($classAlive === '停課') echo 'selected'; ?>>停課</option>
       </select>
       <br>
       <label for="created_at">新增時間:</label>

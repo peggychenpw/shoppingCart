@@ -210,7 +210,7 @@ if ($totalClass > 0) {
           $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
           for ($i = 0; $i < count($arr); $i++) {
         ?>
-            <tr class="<?php if ($arr[$i]['isAlive'] === '下架') echo '_tr' ?>">
+            <tr class="<?php if ($arr[$i]['isAlive'] === '停課') echo '_tr' ?>">
               <td class="border classTd _td">
                 <input type="hidden" name="" value="<?php echo count($arr) ?>">
                 <input id='test<?php echo $i ?>' type="checkbox" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
