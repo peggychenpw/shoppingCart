@@ -8,7 +8,7 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
   $arrParam = [
     $_POST['chk'][$i]
   ];
-  $sql = "DELETE FROM `class` WHERE `id` = ? ";
+  $sql = "UPDATE `class` SET `isAlive` = '下架' WHERE `id` = ? ";
   $stmt = $pdo->prepare($sql);
   $stmt->execute($arrParam);
 
