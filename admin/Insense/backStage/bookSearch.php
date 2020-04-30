@@ -15,8 +15,8 @@ if (!isset($_GET['page'])) {
     $_SESSION['searchMethod'] = "";
     $_SESSION['searchText'] = "";
     $_SESSION['searchStatus'] = "all";
-    $_SESSION['searchDirection'] = "future";
-    $_SESSION['searchStartDate'] = "{$dateToday}";
+    $_SESSION['searchDirection'] = "dateRange";
+    $_SESSION['searchStartDate'] = "";
     $_SESSION['searchEndDate'] = "";
     $_SESSION['sortOrder'] = "byClassDate";
     $_SESSION['searchOrder'] = "forward";
@@ -36,7 +36,7 @@ if (isset($_POST["searchMethod"])) {
     $_SESSION['searchOrder'] =  $_POST['searchOrder'];
 }
 
-$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `book`.`bookQty`,`book`.`created_at` 
+$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `class`.`isAlive`, `book`.`bookQty`,`book`.`created_at` 
         FROM `book`  
         INNER JOIN `class`
         ON `book`.`classId` = `class`.`classId`
@@ -250,7 +250,9 @@ if ($totalClasses > 0) {
         <table class="border">
             <thead>
                 <tr>
-                    <th class="border">勾選</th>
+                    <th class="border"><input type="checkbox" name="allCheck" id="allCheck" >
+                    <label for="allCheck">全選</label>    
+                    </th>
                     <th class="border">預約編號</th>
                     <th class="border">課程編號</th>
                     <th class="border">課程名稱</th>
@@ -259,6 +261,7 @@ if ($totalClasses > 0) {
                     <th class="border">會員編號</th>
                     <th class="border">會員名稱</th>
                     <th class="border">預約狀態</th>
+                    <th class="border">課程狀態</th>
                     <th class="border">預約人數</th>
                     <th class="border">新增時間</th>
                     <th class="border">功能</th>
@@ -296,6 +299,7 @@ if ($totalClasses > 0) {
                             <td class="border"><?php echo $arr[$i]['userId']; ?></td>
                             <td class="border"><?php echo $arr[$i]['userName']; ?></td>
                             <td class="border"><?php echo $arr[$i]['bookStatus']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['isAlive']; ?></td>
                             <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
                             <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
                             <td class="border">
@@ -339,3 +343,25 @@ if ($totalClasses > 0) {
 
 <?php require_once('../templates/footer.php'); // 最後在引入footer
 ?>
+
+<script>
+
+    let allCheckFunc = function(){
+        let checkbox = document.getElementsByName('chk[]')
+
+        if(document.myForm.allCheck.checked == true){
+            for( i = 0; i < checkbox.length; i++ ){
+                checkbox[i].checked = true;
+            }
+        }
+        else{
+            for( i = 0; i < checkbox.length; i++ ){
+                checkbox[i].checked = false;
+            }
+        }
+    }
+
+    document.getElementById('allCheck').addEventListener('click', function(){
+        allCheckFunc()})
+
+</script>

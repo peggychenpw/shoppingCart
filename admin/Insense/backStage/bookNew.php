@@ -8,8 +8,8 @@ if ($_POST['refresh'] == 'yes') {
 
     //判斷有無這個使用者存在
     $sqlCheckUser = "SELECT `userName`
-                 FROM `users`
-                 WHERE `userId` = ? ";
+                     FROM `users`
+                     WHERE `userId` = ? ";
 
     $arrCheck = [
         $_POST['userId']
@@ -51,7 +51,7 @@ if ($_POST['refresh'] == 'yes') {
         }
 
         //判斷報名人數是否超過課程人數上限
-        if ($_POST['bookQty'] + $currentPeople < $classPeopleLimit) {
+        if ($_POST['bookQty'] + $currentPeople < $classPeopleLimit && $_POST['bookQty'] > 0 ) {
             //SQL 敘述
             $sql = "INSERT INTO `book` (`classId`, `userId`, `bookStatus`, `bookQty`,`bookPrice`) 
                 VALUES (?, ?, ?, ?, ?)";
@@ -173,5 +173,12 @@ if ($_POST['bookQty'] + $currentPeople > $classPeopleLimit) {
     </script>
 <?php
 }
-
+if ($_POST['bookQty'] <= 0 ){
 ?>
+ <script>
+        setTimeout(() => {
+            alert("預約人數須填入大於0的數字")
+        }, 100);
+    </script>
+<?php
+}?>
