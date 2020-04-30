@@ -32,12 +32,6 @@ if ($_POST['class']) {
     if (isset($_POST['miniPrice']) && isset($_POST['maxPrice'])) {
       $_SESSION['miniPrice'] = $_POST['miniPrice'];
       $_SESSION['maxPrice'] = $_POST['maxPrice'];
-    } elseif (isset($_POST['miniPrice'])) {
-      $_SESSION['miniPrice'] = $_POST['miniPrice'];
-      $_SESSION['maxPrice'] = "";
-    } elseif (isset($_POST['maxPrice'])) {
-      $_SESSION['maxPrice'] = $_POST['maxPrice'];
-      $_SESSION['miniPrice'] = "";
     }
     $_SESSION['searchName'] = "";
     $_SESSION['classCategory'] = "";
@@ -73,30 +67,30 @@ $sql = "SELECT `class`.`id`,`class`.`classId`, `class`.`className`, `class`.`cla
 `class`.`classPeopleLimit`, `class`.`classDate`, `class`.`classTime`,`class`.`isAlive`, `class`.`created_at`,
 `class`.`updated_at`
 FROM `class` INNER JOIN `classcategory`
-ON `class`.`classCategoryId` = `classcategory`.`classCategoryId` 
-WHERE `class`.`isAlive` = '上架' ";
+ON `class`.`classCategoryId` = `classcategory`.`classCategoryId` ";
+// WHERE `class`.`isAlive` = '上架' 
 
 
 
 switch ($_SESSION['class']) {
   case 'className':
-    $sql .= "AND `class`.`className` LIKE '%{$_SESSION['searchName']}%' ";
+    $sql .= "WHERE `class`.`className` LIKE '%{$_SESSION['searchName']}%' ";
     $sql .= "ORDER BY `class`.`id` ASC ";
     $classNameCheck = 'checked';
     break;
   case 'classPrice':
     if (isset($_SESSION['miniPrice']) && $_SESSION['maxPrice'] === "") {
-      $sql .= "AND `class`.`classPrice` >= {$_SESSION['miniPrice']} ";
+      $sql .= "WHERE `class`.`classPrice` >= {$_SESSION['miniPrice']} ";
     } elseif (isset($_SESSION['maxPrice']) && $_SESSION['miniPrice'] === "") {
-      $sql .= "AND `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
+      $sql .= "WHERE `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
     } elseif (isset($_SESSION['maxPrice']) && isset($_SESSION['miniPrice'])) {
-      $sql .= "AND `class`.`classPrice` >= {$_SESSION['miniPrice']} AND `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
+      $sql .= "WHERE `class`.`classPrice` >= {$_SESSION['miniPrice']} AND `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
     }
     $sql .= "ORDER BY `class`.`classPrice` ASC ";
     $classPriceCheck = 'checked';
     break;
   case 'classCategories':
-    $sql .= "AND `class`.`classCategoryId` = '{$_SESSION['classCategory']}' ";
+    $sql .= "WHERE `class`.`classCategoryId` = '{$_SESSION['classCategory']}' ";
     $sql .= "ORDER BY `class`.`id` ASC ";
     $classCategorySelect = 'selected';
     $classCategoryCheck = 'checked';
@@ -112,7 +106,7 @@ switch ($_SESSION['class']) {
     $classPeopleLimitCheck = 'checked';
     break;
   case 'classDate':
-    $sql .= "AND `class`.`classDate` LIKE '%{$_SESSION['classDate']}%' ";
+    $sql .= "WHERE `class`.`classDate` LIKE '%{$_SESSION['classDate']}%' ";
     $sql .= "ORDER BY `class`.`id` ASC ";
     $classDateCheck = 'checked';
 }
@@ -145,6 +139,12 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  ._tr {
+    cursor: no-drop;
+    opacity: .5;
+
   }
 </style>
 <form method="POST" action="classManagement.php">
@@ -195,7 +195,7 @@ if ($totalClass > 0) {
           <th class="border">上限人數</th>
           <th class="border">上課日期</th>
           <th class="border">上線時間</th>
-          <th class="border">功能</th>
+          <th class="border">詳細資訊</th>
         </tr>
       </thead>
       <tbody>
@@ -209,26 +209,23 @@ if ($totalClass > 0) {
         if ($stmt->rowCount() > 0) {
           $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
           for ($i = 0; $i < count($arr); $i++) {
-            if ($arr[$i]['isAlive'] === '上架') {
         ?>
-              <tr>
-                <td class="border classTd">
-                  <input type="hidden" name="" value="<?php echo count($arr) ?>">
-                  <input id='test<?php echo $i ?>' type="checkbox" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
-                </td>
-                <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['className']; ?></td>
-                <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classPrice']; ?></td>
-                <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classCategoryName']; ?></td>
-                <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
-                <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classDate']; ?></td>
-                <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classTime']; ?></td>
-                <td class="border">
-                  <a class="_btn" href="./classInfo.php?id=<?php echo $arr[$i]['id'] ?>">詳細資訊</a> |
-                  <a href="./comments.php?itemId=<?php echo $arr[$i]['itemId']; ?>">上架</a>
-                </td>
-              </tr>
+            <tr class="<?php if ($arr[$i]['isAlive'] === '下架') echo '_tr' ?> ">
+              <td class="border classTd _td">
+                <input type="hidden" name="" value="<?php echo count($arr) ?>">
+                <input id='test<?php echo $i ?>' type="checkbox" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
+              </td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['className']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classPrice']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classCategoryName']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classDate']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classTime']; ?></td>
+              <td class="border">
+                <a href="./classInfo.php?id=<?php echo $arr[$i]['id'] ?>">修改</a>
+              </td>
+            </tr>
           <?php
-            }
           }
         } else {
           ?>
@@ -256,6 +253,7 @@ if ($totalClass > 0) {
       </tfoot>
     </table>
   </form>
+
 <?php
 } else {
   //引入尚未建立商品種類的文字描述
