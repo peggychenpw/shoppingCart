@@ -32,12 +32,16 @@ require_once('../templates/header.php');
 require_once('../templates/leftSideBar.php');
 require_once('../templates/rightContainer.php');
 ?>
+<br>
+<a class="btn btn-outline-secondary ml-3" href="./admin.php" role="button">商品列表</a>
+<br>
+<br>
 <h3>編輯類別</h3>
-<form name="myForm" method="POST" action="./insertCategory.php">
+<form name="myForm" method="POST" action="../action/insertCategory.php">
 
   <?php buildTree($pdo, 0); ?>
 
-  <table class="border">
+  <table class="border ml-3">
     <thead>
       <tr>
         <th class="border">類別名稱</th>

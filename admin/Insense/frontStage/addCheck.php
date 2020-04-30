@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("../action/checkSession.php");
+require_once("./checkSession.php");
 require_once('../action/db.inc.php');
 
 // echo "<pre>";
