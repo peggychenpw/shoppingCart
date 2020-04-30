@@ -82,7 +82,7 @@ $sqlTotalCatogories = "SELECT count(1) FROM ({$sql}) AS `aaa`";
 
 //取得商品種類總筆數
 $totalCatogories = $pdo->query($sqlTotalCatogories)->fetch(PDO::FETCH_NUM)[0];
-$numPerPage = 5; //每頁幾筆
+$numPerPage = 20; //每頁幾筆
 $totalPages = ceil($totalCatogories / $numPerPage); // 總頁數
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; //目前第幾頁
 $page = $page < 1 ? 1 : $page; //若 page 小於 1，則回傳 1

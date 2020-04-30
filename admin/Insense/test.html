@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>測試全選功能</title>
+    <script>
+        function Check(chk) {
+            var chkbox = document.getElementsByName(chk);
+            if (document.myform.Check_ctr.checked == true) {
+                for (i = 0; i < chkbox.length; i++) {
+                    chkbox[i].checked = true;
+                }
+            } else {
+                for (i = 0; i < chkbox.length; i++) {
+                    chkbox[i].checked = false;
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <form method='post' action='' name='myform' id='myform'>
+        <table width='100%' border='0'>
+            <tr align='center'>
+                <td><input type='checkbox' name='Check_ctr' value='yes' onClick="Check('check_list[]')"></td>
+                <td><strong>帳號</strong></td>
+                <td width='18%'><strong>日期</strong></td>
+            </tr>
+            <tr align='center'>
+                <td><input type='checkbox' name='check_list[]' id='check_list' value='1' /></td>
+                <td>帳號1</td>
+                <td>2013-03-19</td>
+            </tr>
+            <tr align='center'>
+                <td><input type='checkbox' name='check_list[]' id='check_list' value='2' /></td>
+                <td>帳號2</td>
+                <td>2013-03-19</td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

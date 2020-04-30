@@ -184,10 +184,11 @@ CREATE TABLE `coupon` (
   `couponId` int(11) NOT NULL,
   `couponCode` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `couponName` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `couponStart` datetime DEFAULT NULL,
-  `couponEnd` datetime DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `couponDiscount` int(4) DEFAULT NULL,
+  `couponStart` date DEFAULT NULL,
+  `couponEnd` date DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
