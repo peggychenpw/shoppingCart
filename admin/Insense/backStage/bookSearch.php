@@ -221,27 +221,26 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
         <input id="dateEnd" type="date" name="searchEndDate" value="<?php echo $_SESSION['searchEndDate'] ?>">
       </label>
     </div>
-    <div class="collapse" id="searchDivDetail">
-      <!-- 搜尋功能 -->
-      <div>
-        <span>排序方式：</span>
-        <input type="radio" id="byClassDate" name="sortOrder" value="byClassDate" <?php echo $byClassDateCheck ?>>
-        <label for="byClassDate">課程時間</label>
-        <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
-        <label for="byBookId">預約編號</label>
-        <input type="radio" id="byClassId" name="sortOrder" value="byClassId" <?php echo $byClassIdCheck ?>>
-        <label for="byClassId">課程編號</label>
-        <input type="radio" id="byUserId" name="sortOrder" value="byUserId" <?php echo $byUserIdCheck ?>>
-        <label for="byUserId">會員編號</label>
-        <select name="searchOrder" id="">
-          <option value="forward" <?php echo $forwardSelect ?>>由小至大</option>
-          <option value="backforward" <?php echo $backforwardSelect ?>>由大至小</option>
-        </select>
-      </div>
-
-      <input type="submit" name="smbSearch">
-      <a href="bookSearch.php">重新搜尋</a>
+    <!-- 搜尋功能 -->
+    <div>
+      <span>排序方式：</span>
+      <input type="radio" id="byClassDate" name="sortOrder" value="byClassDate" <?php echo $byClassDateCheck ?>>
+      <label for="byClassDate">課程時間</label>
+      <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
+      <label for="byBookId">預約編號</label>
+      <input type="radio" id="byClassId" name="sortOrder" value="byClassId" <?php echo $byClassIdCheck ?>>
+      <label for="byClassId">課程編號</label>
+      <input type="radio" id="byUserId" name="sortOrder" value="byUserId" <?php echo $byUserIdCheck ?>>
+      <label for="byUserId">會員編號</label>
+      <select name="searchOrder" id="">
+        <option value="forward" <?php echo $forwardSelect ?>>由小至大</option>
+        <option value="backforward" <?php echo $backforwardSelect ?>>由大至小</option>
+      </select>
     </div>
+
+    <input type="submit" name="smbSearch">
+    <a href="bookSearch.php">重新搜尋</a>
+  </form>
 </div>
 <!--       search end              -->
 <?php
