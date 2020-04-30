@@ -28,6 +28,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
           $_GET['itemId']
         ];
 
+
         //查詢
         $stmt = $pdo->prepare($sql);
         $stmt->execute($arrParam);
@@ -63,22 +64,19 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 </div>
               </div>
               <div class="col-md-7">
-                <p>商品名稱: <?php echo $arr[0]["itemName"]; ?></p>
-                <p>商品價格: <?php echo $arr[0]["itemPrice"]; ?></p>
-                <p>商品數量: <?php echo $arr[0]["itemQty"]; ?></p>
+                <h5 class="mt-3 ml-3 "><?php echo $arr[0]["itemName"]; ?></h5>
+                <p class="mt-3 ml-3">NT$<?php echo $arr[0]["itemPrice"]; ?></p>
                 <form name="cartForm" id="cartForm" method="POST" action="./addCart.php">
-                  <label>數量: </label>
+                  <label class="mt-3 ml-3">數量: </label>
                   <input type="text" name="cartQty" id="cartQty" value="1" maxlength="5">
-                  <button type="button" class="btn btn-primary btn-lg" id="btn_addCart" data-item-id="<?php echo $_GET['itemId'] ?>">加入購物車</button>
-                  <button type="button" class="btn btn-info btn-lg" id="btn_addItemTracking" data-item-id="<?php echo $_GET['itemId'] ?>">追蹤此商品</button>
+                  <div  class="d-flex ">
+                    <button type="button" class="btn btn-outline-secondary btn-lg mt-4 ml-3" id="btn_addCart" data-item-id="<?php echo $_GET['itemId'] ?>">加入購物車</button>
+                  </div>
                   <input type="hidden" name="itemId" id="itemId" value="<?php echo $_GET['itemId'] ?>">
                 </form>
               </div>
-
             </div>
-            <div class="row mt-4 mb-4">
-              <div class="col-md-12">商品描述</div>
-            </div>
+           
             <div class="row"><?php require_once("./tpl/tpl-comments-list.php"); ?></div>
             <div class="row"><?php require_once("./tpl/tpl-comments.php"); ?></div>
           </div>
