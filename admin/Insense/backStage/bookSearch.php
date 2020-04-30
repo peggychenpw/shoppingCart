@@ -178,10 +178,10 @@ require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
 
-<h3>預約課程列表</h3>
+<h3 class=" mt-2 ml-4">預約課程列表</h3>
 <!--       search start              -->
 <div>
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+  <button class="btn btn-outline-secondary mt-2 ml-4" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
     關鍵字搜尋
   </button>
 </div>
@@ -189,7 +189,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
   <!-- 搜尋功能 -->
   <form name="bookSearchForm" entype="multipart/form-data" method="POST" action="bookSearch.php">
     <div>
-      <span>搜尋方式：</span>
+      <span class="ml-4">搜尋方式：</span>
       <select name="searchMethod" id="">
         <option value="bookId" <?php echo $bookIdSelect ?>>預約編號</option>
         <option value="classId" <?php echo $classIdSelect ?>>課程編號</option>
@@ -201,7 +201,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
     </div>
 
     <div>
-      <span>預約狀態：</span>
+      <span class="ml-4">預約狀態：</span>
       <select name="searchStatus" id="">
         <option value="all" <?php echo $allSelect ?>>全部</option>Ï
         <option value="success" <?php echo $successSelect ?>>成功</option>
@@ -210,7 +210,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
     </div>
 
     <div>
-      <span>搜尋時間：</span>
+      <span class="ml-4 mt-4">搜尋時間：</span>
       <input type="radio" id="future" name="searchDirection" value="future" <?php echo $futureCheck ?>>
       <label for="future">未來預約</label>
       <input type="radio" id="past" name="searchDirection" value="past" <?php echo $pastCheck ?>>
@@ -223,7 +223,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
     </div>
     <!-- 搜尋功能 -->
     <div>
-      <span>排序方式：</span>
+      <span class="ml-4">排序方式：</span>
       <input type="radio" id="byClassDate" name="sortOrder" value="byClassDate" <?php echo $byClassDateCheck ?>>
       <label for="byClassDate">課程時間</label>
       <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
@@ -238,8 +238,8 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
       </select>
     </div>
 
-    <input type="submit" name="smbSearch">
-    <a href="bookSearch.php">重新搜尋</a>
+    <input type="submit" name="smbSearch" class="ml-4">
+    <a href="bookSearch.php" class="ml-4">重新搜尋</a>
   </form>
 </div>
 <!--       search end              -->
@@ -248,8 +248,8 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 if ($totalClasses > 0) {
 ?>
   <form name="myForm" entype="multipart/form-data" method="POST" action="delete.php">
-    <table class="border">
-      <thead>
+    <table class="table mt-3 ">
+      <thead class="thead-light">
         <tr>
           <th class="border">勾選</th>
           <th class="border">預約編號</th>
@@ -308,7 +308,7 @@ if ($totalClasses > 0) {
         } else {
           ?>
           <tr>
-            <td class="border" colspan="11">沒有資料</td>
+            <td class="border" colspan="12">沒有資料</td>
           </tr>
         <?php
         }
@@ -316,7 +316,7 @@ if ($totalClasses > 0) {
       </tbody>
       <tfoot>
         <tr>
-          <td class="border" colspan="11">
+          <td class="border" colspan="12">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
               <a href="?page=<?= $i ?>"><?= $i ?></a>
             <?php } ?>

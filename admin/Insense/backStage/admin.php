@@ -123,8 +123,8 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 
 <style>
   .search-again {
-    color: black;
-    border: solid gray 1px;
+    color: lightslategray;
+    border-bottom: dashed gray 1px;
   }
 
   h3 {
@@ -137,48 +137,56 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
     margin: 8px;
   }
 </style>
-<br>
-<a class="btn btn-outline-secondary ml-4 mb-5" href="./new.php" role="button">新增商品</a>
-<a class="btn btn-outline-secondary ml-2 mb-5" href="./category.php" role="button">編輯類別</a>
-<br>
-<br>
-
-<form name="itemSearchForm" entype="multipart/form-data" method="POST" action="./admin.php">
+<div class="d-flex flex-column">
   <div>
-    <span>搜尋方式：</span>
-    <select name="searchMethod" id="">
-      <option value="itemId" <?php echo $itemIdSelect ?>>商品編號</option>
-      <option value="itemName" <?php echo $itemNameSelect ?>>商品名稱</option>
-      <option value="itemQty" <?php echo $itemQtySelect ?>>商品數量</option>
-    </select>
-    <input type="text" name="searchText" value="<?php echo $_SESSION['searchText'] ?>">
+    <a class="btn btn-outline-secondary ml-4 mt-2" href="./new.php" role="button">新增商品</a>
+    <a class="btn btn-outline-secondary ml-2 mt-2" href="./category.php" role="button">編輯類別</a>
   </div>
-
   <div>
-    <span>價格區間：</span>
-    <input id="priceStart" type="text" name="searchPriceStart" value="<?php echo $_SESSION['searchPriceStart'] ?>"> -
-    <input id="priceEnd" type="text" name="searchPriceEnd" value="<?php echo $_SESSION['searchPriceEnd'] ?>">
-  </div>
-  <!-- 搜尋功能 -->
-  <div>
-    <span>排序方式：</span>
-    <input type="radio" id="byItemId" name="sortMethod" value="byItemId" <?php echo $byItemId ?>>
-    <label for="byItemId">商品編號</label>
-    <input type="radio" id="byItemPrice" name="sortMethod" value="byItemPrice" <?php echo $byItemPrice ?>>
-    <label for="byItemPrice">商品價格</label>
-    <input type="radio" id="byItemQty" name="sortMethod" value="byItemQty" <?php echo $byItemQty ?>>
-    <label for="byItemQty">商品數量</label>
-    <input type="radio" id="byCategoryName" name="sortMethod" value="byCategoryName" <?php echo $byCategoryName ?>>
-    <label for="byCategoryName">商品種類</label>
-    <select name="searchOrder" id="">
-      <option value="forward" <?php echo $forwardSelect ?>>由小至大</option>
-      <option value="backward" <?php echo $backwardSelect ?>>由大至小</option>
-    </select>
-  </div>
+    <a class="btn btn-outline-secondary ml-4 mt-2 mb-1 " type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+        商品搜尋
+    </a>
+    <div class="collapse" id="searchDivDetail">
+    
 
-  <input type="submit" name="smbSearch">
-  <a href="admin.php" class="search-again">重新搜尋</a>
-</form>
+    <form name="itemSearchForm" entype="multipart/form-data" method="POST" action="./admin.php">
+      <div>
+        <span class="ml-4">搜尋方式：</span>
+        <select name="searchMethod" id="">
+          <option value="itemId" <?php echo $itemIdSelect ?>>商品編號</option>
+          <option value="itemName" <?php echo $itemNameSelect ?>>商品名稱</option>
+          <option value="itemQty" <?php echo $itemQtySelect ?>>商品數量</option>
+        </select>
+        <input type="text" name="searchText" value="<?php echo $_SESSION['searchText'] ?>">
+      </div>
+
+      <div>
+        <span class="ml-4">價格區間：</span>
+        <input id="priceStart" type="text" name="searchPriceStart" value="<?php echo $_SESSION['searchPriceStart'] ?>"> -
+        <input id="priceEnd" type="text" name="searchPriceEnd" value="<?php echo $_SESSION['searchPriceEnd'] ?>">
+      </div>
+      <!-- 搜尋功能 -->
+      <div>
+        <span class="ml-4">排序方式：</span>
+        <input type="radio" id="byItemId" name="sortMethod" value="byItemId" <?php echo $byItemId ?>>
+        <label for="byItemId">商品編號</label>
+        <input type="radio" id="byItemPrice" name="sortMethod" value="byItemPrice" <?php echo $byItemPrice ?>>
+        <label for="byItemPrice">商品價格</label>
+        <input type="radio" id="byItemQty" name="sortMethod" value="byItemQty" <?php echo $byItemQty ?>>
+        <label for="byItemQty">商品數量</label>
+        <input type="radio" id="byCategoryName" name="sortMethod" value="byCategoryName" <?php echo $byCategoryName ?>>
+        <label for="byCategoryName">商品種類</label>
+        <select name="searchOrder" id="">
+          <option value="forward" <?php echo $forwardSelect ?>>由小至大</option>
+          <option value="backward" <?php echo $backwardSelect ?>>由大至小</option>
+        </select>
+      </div>
+
+        <input type="submit" name="smbSearch" class="ml-4 mr-3">
+        <a href="admin.php" class="search-again">重新搜尋</a>
+      </form>
+  </div>
+</div>
 
 
 <h3>商品列表</h3>

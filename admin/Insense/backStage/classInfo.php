@@ -8,7 +8,7 @@ require_once('../templates/rightContainer.php');
 if (isset($_GET['id'])) {
 
   $sql = "SELECT `class`.`id`,`class`.`classId`,`class`.`className`,`class`.`classPeopleLimit`,`class`.`classPrice`,
-                 `classcategory`.`classCategoryName`,`class`.`classDate`,`class`.`classTime`,`shop`.`shopName`,
+                 `classcategory`.`classCategoryName`,`class`.`classDate`,`class`.`classTime`,`shop`.`shopName`,`class`.`isAlive`,
                  `class`.`created_at`,`class`.`updated_at`
           FROM   `class` INNER JOIN `classcategory`
           ON     `class`.`classCategoryId` = `classcategory`.`classCategoryId`
@@ -62,6 +62,13 @@ if (isset($_GET['id'])) {
       <br>
       <label for="shopName">廠商名稱:</label>
       <input type="text" name="shopName" id="shopName" value="<?php echo $arr['shopName'] ?>" disabled>
+      <br>
+      <label for="classAlive">課程狀態：</label>
+      <select name="classAlive" id="classAlive">
+        <?php $classAlive = $arr['isAlive'] ?>
+        <option value="上架" <?php if ($classAlive === '上架') echo 'selected'; ?>>上架</option>
+        <option value="下架" <?php if ($classAlive === '下架') echo 'selected'; ?>>下架</option>
+      </select>
       <br>
       <label for="created_at">新增時間:</label>
       <input type="text" id="created_at" value="<?php echo $arr['created_at'] ?>" disabled>
