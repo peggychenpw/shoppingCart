@@ -54,12 +54,24 @@ for ($i = 0; $i < count($arrFindPeople); $i++) {
     $currentPeople += $arrFindPeople[$i]['bookQty'];
 }
 
-echo $currentPeople;
-echo "<pre>";
-print_r($arrFindPeople);
-echo "</pre>";
 
-exit();
+//判斷報名人數是否超過課程人數上限
+if($_POST['bookQty'] > $currentPeople){
+    ?>
+    <script>
+        alert(123)
+    </script>
+    <?php
+    header("Refresh: 0.001; url=../backStage/bookNew.php?");
+    echo "報名人數超過課程上限";
+    exit();
+}
+// echo $currentPeople;
+// echo "<pre>";
+// print_r($arrFindPeople);
+// echo "</pre>";
+
+// exit();
 
 //SQL 敘述
 $sql = "INSERT INTO `book` (`classId`, `userId`, `bookStatus`, `bookQty`,`bookPrice`) 
@@ -92,11 +104,9 @@ if ($stmt->rowCount() > 0) {
   exit();
 };
 
-
 $bookId = sprintf("B%05d",$pdo->lastInsertId());
 $sqlUpdateClassId =  "UPDATE `book` 
 SET `bookId` = '{$bookId}'
 WHERE `id` = '{$pdo->lastInsertId()}'";
 $pdo->query($sqlUpdateClassId);
 
-echo $bookId;
