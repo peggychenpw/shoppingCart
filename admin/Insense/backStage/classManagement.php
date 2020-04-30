@@ -186,7 +186,7 @@ if ($totalClass > 0) {
   <form method="POST" enctype="multipart/form-data" action="../action/deleteClass.php">
     <input type="hidden" name="pageNum" value="<?php echo $page ?>">
     <table class="table table-striped table-gray text-center">
-      <thead class="thead-dark">
+      <thead class="thead-light">
         <tr>
           <th class="border">勾選</th>
           <th class="border">課程名稱</th>
