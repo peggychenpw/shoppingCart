@@ -25,7 +25,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                     WHERE `itemId` = ? ";
 
         $arrParam = [
-          (int) $_GET['itemId']
+          $_GET['itemId']
         ];
 
         //查詢
@@ -79,8 +79,8 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
             <div class="row mt-4 mb-4">
               <div class="col-md-12">商品描述</div>
             </div>
-            <div class="row"><?php require_once("./tpl/tpl-comments-list.php"); ?></div>
-            <div class="row"><?php require_once("./tpl/tpl-comments.php"); ?></div>
+            <!-- <div class="row"><?php require_once("./tpl/tpl-comments-list.php"); ?></div>
+            <div class="row"><?php require_once("./tpl/tpl-comments.php"); ?></div> -->
           </div>
 
       <?php

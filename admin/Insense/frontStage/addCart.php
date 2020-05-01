@@ -27,7 +27,7 @@ $sql = "SELECT `items`.`itemId`, `items`.`itemName`, `items`.`itemImg`, `items`.
         WHERE `itemId` = ? ";
 
 $arrParam = [
-  (int) $_POST['itemId']
+  $_POST['itemId']
 ];
 
 //查詢

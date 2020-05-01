@@ -1,16 +1,16 @@
 <div class="album py-5 bg-light flex-shrink-0">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 d-flex justify-content-center mb-3">
-                <h1>香水一覽</h1>
-            </div>
-            <div class="col-md-3"></div>
-        </div>
-        <div class="row">
-        <?php
-        //SQL 敘述
-        $sql = "SELECT `items`.`itemId`, `items`.`itemName`, `items`.`itemImg`, `items`.`itemPrice`, 
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 d-flex justify-content-center mb-3">
+        <h1>香水一覽</h1>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <?php
+      //SQL 敘述
+      $sql = "SELECT `items`.`itemId`, `items`.`itemName`, `items`.`itemImg`, `items`.`itemPrice`, 
                         `items`.`itemQty`, `items`.`itemCategoryId`, `items`.`created_at`, `items`.`updated_at`,
                         `categories`.`categoryName`
                 FROM `items` INNER JOIN `categories`

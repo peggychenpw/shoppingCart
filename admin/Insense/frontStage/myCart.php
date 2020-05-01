@@ -58,7 +58,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
 
                   for ($i = 0; $i < count($_SESSION["cart"]); $i++) {
                     $arrParam = [
-                      (int) $_SESSION["cart"][$i]["itemId"]
+                      $_SESSION["cart"][$i]["itemId"]
                     ];
 
                     //查詢
