@@ -22,6 +22,7 @@ $sql = "UPDATE `coupon` SET ";
 $sql .= "`couponName` = ? ,";
 $arrParam[] = $_POST['couponName'];
 
+
 //itemQty SQL 語句和資料繫結
 $sql .= "`couponCode` = ? , ";
 $arrParam[] = $_POST['couponCode'];
