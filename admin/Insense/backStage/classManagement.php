@@ -144,7 +144,6 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
   ._tr {
     cursor: no-drop;
     opacity: .5;
-
   }
 </style>
 <div class="d-flex justify-content-between">
@@ -218,19 +217,18 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
   </form>
 </div>
 <script>
-  let attClear = function(domNode, attr) {
-    domNode.forEach(el => {
-      el.removeAttribute(attr)
-    })
-  }
   document.querySelector('._btn').addEventListener('click', function() {
     let classRadio = document.querySelectorAll('input[type=radio]')
     let classText = document.querySelectorAll('input[type=text]')
-    let classSelect = document.querySelectorAll('select').options
-    console.log(classSelect)
-    attClear(classRadio, 'checked');
+    let classSelect = document.querySelectorAll('select')
+    classSelect.forEach(el => {
+      el.options[0].setAttribute('selected', true)
+    })
+    classRadio.forEach(el => {
+      el.removeAttribute('checked')
+    })
     classText.forEach(el => {
-      el.value = "";
+      el.value = null;
     })
   })
 </script>

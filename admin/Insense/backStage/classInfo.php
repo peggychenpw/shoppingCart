@@ -23,11 +23,17 @@ if (isset($_GET['id'])) {
   if ($stmt->rowCount() > 0) {
     $arr = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
 ?>
+    <style>
+      .cantOverride {
+        cursor: no-drop;
+      }
+    </style>
+
     <form method="POST" enctype="multipart/form-data" action="../action/updateClass.php">
       <div class="form-row col-12">
         <div class="form-group col-md-12 px-5">
           <label for="classId">課程編號：</label>
-          <input class="form-control" name="classId" type="text" id="classId" value="<?php echo $arr['classId'] ?>" disabled>
+          <input class="form-control cantOverride" name="classId" type="text" id="classId" value="<?php echo $arr['classId'] ?>" disabled>
         </div>
         <div class="form-group col-md-6 px-5">
           <label for="className">課程名稱:</label>
@@ -78,15 +84,15 @@ if (isset($_GET['id'])) {
         </div>
         <div class="form-group col-md-4 px-5">
           <label for="shopName">廠商名稱:</label>
-          <input class="form-control" type="text" name="shopName" id="shopName" value="<?php echo $arr['shopName'] ?>" disabled>
+          <input class="form-control cantOverride" type="text" name="shopName" id="shopName" value="<?php echo $arr['shopName'] ?>" disabled>
         </div>
         <div class="form-group col-md-4 px-5">
           <label for="created_at">新增時間:</label>
-          <input class="form-control" type="text" id="created_at" value="<?php echo $arr['created_at'] ?>" disabled>
+          <input class="form-control cantOverride" type="text" id="created_at" value="<?php echo $arr['created_at'] ?>" disabled>
         </div>
         <div class="form-group col-md-4 px-5">
           <label for="updated_at">更新時間:</label>
-          <input class="form-control" type="text" id="updated_at" value="<?php echo $arr['updated_at'] ?>" disabled>
+          <input class="form-control cantOverride" type="text" id="updated_at" value="<?php echo $arr['updated_at'] ?>" disabled>
         </div>
         <div class="d-flex w-100 justify-content-between px-5 mt-3">
           <input name="id" type="hidden" value="<?php echo $_GET['id'] ?>">
