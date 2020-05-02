@@ -37,4 +37,8 @@ if ($stmt->rowCount() > 0) {
   echo '<script>alert("新增成功")</script>';
   header("Refresh: 0; url=../backStage/classManagement.php");
   exit();
+} else {
+  echo '<script>alert("新增失敗")</script>';
+  header("Refresh: 0; url=../backStage/editClass.php");
+  exit();
 }
