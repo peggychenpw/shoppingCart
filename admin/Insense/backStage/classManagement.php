@@ -130,7 +130,7 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
 <style>
   /* class zone */
 
-  /* .classTd {
+  .classTd {
     position: relative;
   }
 
@@ -139,7 +139,7 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-  } */
+  }
 
   ._tr {
     cursor: no-drop;
@@ -216,22 +216,7 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
     </div>
   </form>
 </div>
-<script>
-  document.querySelector('._btn').addEventListener('click', function() {
-    let classRadio = document.querySelectorAll('input[type=radio]')
-    let classText = document.querySelectorAll('input[type=text]')
-    let classSelect = document.querySelectorAll('select')
-    classSelect.forEach(el => {
-      el.options[0].setAttribute('selected', true)
-    })
-    classRadio.forEach(el => {
-      el.removeAttribute('checked')
-    })
-    classText.forEach(el => {
-      el.value = null;
-    })
-  })
-</script>
+
 <?php
 //若有建立商品種類，則顯示商品清單
 if ($totalClass > 0) {
@@ -241,6 +226,8 @@ if ($totalClass > 0) {
     <table class="table table-striped table-gray text-center">
       <thead class="thead-light">
         <tr>
+
+          <th class="border"><a class="allSelected" href="javascript:;">全選</a></th>
           <th class="border">課程名稱</th>
           <th class="border">課程價格</th>
           <th class="border">課程類別</th>
@@ -263,6 +250,9 @@ if ($totalClass > 0) {
           for ($i = 0; $i < count($arr); $i++) {
         ?>
             <tr class="<?php if ($arr[$i]['isAlive'] === '停課') echo '_tr' ?>">
+              <td class="border classTd">
+                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
+              </td>
               <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['className']; ?></td>
               <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classPrice']; ?></td>
               <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classCategoryName']; ?></td>
@@ -292,15 +282,39 @@ if ($totalClass > 0) {
             <?php } ?>
           </td>
         </tr>
-        <!-- <?php if ($total > 0) { ?>
+        <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="8"><input type="submit" name="smb" value="下架"></td>
+            <td class="border" colspan="8"><input class="btn btn-outline-secondary" type="submit" name="smb" value="下架"></td>
           </tr>
-        <?php } ?> -->
+        <?php } ?>
 
       </tfoot>
     </table>
   </form>
+
+  <script>
+    document.querySelector('._btn').addEventListener('click', function() {
+      let classRadio = document.querySelectorAll('input[type=radio]')
+      let classText = document.querySelectorAll('input[type=text]')
+      let classSelect = document.querySelectorAll('select')
+      classSelect.forEach(el => {
+        el.options[0].setAttribute('selected', true)
+      })
+      classRadio.forEach(el => {
+        el.removeAttribute('checked')
+      })
+      classText.forEach(el => {
+        el.value = null;
+      })
+    })
+
+    document.querySelector('.allSelected').addEventListener('click', function() {
+      let _checkBox = document.querySelectorAll('input[type=checkbox]')
+      _checkBox.forEach(el => {
+        el.hasAttribute('checked') ? el.removeAttribute('checked') : el.setAttribute('checked', true)
+      })
+    })
+  </script>
 
 <?php
 } else {
