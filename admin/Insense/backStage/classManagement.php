@@ -144,41 +144,82 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
   ._tr {
     cursor: no-drop;
     opacity: .5;
+  }
 
+  ._td {
+    vertical-align: middle !important;
   }
 </style>
-<form method="POST" action="classManagement.php">
-  <p>搜尋方式：</p>
-  <input type="radio" name="class" id="className" value="className" <?php echo $classNameCheck ?>>
-  <label for="className">名稱:</label>
-  <input type="text" name="searchName" value="<?php echo $_SESSION['searchName'] ?>">
-  <br>
-  <input type="radio" name="class" id="classPrice" value="classPrice" <?php echo $classPriceCheck ?>>
-  <label for="classPrice">價格:</label>
-  <input type="text" name="miniPrice" placeholder="" value="<?php echo $_SESSION['miniPrice'] ?>"> -
-  <input type="text" name="maxPrice" placeholder="" value="<?php echo $_SESSION['maxPrice'] ?>">
-  <br>
-  <input type="radio" name="class" id="classCategories" value="classCategories" <?php echo $classCategoryCheck ?>>
-  <label for="classCategories">課程類別:</label>
-  <select name="classCategory" id="">
-    <option value="c_perfume" <?php if ($_SESSION['classCategory'] === 'c_perfume') echo $classCategorySelect ?>>香水體驗</option>
-    <option value="c_soap" <?php if ($_SESSION['classCategory'] === 'c_soap') echo $classCategorySelect ?>>香皂體驗</option>
-  </select>
-  <br>
-  <input type="radio" name="class" id="classPeopleLimit" value="classPeopleLimit" <?php echo $classPeopleLimitCheck ?>>
-  <label for="classPeopleLimit">人數排序:</label>
-  <select name="classPeopleLimitSequence" id="">
-    <option value="DESC" <?php if ($_SESSION['classPeopleLimitSequence'] === 'DESC') echo $classPeopleLimitSelect ?>>▼</option>
-    <option value="ASC" <?php if ($_SESSION['classPeopleLimitSequence'] === 'ASC') echo $classPeopleLimitSelect ?>>▲</option>
-  </select>
-  <br>
-  <input type="radio" name="class" id="classDate" value="classDate" <?php echo $classDateCheck ?>>
-  <label for="classDate">日期:</label>
-  <input type="text" name='classDate' value="<?php echo $_SESSION['classDate'] ?>">
-  <div>
-    <input type="submit" value="查詢">
-  </div>
-</form>
+<div class="d-flex justify-content-between">
+  <button class="btn btn-outline-secondary my-3 ml-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+    課程搜尋
+  </button>
+  <a class="btn btn-outline-secondary my-3 mr-3" href="./editClass.php">新增商品</a>
+</div>
+<div class="collapse" id="searchDivDetail">
+  <form method="POST" action="classManagement.php">
+    <div class="col-3 mt-2">
+      <div class="input-group pb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="class" id="className" value="className" <?php echo $classNameCheck ?>>
+          </div>
+        </div>
+        <label class="input-group-text" for="className">名稱:</label>
+        <input class="form-control" type="text" name="searchName" value="<?php echo $_SESSION['searchName'] ?>">
+      </div>
+      <div class="input-group pb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="class" id="classPrice" value="classPrice" <?php echo $classPriceCheck ?>>
+          </div>
+        </div>
+        <label class="input-group-text" for="classPrice">價格:</label>
+        <input class="form-control" type="text" name="miniPrice" placeholder="" value="<?php echo $_SESSION['miniPrice'] ?>"> -
+        <input class="form-control" type="text" name="maxPrice" placeholder="" value="<?php echo $_SESSION['maxPrice'] ?>">
+      </div>
+      <div class="input-group pb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="class" id="classCategories" value="classCategories" <?php echo $classCategoryCheck ?>>
+          </div>
+        </div>
+        <label class="input-group-text" for="classCategories">課程類別:</label>
+        <select class="custom-select" name="classCategory" id="">
+          <option value="c_perfume" <?php if ($_SESSION['classCategory'] === 'c_perfume') echo $classCategorySelect ?>>香水體驗</option>
+          <option value="c_soap" <?php if ($_SESSION['classCategory'] === 'c_soap') echo $classCategorySelect ?>>香皂體驗</option>
+        </select>
+      </div>
+      <div class="input-group pb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="class" id="classPeopleLimit" value="classPeopleLimit" <?php echo $classPeopleLimitCheck ?>>
+          </div>
+        </div>
+        <label class="input-group-text" for="classPeopleLimit">人數排序:</label>
+        <select class="custom-select" name="classPeopleLimitSequence" id="">
+          <option value="DESC" <?php if ($_SESSION['classPeopleLimitSequence'] === 'DESC') echo $classPeopleLimitSelect ?>>大至小</option>
+          <option value="ASC" <?php if ($_SESSION['classPeopleLimitSequence'] === 'ASC') echo $classPeopleLimitSelect ?>>小至大</option>
+        </select>
+      </div>
+      <div class="input-group pb-4">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" name="class" id="classDate" value="classDate" <?php echo $classDateCheck ?>>
+          </div>
+        </div>
+        <label class="input-group-text" for="classDate">日期:</label>
+        <input class="form-control" type="text" name='classDate' value="<?php echo $_SESSION['classDate'] ?>">
+      </div>
+      <div class="d-flex justify-content-between">
+        <input class="btn btn-outline-secondary" type="submit" value="查詢">
+        <a class="_btn btn btn-outline-secondary" href="javascript:;">重新搜尋</a>
+        <!-- <input class="btn btn-outline-secondary ml-2" type="reset" value="重新搜尋"> -->
+      </div>
+    </div>
+  </form>
+</div>
+
 <?php
 //若有建立商品種類，則顯示商品清單
 if ($totalClass > 0) {
@@ -188,7 +229,8 @@ if ($totalClass > 0) {
     <table class="table table-striped table-gray text-center">
       <thead class="thead-light">
         <tr>
-          <th class="border">勾選</th>
+
+          <th class="border"><a class="allSelected" href="javascript:;">全選</a></th>
           <th class="border">課程名稱</th>
           <th class="border">課程價格</th>
           <th class="border">課程類別</th>
@@ -210,19 +252,18 @@ if ($totalClass > 0) {
           $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
           for ($i = 0; $i < count($arr); $i++) {
         ?>
-            <tr class="<?php if ($arr[$i]['isAlive'] === '下架') echo '_tr' ?>">
-              <td class="border classTd _td">
-                <input type="hidden" name="" value="<?php echo count($arr) ?>">
-                <input id='test<?php echo $i ?>' type="checkbox" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
+            <tr class="<?php if ($arr[$i]['isAlive'] === '停課') echo '_tr' ?>">
+              <td class="border classTd">
+                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
               </td>
-              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['className']; ?></td>
-              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classPrice']; ?></td>
-              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classCategoryName']; ?></td>
-              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
-              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classDate']; ?></td>
-              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classTime']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['className']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['classPrice']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['classCategoryName']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['classDate']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['classTime']; ?></td>
               <td class="border">
-                <a href="./classInfo.php?id=<?php echo $arr[$i]['id'] ?>">修改</a>
+                <a class="btn btn-outline-secondary" href="./classInfo.php?id=<?php echo $arr[$i]['id'] ?>">修改</a>
               </td>
             </tr>
           <?php
@@ -246,13 +287,42 @@ if ($totalClass > 0) {
         </tr>
         <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="8"><input type="submit" name="smb" value="下架"></td>
+            <td class="border" colspan="8"><input class="btn btn-outline-secondary" type="submit" name="smb" value="下架"></td>
           </tr>
         <?php } ?>
 
       </tfoot>
     </table>
   </form>
+
+  <script>
+    document.querySelector('._btn').addEventListener('click', function() {
+      let classRadio = document.querySelectorAll('input[type=radio]')
+      let classText = document.querySelectorAll('input[type=text]')
+      let classSelect = document.querySelectorAll('select')
+      // 點擊後所有select選項會變成第一個option
+      classSelect.forEach(el => {
+        el.options[0].setAttribute('selected', true)
+      })
+      // 點擊後所有radio全部變成沒有選取的狀態
+      classRadio.forEach(el => {
+        el.removeAttribute('checked')
+      })
+      // 點擊後所以input::text的值為null
+      classText.forEach(el => {
+        el.value = null;
+      })
+    })
+    // 全選
+    document.querySelector('.allSelected').addEventListener('click', function() {
+      let _checkBox = document.querySelectorAll('input[type=checkbox]')
+      // 判斷是否有全選,有全選擇清空,沒有則相反
+      _checkBox.forEach(el => {
+
+        el.hasAttribute('checked') ? el.removeAttribute('checked') : el.setAttribute('checked', true)
+      })
+    })
+  </script>
 
 <?php
 } else {

@@ -22,17 +22,10 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($arrParam);
 
 if ($stmt->rowCount() > 0) {
-  header("Refresh: 3; url=../backStage/classInfo.php?id={$_POST['id']}");
-  $objResponse['success'] = true;
-  $objResponse['code'] = 204;
-  $objResponse['info'] = "更新成功";
-  echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
-  exit();
+  echo '<script>alert("修改成功")</script>';
+  header("Refresh: 0; url=../backStage/classInfo.php?id={$_POST['id']}");
 } else {
-  header("Refresh: 3; url=../backStage/classInfo.php?id={$_POST['id']}");
-  $objResponse['success'] = false;
-  $objResponse['code'] = 400;
-  $objResponse['info'] = "沒有任何更新";
-  echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  echo '<script>alert("修改失敗")</script>';
+  header("Refresh: 0; url=../backStage/classInfo.php?id={$_POST['id']}");
   exit();
 }

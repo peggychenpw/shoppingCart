@@ -1,3 +1,8 @@
+<style>
+  #sidebar header a {
+    cursor: text;
+  }
+</style>
 <div id="viewport">
   <!-- Sidebar -->
   <div id="sidebar">
@@ -6,7 +11,7 @@
     </header>
     <ul class="nav">
       <li>
-        <a href="#">
+        <a href="../backStage/members.php">
           <i class="zmdi zmdi-account-box"></i> 會員管理
         </a>
       </li>

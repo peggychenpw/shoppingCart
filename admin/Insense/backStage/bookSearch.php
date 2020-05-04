@@ -1,5 +1,6 @@
 <?php
-session_start();
+// session_start();
+error_reporting(0);
 
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
@@ -12,31 +13,32 @@ $dateToday =  date("Y-m-d");
 
 //每次剛進入預約查詢，清空SESSION，以利重新查詢
 if (!isset($_GET['page'])) {
-  $_SESSION['searchMethod'] = "";
-  $_SESSION['searchText'] = "";
-  $_SESSION['searchStatus'] = "all";
-  $_SESSION['searchDirection'] = "future";
-  $_SESSION['searchStartDate'] = "{$dateToday}";
-  $_SESSION['searchEndDate'] = "";
-  $_SESSION['sortOrder'] = "byClassDate";
-  $_SESSION['searchOrder'] = "forward";
+    $_SESSION['searchMethod'] = "";
+    $_SESSION['searchText'] = "";
+    $_SESSION['searchStatus'] = "all";
+    $_SESSION['searchDirection'] = "dateRange";
+    $_SESSION['searchStartDate'] = "";
+    $_SESSION['searchEndDate'] = "";
+    $_SESSION['sortOrder'] = "byClassDate";
+    $_SESSION['searchOrder'] = "forward";
 }
 
 //關鍵字查詢後，可跳頁，並保持查詢方式
 if (isset($_POST["searchMethod"])) {
-  //驗證有無進去判斷
-  // echo "yes";
-  $_SESSION['searchMethod'] = $_POST['searchMethod'];
-  $_SESSION['searchText'] = $_POST['searchText'];
-  $_SESSION['searchStatus'] = $_POST['searchStatus'];
-  $_SESSION['searchDirection'] = $_POST['searchDirection'];
-  $_SESSION['searchStartDate'] = $_POST['searchStartDate'];
-  $_SESSION['searchEndDate'] = $_POST['searchEndDate'];
-  $_SESSION['sortOrder'] = $_POST['sortOrder'];
-  $_SESSION['searchOrder'] =  $_POST['searchOrder'];
+    //驗證有無進去判斷
+    // echo "yes";
+    $_SESSION['searchMethod'] = $_POST['searchMethod'];
+    $_SESSION['searchText'] = $_POST['searchText'];
+    $_SESSION['searchStatus'] = $_POST['searchStatus'];
+    $_SESSION['searchDirection'] = $_POST['searchDirection'];
+    $_SESSION['searchStartDate'] = $_POST['searchStartDate'];
+    $_SESSION['searchEndDate'] = $_POST['searchEndDate'];
+    $_SESSION['sortOrder'] = $_POST['sortOrder'];
+    $_SESSION['searchOrder'] =  $_POST['searchOrder'];
 }
 
-$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `book`.`bookQty`,`book`.`created_at` 
+
+$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `class`.`isAlive`, `book`.`bookQty`,`book`.`created_at` 
         FROM `book`  
         INNER JOIN `class`
         ON `book`.`classId` = `class`.`classId`
@@ -50,8 +52,8 @@ $sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`
 
 function getSql($colFirst, $colSec)
 {
-  $searchSql = "WHERE `$colFirst`.`$colSec` LIKE '%{$_SESSION['searchText']}%'";
-  return $searchSql;
+    $searchSql = "WHERE `$colFirst`.`$colSec` LIKE '%{$_SESSION['searchText']}%'";
+    return $searchSql;
 }
 
 // echo getSql('book','bookId');
@@ -59,95 +61,95 @@ function getSql($colFirst, $colSec)
 
 //搜尋方式
 switch ($_SESSION["searchMethod"]) {
-  case "bookId":
-    $sql .= getSql('book', 'bookId');
-    // echo $sql;
-    // $sql .= "WHERE `book`.`bookId` LIKE '%{$_SESSION['searchText']}%'";
-    $bookIdSelect = "selected";
-    break;
-  case "classId":
-    $sql .= "WHERE `class`.`classId` LIKE '%{$_SESSION["searchText"]}%'";
-    $classIdSelect = "selected";
-    break;
-  case "className":
-    $sql .= "WHERE `class`.`className` LIKE '%{$_SESSION["searchText"]}%'";
-    $classNameSelect = "selected";
-    break;
-  case "userId":
-    $sql .= "WHERE `book`.`userId` LIKE '%{$_SESSION["searchText"]}%'";
-    $userIdSelect = "selected";
-    break;
-  case "userName":
-    $sql .= "WHERE `users`.`userName` LIKE '%{$_SESSION["searchText"]}%'";
-    $userNameSelect = "selected";
-    break;
+    case "bookId":
+        $sql .= getSql('book', 'bookId');
+        // echo $sql;
+        // $sql .= "WHERE `book`.`bookId` LIKE '%{$_SESSION['searchText']}%'";
+        $bookIdSelect = "selected";
+        break;
+    case "classId":
+        $sql .= "WHERE `class`.`classId` LIKE '%{$_SESSION["searchText"]}%'";
+        $classIdSelect = "selected";
+        break;
+    case "className":
+        $sql .= "WHERE `class`.`className` LIKE '%{$_SESSION["searchText"]}%'";
+        $classNameSelect = "selected";
+        break;
+    case "userId":
+        $sql .= "WHERE `book`.`userId` LIKE '%{$_SESSION["searchText"]}%'";
+        $userIdSelect = "selected";
+        break;
+    case "userName":
+        $sql .= "WHERE `users`.`userName` LIKE '%{$_SESSION["searchText"]}%'";
+        $userNameSelect = "selected";
+        break;
 }
 
 //預約狀態
 switch ($_SESSION['searchStatus']) {
-  case "all":
-    $allSelect = "selected";
-    break;
-  case "success":
-    $sql .= "AND `book`.`bookStatus` = '成功'";
-    $successSelect = "selected";
-    break;
-  case "cancelled":
-    $sql .= "AND `book`.`bookStatus` = '取消'";
-    $cancelledSelect = "selected";
-    break;
+    case "all":
+        $allSelect = "selected";
+        break;
+    case "success":
+        $sql .= "AND `book`.`bookStatus` = '成功'";
+        $successSelect = "selected";
+        break;
+    case "cancelled":
+        $sql .= "AND `book`.`bookStatus` = '取消'";
+        $cancelledSelect = "selected";
+        break;
 }
 
 //搜尋時間
 switch ($_SESSION['searchDirection']) {
-  case "future":
-    $sql .= "AND `class`.`classDate` >= '{$dateToday}'";
-    $futureCheck = 'checked="true"';
-    break;
-  case "past":
-    $sql .= "AND `class`.`classDate` <= '{$dateToday}'";
-    $pastCheck = 'checked="true"';
-    break;
-  case "dateRange":
-    $dateRangeCheck = 'checked="true"';
-    if ($_SESSION['searchStartDate'] !== "") {
-      $sql .= "AND `class`.`classDate` >= '{$_SESSION['searchStartDate']}'";
-    }
-    if ($_SESSION['searchEndDate'] !== "") {
-      $sql .= "AND `class`.`classDate` <= '{$_SESSION['searchEndDate']}'";
-    }
+    case "future":
+        $sql .= "AND `class`.`classDate` >= '{$dateToday}'";
+        $futureCheck = 'checked="true"';
+        break;
+    case "past":
+        $sql .= "AND `class`.`classDate` <= '{$dateToday}'";
+        $pastCheck = 'checked="true"';
+        break;
+    case "dateRange":
+        $dateRangeCheck = 'checked="true"';
+        if ($_SESSION['searchStartDate'] !== "") {
+            $sql .= "AND `class`.`classDate` >= '{$_SESSION['searchStartDate']}'";
+        }
+        if ($_SESSION['searchEndDate'] !== "") {
+            $sql .= "AND `class`.`classDate` <= '{$_SESSION['searchEndDate']}'";
+        }
 }
 
 //排序方式
 switch ($_SESSION["sortOrder"]) {
-  case "byClassDate":
-    $sql .= "ORDER BY `class`.`classDate` ";
-    $byClassDateCheck = 'checked="true"';
-    break;
-  case "byBookId":
-    $sql .= "ORDER BY `book`.`bookId` ";
-    $byBookIdCheck = 'checked="true"';
-    break;
-  case "byClassId":
-    $sql .= "ORDER BY `class`.`classId` ";
-    $byClassIdCheck = 'checked="true"';
-    break;
-  case "byUserId":
-    $sql .= "ORDER BY `book`.`userId` ";
-    $byUserIdCheck = 'checked="true"';
-    break;
+    case "byClassDate":
+        $sql .= "ORDER BY `class`.`classDate` ";
+        $byClassDateCheck = 'checked="true"';
+        break;
+    case "byBookId":
+        $sql .= "ORDER BY `book`.`bookId` ";
+        $byBookIdCheck = 'checked="true"';
+        break;
+    case "byClassId":
+        $sql .= "ORDER BY `class`.`classId` ";
+        $byClassIdCheck = 'checked="true"';
+        break;
+    case "byUserId":
+        $sql .= "ORDER BY `book`.`userId` ";
+        $byUserIdCheck = 'checked="true"';
+        break;
 }
 
 //順向或逆向
 switch ($_SESSION["searchOrder"]) {
-  case "forward":
-    $sql .= "ASC ";
-    $forwardSelect = "selected";
-    break;
-  case "backforward":
-    $sql .= "DESC ";
-    $backforwardSelect = "selected";
-    break;
+    case "forward":
+        $sql .= "ASC ";
+        $forwardSelect = "selected";
+        break;
+    case "backforward":
+        $sql .= "DESC ";
+        $backforwardSelect = "selected";
+        break;
 }
 // echo $sql;
 
@@ -161,7 +163,7 @@ $total = $pdo->query($sqlTotal)->fetch(PDO::FETCH_NUM)[0]; //取得預約總筆�
 // echo "</pre>";
 // exit();
 
-$numPerPage = 2; //每頁幾筆
+$numPerPage = 5; //每頁幾筆
 $totalPages = ceil($total / $numPerPage); // 總頁數
 
 //第幾頁
@@ -241,6 +243,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
     <input type="submit" name="smbSearch" class="ml-4">
     <a href="bookSearch.php" class="ml-4">重新搜尋</a>
   </form>
+
 </div>
 <!--       search end              -->
 <?php
@@ -332,12 +335,34 @@ if ($totalClasses > 0) {
         </tfoo>
     </table>
   </form>
+
 <?php
 } else {
-  //引入尚未建立商品種類的文字描述
-  echo "<div>無任何課程</div>";
+    //引入尚未建立商品種類的文字描述
+    echo "<div>無任何課程</div>";
 } ?>
-
 
 <?php require_once('../templates/footer.php'); // 最後在引入footer
 ?>
+
+<script>
+
+    let allCheckFunc = function(){
+        let checkbox = document.getElementsByName('chk[]')
+
+        if(document.myForm.allCheck.checked == true){
+            for( i = 0; i < checkbox.length; i++ ){
+                checkbox[i].checked = true;
+            }
+        }
+        else{
+            for( i = 0; i < checkbox.length; i++ ){
+                checkbox[i].checked = false;
+            }
+        }
+    }
+
+    document.getElementById('allCheck').addEventListener('click', function(){
+        allCheckFunc()})
+
+</script>
