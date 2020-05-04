@@ -10,6 +10,7 @@ require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php');
 require_once('../templates/leftSideBar.php');
 require_once('../templates/rightContainer.php');
+error_reporting(0);
 ?>
 
         <h3 class="pt-3 pb-2 d-flex justify-content-center">訂單管理</h3>

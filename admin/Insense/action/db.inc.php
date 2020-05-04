@@ -3,7 +3,7 @@
 $db_host = "localhost";
 $db_username = "test";
 $db_password = "t1stlocalhost";
-$db_name = "shopping_cart";
+$db_name = "db";
 $db_charset = "utf8mb4";
 $db_collate = "utf8mb4_unicode_ci";
 
