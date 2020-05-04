@@ -2,7 +2,7 @@
   <!-- Sidebar -->
   <div id="sidebar">
     <header>
-      <a href="#">INSENSE</a>
+      <span>INSENSE</span>
     </header>
     <ul class="nav">
       <li>
@@ -11,7 +11,7 @@
         </a>
       </li>
       <li>
-        <a href="../backStage/bookSearch.php">
+        <a href="../backStage/shopBookSearch.php">
           <i class="zmdi zmdi-calendar-check"></i> 課程預約管理
         </a>
     </ul>
