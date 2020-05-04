@@ -23,9 +23,9 @@ $stmt->execute($arrParam);
 
 if ($stmt->rowCount() > 0) {
   echo '<script>alert("修改成功")</script>';
-  header("Refresh: 0; url=../backStage/classInfo.php?id={$_POST['id']}");
+  header("Refresh: 0; url=../backStage/shopClassInfo.php?id={$_POST['id']}");
 } else {
   echo '<script>alert("修改失敗")</script>';
-  header("Refresh: 0; url=../backStage/classInfo.php?id={$_POST['id']}");
+  header("Refresh: 0; url=../backStage/shopClassInfo.php?id={$_POST['id']}");
   exit();
 }

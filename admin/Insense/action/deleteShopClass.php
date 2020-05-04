@@ -19,10 +19,10 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
 }
 if ($count > 0) {
   echo '<script>alert("刪除成功")</script>';
-  header("Refresh: 0;url=../backStage/classManagement.php?page={$_POST['pageNum']}");
+  header("Refresh: 0;url=../backStage/shopClassManagement.php?page={$_POST['pageNum']}");
   exit();
 } else {
   echo '<script>alert("請先勾選再刪除!!!")</script>';
-  header("Refresh: 0;url=../backStage/classManagement.php?page={$_POST['pageNum']}");
+  header("Refresh: 0;url=../backStage/shopClassManagement.php?page={$_POST['pageNum']}");
   exit();
 }

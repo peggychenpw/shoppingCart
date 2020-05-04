@@ -14,7 +14,7 @@ $arrParam = [
   $_POST['classCategory'],
   $_POST['classDate'],
   $_POST['classTime'],
-  $_POST['shopName'],
+  $_POST['shopId'],
   $openClass
 ];
 // $lastIdQuery = "SELECT `id` FROM `class` ORDER BY `id` DESC LIMIT 1 ";
@@ -35,10 +35,10 @@ $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
   echo '<script>alert("新增成功")</script>';
-  header("Refresh: 0; url=../backStage/classManagement.php");
+  header("Refresh: 0; url=../backStage/shopClassManagement.php");
   exit();
 } else {
   echo '<script>alert("新增失敗")</script>';
-  header("Refresh: 0; url=../backStage/editClass.php");
+  header("Refresh: 0; url=../backStage/editShopClass.php");
   exit();
 }

@@ -2,7 +2,7 @@
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php'); //  1.引入header
-require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
+require_once('../templates/shopLeftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 
 // search
@@ -67,30 +67,28 @@ $sql = "SELECT `class`.`id`,`class`.`classId`, `class`.`className`, `class`.`cla
 `class`.`classPeopleLimit`, `class`.`classDate`, `class`.`classTime`,`class`.`isAlive`, `class`.`created_at`,
 `class`.`updated_at`
 FROM `class` INNER JOIN `classcategory`
-ON `class`.`classCategoryId` = `classcategory`.`classCategoryId` ";
-// WHERE `class`.`isAlive` = '上架' 
-
-
+ON `class`.`classCategoryId` = `classcategory`.`classCategoryId`
+WHERE `class`.`shopId` = '{$_SESSION['shopId']}' ";
 
 switch ($_SESSION['class']) {
   case 'className':
-    $sql .= "WHERE `class`.`className` LIKE '%{$_SESSION['searchName']}%' ";
+    $sql .= "AND `class`.`className` LIKE '%{$_SESSION['searchName']}%' ";
     $sql .= "ORDER BY `class`.`id` ASC ";
     $classNameCheck = 'checked';
     break;
   case 'classPrice':
     if (isset($_SESSION['miniPrice']) && $_SESSION['maxPrice'] === "") {
-      $sql .= "WHERE `class`.`classPrice` >= {$_SESSION['miniPrice']} ";
+      $sql .= "AND `class`.`classPrice` >= {$_SESSION['miniPrice']} ";
     } elseif (isset($_SESSION['maxPrice']) && $_SESSION['miniPrice'] === "") {
-      $sql .= "WHERE `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
+      $sql .= "AND `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
     } elseif (isset($_SESSION['maxPrice']) && isset($_SESSION['miniPrice'])) {
-      $sql .= "WHERE `class`.`classPrice` >= {$_SESSION['miniPrice']} AND `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
+      $sql .= "AND `class`.`classPrice` >= {$_SESSION['miniPrice']} AND `class`.`classPrice` <= {$_SESSION['maxPrice']} ";
     }
     $sql .= "ORDER BY `class`.`classPrice` ASC ";
     $classPriceCheck = 'checked';
     break;
   case 'classCategories':
-    $sql .= "WHERE `class`.`classCategoryId` = '{$_SESSION['classCategory']}' ";
+    $sql .= "AND `class`.`classCategoryId` = '{$_SESSION['classCategory']}' ";
     $sql .= "ORDER BY `class`.`id` ASC ";
     $classCategorySelect = 'selected';
     $classCategoryCheck = 'checked';
@@ -106,7 +104,7 @@ switch ($_SESSION['class']) {
     $classPeopleLimitCheck = 'checked';
     break;
   case 'classDate':
-    $sql .= "WHERE `class`.`classDate` LIKE '%{$_SESSION['classDate']}%' ";
+    $sql .= "AND `class`.`classDate` LIKE '%{$_SESSION['classDate']}%' ";
     $sql .= "ORDER BY `class`.`id` ASC ";
     $classDateCheck = 'checked';
 }
@@ -154,10 +152,10 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
   <button class="btn btn-outline-secondary my-3 ml-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
     課程搜尋
   </button>
-  <a class="btn btn-outline-secondary my-3 mr-3" href="./editClass.php">新增商品</a>
+  <a class="btn btn-outline-secondary my-3 mr-3" href="./editShopClass.php">新增課程</a>
 </div>
 <div class="collapse" id="searchDivDetail">
-  <form method="POST" action="classManagement.php">
+  <form method="POST" action="shopClassManagement.php">
     <div class="col-3 mt-2">
       <div class="input-group pb-2">
         <div class="input-group-prepend">
@@ -215,7 +213,6 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
         <input class="btn btn-outline-secondary" type="submit" value="查詢">
         <input class="btn btn-outline-secondary ml-2" type="reset" value="清空">
         <a class="_btn btn btn-outline-secondary ml-5" href="javascript:;">重新搜尋</a>
-        <!-- <input class="btn btn-outline-secondary ml-2" type="reset" value="重新搜尋"> -->
       </div>
     </div>
   </form>
@@ -225,12 +222,11 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
 //若有建立商品種類，則顯示商品清單
 if ($totalClass > 0) {
 ?>
-  <form method="POST" enctype="multipart/form-data" action="../action/deleteClass.php">
+  <form method="POST" enctype="multipart/form-data" action="../action/deleteShopClass.php">
     <input type="hidden" name="pageNum" value="<?php echo $page ?>">
     <table class="table table-striped table-gray text-center">
       <thead class="thead-light">
         <tr>
-
           <th class="border"><a class="allSelected" href="javascript:;">全選</a></th>
           <th class="border">課程名稱</th>
           <th class="border">課程價格</th>
@@ -264,7 +260,7 @@ if ($totalClass > 0) {
               <td class="border _td"><?php echo $arr[$i]['classDate']; ?></td>
               <td class="border _td"><?php echo $arr[$i]['classTime']; ?></td>
               <td class="border">
-                <a class="btn btn-outline-secondary" href="./classInfo.php?id=<?php echo $arr[$i]['id'] ?>">修改</a>
+                <a class="btn btn-outline-secondary" href="./shopClassInfo.php?id=<?php echo $arr[$i]['id'] ?>">修改</a>
               </td>
             </tr>
           <?php
