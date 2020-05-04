@@ -6,6 +6,6 @@
 </div>
 <p>
   <label for="amount">商品價格範圍:</label>
-  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  <input type="text" id="amount" readonly style="border:0; color:#e9967a; font-weight:bold;">
 </p>
 <div id="slider-range"></div>

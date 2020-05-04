@@ -1,7 +1,7 @@
 <div class="container" id="comments">
 
 <?php
-require_once('./db.inc.php'); 
+// require_once('./db.inc.php'); 
 
 if(isset($_GET['itemId'])){
 
@@ -10,6 +10,8 @@ if(isset($_GET['itemId'])){
             FROM `comments`
             WHERE `itemId` = ? AND `parentId` = 0
             ORDER BY `created_at` DESC ";
+
+    // echo $sql;
 
     //查詢分頁後的商品資料
     $stmt = $pdo->prepare($sql);

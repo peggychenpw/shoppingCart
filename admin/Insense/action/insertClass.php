@@ -3,8 +3,9 @@ require_once('./checkAdmin.php'); //引入登入判斷
 require_once('./db.inc.php'); //引用資料庫連線
 
 $sql = "INSERT INTO `class` ( `className`,`classPrice`,`classPeopleLimit`,
-                             `classCategoryId`,`classDate`,`classTime`,`shopId`) 
-        VALUES (?,?,?,?,?,?,?)";
+                             `classCategoryId`,`classDate`,`classTime`,`shopId`,`isAlive`) 
+        VALUES (?,?,?,?,?,?,?,?)";
+$openClass = '開課';
 
 $arrParam = [
   $_POST['className'],
@@ -13,7 +14,8 @@ $arrParam = [
   $_POST['classCategory'],
   $_POST['classDate'],
   $_POST['classTime'],
-  $_POST['shopName']
+  $_POST['shopName'],
+  $openClass
 ];
 // $lastIdQuery = "SELECT `id` FROM `class` ORDER BY `id` DESC LIMIT 1 ";
 // $result = $pdo->prepare($sql);
@@ -32,6 +34,11 @@ $stmt = $pdo->prepare($sqlItemCode);
 $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
+  echo '<script>alert("新增成功")</script>';
   header("Refresh: 0; url=../backStage/classManagement.php");
+  exit();
+} else {
+  echo '<script>alert("新增失敗")</script>';
+  header("Refresh: 0; url=../backStage/editClass.php");
   exit();
 }

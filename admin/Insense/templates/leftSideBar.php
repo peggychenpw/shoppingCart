@@ -6,7 +6,7 @@
     </header>
     <ul class="nav">
       <li>
-        <a href="#">
+        <a href="../backStage/members.php">
           <i class="zmdi zmdi-account-box"></i> 會員管理
         </a>
       </li>

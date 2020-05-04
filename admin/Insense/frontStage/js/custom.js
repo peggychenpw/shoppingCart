@@ -37,7 +37,7 @@ $(document).ready(function () {
       data: {
         itemId: btn.attr('data-item-id'),
         cartQty: $("input#cartQty").val()
-      }
+      },
     })
       .done(function (json) {
         alert(json.info);
