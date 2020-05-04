@@ -42,7 +42,7 @@ $arrParam = [
     $_POST['address_edit'],
     $_POST['userCity_edit'],
     $_POST['username_edit'],
-    $_POST['pwd_edit'],
+    sha1($_POST['pwd_edit']),
     $_POST['userCreditCard_edit'],
     $_POST['userPoint_edit'],
     $_POST['userLoyalty_edit'],

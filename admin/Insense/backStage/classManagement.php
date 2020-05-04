@@ -145,10 +145,6 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
     cursor: no-drop;
     opacity: .5;
   }
-
-  ._td {
-    vertical-align: middle !important;
-  }
 </style>
 <div class="d-flex justify-content-between">
   <button class="btn btn-outline-secondary my-3 ml-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
@@ -257,12 +253,12 @@ if ($totalClass > 0) {
               <td class="border classTd">
                 <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
               </td>
-              <td class="border _td"><?php echo $arr[$i]['className']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classPrice']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classCategoryName']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classDate']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classTime']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['className']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classPrice']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classCategoryName']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classDate']; ?></td>
+              <td class="border input<?php echo $i ?>"><?php echo $arr[$i]['classTime']; ?></td>
               <td class="border">
                 <a class="btn btn-outline-secondary" href="./classInfo.php?id=<?php echo $arr[$i]['id'] ?>">修改</a>
               </td>
@@ -301,25 +297,20 @@ if ($totalClass > 0) {
       let classRadio = document.querySelectorAll('input[type=radio]')
       let classText = document.querySelectorAll('input[type=text]')
       let classSelect = document.querySelectorAll('select')
-      // 點擊後所有select選項會變成第一個option
       classSelect.forEach(el => {
         el.options[0].setAttribute('selected', true)
       })
-      // 點擊後所有radio全部變成沒有選取的狀態
       classRadio.forEach(el => {
         el.removeAttribute('checked')
       })
-      // 點擊後所以input::text的值為null
       classText.forEach(el => {
         el.value = null;
       })
     })
-    // 全選
+
     document.querySelector('.allSelected').addEventListener('click', function() {
       let _checkBox = document.querySelectorAll('input[type=checkbox]')
-      // 判斷是否有全選,有全選擇清空,沒有則相反
       _checkBox.forEach(el => {
-
         el.hasAttribute('checked') ? el.removeAttribute('checked') : el.setAttribute('checked', true)
       })
     })
