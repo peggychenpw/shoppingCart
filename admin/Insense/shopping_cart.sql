@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:8889
--- 產生時間： 2020 年 04 月 28 日 13:30
+-- 產生時間： 2020 年 04 月 30 日 07:05
 -- 伺服器版本： 5.7.26
 -- PHP 版本： 7.4.2
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- 資料表結構 `admin`
 --
 
 CREATE TABLE `admin` (
@@ -30,7 +30,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='管理者帳號';
 
 --
--- Dumping data for table `admin`
+-- 傾印資料表的資料 `admin`
 --
 
 INSERT INTO `admin` (`id`, `username`, `pwd`, `name`, `created_at`, `updated_at`) VALUES
@@ -40,26 +40,37 @@ INSERT INTO `admin` (`id`, `username`, `pwd`, `name`, `created_at`, `updated_at`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `book`
+-- 資料表結構 `book`
 --
 
 CREATE TABLE `book` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `bookId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '預約編號',
+  `bookId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '預約編號',
   `classId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程編號',
   `userId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '會員編號',
   `bookStatus` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '預約狀態',
   `bookQty` tinyint(3) DEFAULT NULL COMMENT '預約人數',
   `bookPrice` int(11) DEFAULT NULL COMMENT '單筆價格',
-  `bookTotalPrice` int(11) DEFAULT NULL COMMENT '總金額',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 傾印資料表的資料 `book`
+--
+
+INSERT INTO `book` (`id`, `bookId`, `classId`, `userId`, `bookStatus`, `bookQty`, `bookPrice`, `created_at`, `updated_at`) VALUES
+(1, '1', '123', '123', '123', 10, 1111, '2020-04-28 17:39:12', '2020-04-28 17:39:12'),
+(2, '2', '234', '1234', '1234', 111, 1234, '2020-04-28 17:39:12', '2020-04-28 17:39:12'),
+(3, '3', '5555', '5555', '1234', 12, 1000, '2020-04-28 17:39:52', '2020-04-28 17:39:52'),
+(4, '4', '1234', '1234', '111', 22, 1111, '2020-04-28 17:39:52', '2020-04-28 17:39:52'),
+(5, '5', '1111', '1111', '4555', 123, 1111, '2020-04-28 17:40:25', '2020-04-28 17:40:25'),
+(6, '6', '12345', '12345', '1111', 44, 11111, '2020-04-28 17:40:25', '2020-04-28 17:40:25');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `brand`
+-- 資料表結構 `brand`
 --
 
 CREATE TABLE `brand` (
@@ -70,7 +81,7 @@ CREATE TABLE `brand` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `brand`
+-- 傾印資料表的資料 `brand`
 --
 
 INSERT INTO `brand` (`brandId`, `brandName`, `created_at`, `updated_at`) VALUES
@@ -94,19 +105,19 @@ INSERT INTO `brand` (`brandId`, `brandName`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- 資料表結構 `categories`
 --
 
 CREATE TABLE `categories` (
   `categoryId` int(11) NOT NULL COMMENT '流水號',
-  `categoryName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '類別名稱',
+  `categoryName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '類別名稱',
   `categoryParentId` int(11) NOT NULL DEFAULT '0' COMMENT '上層編號',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='類別資料表';
 
 --
--- Dumping data for table `categories`
+-- 傾印資料表的資料 `categories`
 --
 
 INSERT INTO `categories` (`categoryId`, `categoryName`, `categoryParentId`, `created_at`, `updated_at`) VALUES
@@ -126,42 +137,66 @@ INSERT INTO `categories` (`categoryId`, `categoryName`, `categoryParentId`, `cre
 -- --------------------------------------------------------
 
 --
--- Table structure for table `class`
+-- 資料表結構 `class`
 --
 
 CREATE TABLE `class` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `classId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '課程編號',
+  `classId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '課程編號',
   `className` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程名稱',
   `classImg` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程圖片',
   `classPeopleLimit` tinyint(3) DEFAULT NULL COMMENT '人數限制',
   `classPrice` int(11) DEFAULT NULL COMMENT '課程價格',
   `classCategoryId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程分類',
-  `classTime` date DEFAULT NULL COMMENT '上課日期',
+  `classDate` date DEFAULT NULL COMMENT '上課日期',
+  `classTime` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '上課時間',
   `shopId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '廠商編號',
   `isAlive` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程狀態',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 傾印資料表的資料 `class`
+--
+
+INSERT INTO `class` (`id`, `classId`, `className`, `classImg`, `classPeopleLimit`, `classPrice`, `classCategoryId`, `classDate`, `classTime`, `shopId`, `isAlive`, `created_at`, `updated_at`) VALUES
+(36, 'C_36', '香水教室9', NULL, 30, 1500, 'c_perfume', '2020-04-30', '15:00', 'S_001', '上架', '2020-04-28 01:42:45', '2020-04-30 14:02:33'),
+(45, 'C_45', '香皂教室5', NULL, 20, 1111, 'c_perfume', '2020-04-23', '15:00', 'S_002', '下架', '2020-04-28 13:12:34', '2020-04-30 14:13:54'),
+(46, 'C_46', '香皂教室10', NULL, 10, 1500, 'c_soap', '2020-05-02', '14:00', 'S_002', '下架', '2020-04-30 02:18:40', '2020-04-30 13:46:05'),
+(47, 'C_47', '香水教室11', NULL, 25, 2000, 'c_perfume', '2020-05-02', '13:00', 'S_001', '下架', '2020-04-30 02:19:06', '2020-04-30 13:46:10'),
+(48, 'C_48', '香皂教室12', NULL, 22, 1600, 'c_soap', '2020-04-30', '14:00', 'S_002', '上架', '2020-04-30 02:52:39', '2020-04-30 12:24:45'),
+(49, 'C_49', '香水教室13', NULL, 10, 3000, 'c_perfume', '2020-04-25', '15:00', 'S_001', '上架', '2020-04-30 02:53:12', '2020-04-30 12:24:48'),
+(50, 'C_50', '香水教室14', NULL, 20, 1000, 'c_perfume', '2020-05-04', '15:00', 'S_002', '上架', '2020-04-30 02:53:39', '2020-04-30 12:24:53'),
+(51, 'C_51', '香水教室15', NULL, 30, 1200, 'c_perfume', '2020-05-07', '15:00', 'S_002', '上架', '2020-04-30 02:54:00', '2020-04-30 12:24:56'),
+(52, 'C_52', '香皂教室16', NULL, 30, 3000, 'c_soap', '2020-05-07', '14:00', 'S_001', '上架', '2020-04-30 02:54:18', '2020-04-30 11:45:35');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `classcategory`
+-- 資料表結構 `classcategory`
 --
 
 CREATE TABLE `classcategory` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `classCategoryId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '課程分類',
+  `classCategoryId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '課程分類',
   `classCategoryName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '課程索引',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 傾印資料表的資料 `classcategory`
+--
+
+INSERT INTO `classcategory` (`id`, `classCategoryId`, `classCategoryName`, `created_at`, `updated_at`) VALUES
+(1, 'c_perfume', '香水體驗', '2020-04-26 12:46:48', '2020-04-26 12:46:48'),
+(2, 'c_soap', '香皂體驗', '2020-04-26 12:47:21', '2020-04-26 12:47:21');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- 資料表結構 `comments`
 --
 
 CREATE TABLE `comments` (
@@ -178,16 +213,16 @@ CREATE TABLE `comments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `coupon`
+-- 資料表結構 `coupon`
 --
 
 CREATE TABLE `coupon` (
   `couponId` int(11) NOT NULL,
   `couponCode` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `couponName` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `couponStart` datetime DEFAULT NULL,
-  `couponEnd` datetime DEFAULT NULL,
   `couponDiscount` int(4) DEFAULT NULL,
+  `couponStart` date DEFAULT NULL,
+  `couponEnd` date DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -195,7 +230,20 @@ CREATE TABLE `coupon` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fragrance`
+-- 資料表結構 `formulation`
+--
+
+CREATE TABLE `formulation` (
+  `formulationId` int(11) NOT NULL COMMENT '質地編號',
+  `formulationName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '質地名稱',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `fragrance`
 --
 
 CREATE TABLE `fragrance` (
@@ -206,7 +254,7 @@ CREATE TABLE `fragrance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `fragrance`
+-- 傾印資料表的資料 `fragrance`
 --
 
 INSERT INTO `fragrance` (`fragranceId`, `fragranceName`, `created_at`, `updated_at`) VALUES
@@ -218,7 +266,7 @@ INSERT INTO `fragrance` (`fragranceId`, `fragranceName`, `created_at`, `updated_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `items`
+-- 資料表結構 `items`
 --
 
 CREATE TABLE `items` (
@@ -237,7 +285,7 @@ CREATE TABLE `items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='商品列表';
 
 --
--- Dumping data for table `items`
+-- 傾印資料表的資料 `items`
 --
 
 INSERT INTO `items` (`id`, `itemId`, `itemName`, `itemImg`, `itemSize`, `itemPrice`, `itemQty`, `itemCategoryId`, `brandId`, `fragranceId`, `created_at`, `updated_at`) VALUES
@@ -293,13 +341,13 @@ INSERT INTO `items` (`id`, `itemId`, `itemName`, `itemImg`, `itemSize`, `itemPri
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item_lists`
+-- 資料表結構 `item_lists`
 --
 
 CREATE TABLE `item_lists` (
   `itemListId` int(11) NOT NULL COMMENT '流水號',
   `orderId` int(11) DEFAULT NULL COMMENT '訂單編號',
-  `itemId` int(11) DEFAULT NULL COMMENT '商品編號',
+  `itemId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品編號',
   `itemSize` int(10) DEFAULT NULL COMMENT '容量',
   `checkPrice` int(11) DEFAULT NULL COMMENT '結帳時單價',
   `checkQty` tinyint(3) DEFAULT NULL COMMENT '結帳時數量',
@@ -309,23 +357,23 @@ CREATE TABLE `item_lists` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='訂單中的商品列表';
 
 --
--- Dumping data for table `item_lists`
+-- 傾印資料表的資料 `item_lists`
 --
 
 INSERT INTO `item_lists` (`itemListId`, `orderId`, `itemId`, `itemSize`, `checkPrice`, `checkQty`, `checkSubtotal`, `created_at`, `updated_at`) VALUES
-(1, 1, 3, 0, 100, 1, 100, '2020-04-23 13:13:34', '2020-04-23 13:13:34'),
-(2, 2, 1, 0, 3950, 1, 3950, '2020-04-23 17:20:32', '2020-04-23 17:20:32'),
-(3, 3, 1, 0, 3950, 1, 3950, '2020-04-23 18:05:42', '2020-04-23 18:05:42'),
-(4, 3, 1, 0, 3950, 1, 3950, '2020-04-23 18:05:42', '2020-04-23 18:05:42'),
-(5, 4, 1, 0, 3950, 1, 3950, '2020-04-23 18:08:59', '2020-04-23 18:08:59'),
-(6, 4, 6, 0, 1111, 1, 1111, '2020-04-23 18:08:59', '2020-04-23 18:08:59'),
-(7, 5, 6, 0, 1111, 1, 1111, '2020-04-24 09:56:41', '2020-04-24 09:56:41'),
-(8, 5, 6, 0, 1111, 1, 1111, '2020-04-24 09:56:41', '2020-04-24 09:56:41');
+(1, 1, 'P0001', 0, 100, 1, 100, '2020-04-23 13:13:34', '2020-04-29 16:12:13'),
+(2, 2, 'P0002', 0, 3950, 1, 3950, '2020-04-23 17:20:32', '2020-04-29 16:14:25'),
+(3, 3, 'P0003', 0, 3950, 1, 3950, '2020-04-23 18:05:42', '2020-04-29 16:14:36'),
+(4, 3, 'P0004', 0, 3950, 1, 3950, '2020-04-23 18:05:42', '2020-04-29 16:14:43'),
+(5, 4, 'P0005', 0, 3950, 1, 3950, '2020-04-23 18:08:59', '2020-04-29 16:14:46'),
+(6, 4, 'P0006', 0, 1111, 1, 1111, '2020-04-23 18:08:59', '2020-04-29 16:14:51'),
+(7, 5, 'P0007', 0, 1111, 1, 1111, '2020-04-24 09:56:41', '2020-04-29 16:15:06'),
+(8, 5, 'P0008', 0, 1111, 1, 1111, '2020-04-24 09:56:41', '2020-04-29 16:15:10');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item_tracking`
+-- 資料表結構 `item_tracking`
 --
 
 CREATE TABLE `item_tracking` (
@@ -340,19 +388,19 @@ CREATE TABLE `item_tracking` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `multiple_images`
+-- 資料表結構 `multiple_images`
 --
 
 CREATE TABLE `multiple_images` (
   `multipleImageId` int(11) NOT NULL COMMENT '流水號',
   `multipleImageImg` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '圖片名稱',
-  `itemId` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品編號',
+  `itemId` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品編號',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='商品圖片';
 
 --
--- Dumping data for table `multiple_images`
+-- 傾印資料表的資料 `multiple_images`
 --
 
 INSERT INTO `multiple_images` (`multipleImageId`, `multipleImageImg`, `itemId`, `created_at`, `updated_at`) VALUES
@@ -362,12 +410,12 @@ INSERT INTO `multiple_images` (`multipleImageId`, `multipleImageImg`, `itemId`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- 資料表結構 `orders`
 --
 
 CREATE TABLE `orders` (
   `orderId` int(11) NOT NULL COMMENT '流水號',
-  `orderCode` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '訂單編號',
+  `orderCode` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '訂單編號',
   `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者帳號',
   `orderPrice` int(100) DEFAULT NULL,
   `orderStatus` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '訂單狀態',
@@ -378,20 +426,16 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='結帳資料表';
 
 --
--- Dumping data for table `orders`
+-- 傾印資料表的資料 `orders`
 --
 
 INSERT INTO `orders` (`orderId`, `orderCode`, `username`, `orderPrice`, `orderStatus`, `paymentTypeId`, `couponId`, `created_at`, `updated_at`) VALUES
-(1, '', 'rose123@gmail.com', 0, NULL, 1, '1', '2020-04-23 13:13:34', '2020-04-23 16:58:42'),
-(2, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 17:20:32', '2020-04-23 17:20:32'),
-(3, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 18:05:42', '2020-04-23 18:05:42'),
-(4, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 18:08:59', '2020-04-23 18:08:59'),
-(5, '', 'rose123@gmail.com', 0, NULL, 1, NULL, '2020-04-24 09:56:41', '2020-04-24 09:56:41');
+(2, '', 'abc', 0, NULL, 1, NULL, '2020-04-23 17:20:32', '2020-04-23 17:20:32');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment_types`
+-- 資料表結構 `payment_types`
 --
 
 CREATE TABLE `payment_types` (
@@ -403,7 +447,7 @@ CREATE TABLE `payment_types` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='付款方式';
 
 --
--- Dumping data for table `payment_types`
+-- 傾印資料表的資料 `payment_types`
 --
 
 INSERT INTO `payment_types` (`paymentTypeId`, `paymentTypeName`, `paymentTypeImg`, `created_at`, `updated_at`) VALUES
@@ -413,12 +457,12 @@ INSERT INTO `payment_types` (`paymentTypeId`, `paymentTypeName`, `paymentTypeImg
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shop`
+-- 資料表結構 `shop`
 --
 
 CREATE TABLE `shop` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `shopId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '廠商編號',
+  `shopId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '廠商編號',
   `shopName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '廠商名稱',
   `shopAddress` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '廠商地址',
   `shopPhone` bigint(10) DEFAULT NULL COMMENT '廠商電話',
@@ -430,15 +474,23 @@ CREATE TABLE `shop` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 傾印資料表的資料 `shop`
+--
+
+INSERT INTO `shop` (`id`, `shopId`, `shopName`, `shopAddress`, `shopPhone`, `shopEmail`, `shopAccount`, `shopPassword`, `shopBank`, `created_at`, `updated_at`) VALUES
+(1, 'S_001', '隨便', '台北', 911333444, 'xxxxx@gmail.com', 'test', 'test', '123456789', '2020-04-26 16:54:39', '2020-04-26 16:54:39'),
+(2, 'S_002', '青菜', '地球', 911333555, 'ggggg@gmail.com', 'qqqqqq', 'qqqqqq', 'xxxxxxxxxxxx', '2020-04-28 13:09:03', '2020-04-28 13:09:03');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- 資料表結構 `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL COMMENT '流水號',
-  `userId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '使用者編號',
+  `userId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '使用者編號',
   `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者帳號',
   `pwd` char(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者密碼',
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '姓名',
@@ -457,221 +509,221 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='使用者資料表';
 
 --
--- Dumping data for table `users`
+-- 傾印資料表的資料 `users`
 --
 
 INSERT INTO `users` (`id`, `userId`, `username`, `pwd`, `name`, `gender`, `phoneNumber`, `birthday`, `userEmail`, `userCity`, `address`, `userCreditCard`, `userPoint`, `userLoyalty`, `isActivated`, `created_at`, `updated_at`) VALUES
 (1, '', 'test', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'aabbab', '男', 1111111111, '2011-11-11 01:00:00', '', '', '123123', '', 0, 0, 0, '2020-04-24 14:17:58', '2020-04-24 14:17:58');
 
 --
--- Indexes for dumped tables
+-- 已傾印資料表的索引
 --
 
 --
--- Indexes for table `admin`
+-- 資料表索引 `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- Indexes for table `book`
+-- 資料表索引 `book`
 --
 ALTER TABLE `book`
   ADD PRIMARY KEY (`id`,`bookId`);
 
 --
--- Indexes for table `brand`
+-- 資料表索引 `brand`
 --
 ALTER TABLE `brand`
   ADD PRIMARY KEY (`brandId`);
 
 --
--- Indexes for table `categories`
+-- 資料表索引 `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`categoryId`);
 
 --
--- Indexes for table `class`
+-- 資料表索引 `class`
 --
 ALTER TABLE `class`
   ADD PRIMARY KEY (`id`,`classId`);
 
 --
--- Indexes for table `classcategory`
+-- 資料表索引 `classcategory`
 --
 ALTER TABLE `classcategory`
   ADD PRIMARY KEY (`id`,`classCategoryId`);
 
 --
--- Indexes for table `comments`
+-- 資料表索引 `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `coupon`
+-- 資料表索引 `coupon`
 --
 ALTER TABLE `coupon`
   ADD PRIMARY KEY (`couponId`);
 
 --
--- Indexes for table `fragrance`
+-- 資料表索引 `formulation`
+--
+ALTER TABLE `formulation`
+  ADD PRIMARY KEY (`formulationId`);
+
+--
+-- 資料表索引 `fragrance`
 --
 ALTER TABLE `fragrance`
   ADD PRIMARY KEY (`fragranceId`);
 
 --
--- Indexes for table `items`
---
-ALTER TABLE `items`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `item_lists`
+-- 資料表索引 `item_lists`
 --
 ALTER TABLE `item_lists`
   ADD PRIMARY KEY (`itemListId`);
 
 --
--- Indexes for table `item_tracking`
+-- 資料表索引 `item_tracking`
 --
 ALTER TABLE `item_tracking`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `multiple_images`
+-- 資料表索引 `multiple_images`
 --
 ALTER TABLE `multiple_images`
   ADD PRIMARY KEY (`multipleImageId`);
 
 --
--- Indexes for table `orders`
+-- 資料表索引 `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`orderId`,`orderCode`);
 
 --
--- Indexes for table `payment_types`
+-- 資料表索引 `payment_types`
 --
 ALTER TABLE `payment_types`
   ADD PRIMARY KEY (`paymentTypeId`);
 
 --
--- Indexes for table `shop`
+-- 資料表索引 `shop`
 --
 ALTER TABLE `shop`
   ADD PRIMARY KEY (`id`,`shopId`);
 
 --
--- Indexes for table `users`
+-- 資料表索引 `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`,`userId`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `admin`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `book`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `book`
 --
 ALTER TABLE `book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `brand`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `brand`
 --
 ALTER TABLE `brand`
   MODIFY `brandId` int(11) NOT NULL AUTO_INCREMENT COMMENT '品牌編號', AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `categories`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `categories`
 --
 ALTER TABLE `categories`
   MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `class`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `class`
 --
 ALTER TABLE `class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=53;
 
 --
--- AUTO_INCREMENT for table `classcategory`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `classcategory`
 --
 ALTER TABLE `classcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `comments`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `comments`
 --
 ALTER TABLE `comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
 
 --
--- AUTO_INCREMENT for table `coupon`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `coupon`
 --
 ALTER TABLE `coupon`
-  MODIFY `couponId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `couponId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `fragrance`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `formulation`
+--
+ALTER TABLE `formulation`
+  MODIFY `formulationId` int(11) NOT NULL AUTO_INCREMENT COMMENT '質地編號';
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `fragrance`
 --
 ALTER TABLE `fragrance`
   MODIFY `fragranceId` int(11) NOT NULL AUTO_INCREMENT COMMENT '香調編號', AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `items`
---
-ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=49;
-
---
--- AUTO_INCREMENT for table `item_lists`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `item_lists`
 --
 ALTER TABLE `item_lists`
   MODIFY `itemListId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `item_tracking`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `item_tracking`
 --
 ALTER TABLE `item_tracking`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
 
 --
--- AUTO_INCREMENT for table `multiple_images`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `multiple_images`
 --
 ALTER TABLE `multiple_images`
   MODIFY `multipleImageId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=6;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `payment_types`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `payment_types`
 --
 ALTER TABLE `payment_types`
   MODIFY `paymentTypeId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `shop`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `users`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=2;
