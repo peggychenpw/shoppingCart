@@ -207,10 +207,9 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
         <label class="input-group-text" for="classDate">日期:</label>
         <input class="form-control" type="text" name='classDate' value="<?php echo $_SESSION['classDate'] ?>">
       </div>
-      <div>
+      <div class="d-flex justify-content-between">
         <input class="btn btn-outline-secondary" type="submit" value="查詢">
-        <input class="btn btn-outline-secondary ml-2" type="reset" value="清空">
-        <a class="_btn btn btn-outline-secondary ml-5" href="javascript:;">重新搜尋</a>
+        <a class="_btn btn btn-outline-secondary" href="javascript:;">重新搜尋</a>
         <!-- <input class="btn btn-outline-secondary ml-2" type="reset" value="重新搜尋"> -->
       </div>
     </div>

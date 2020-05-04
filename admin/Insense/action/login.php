@@ -12,7 +12,7 @@ if (isset($_POST['username']) && isset($_POST['pwd'])) {
             WHERE `username` = ? 
             AND `pwd` = ? ";
   } else {
-    $sql = "SELECT `username`, `pwd`, `name`
+    $sql = "SELECT `username`, `pwd`, `name` ,`shopId`
             FROM `shop`
             WHERE `username` = ? 
             AND `pwd` = ? ";
@@ -34,21 +34,21 @@ if (isset($_POST['username']) && isset($_POST['pwd'])) {
     $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
     //3 秒後跳頁
     if ($_POST['username'] === 'admin')
-      header("Refresh: 3; url=../backStage/admin.php");
+      header("Refresh: 0; url=../backStage/admin.php");
     else {
-      header("Refresh: 3; url=../backStage/shopIndex.php");
+      header("Refresh: 0; url=../backStage/shopClassManagement.php");
     }
 
 
     //將傳送過來的 post 變數資料，放到 session，
     $_SESSION['username'] = $arr[0]['username'];
-
-    echo "登入成功!!! 權限為「{$_SESSION['username']}」，3秒後自動進入頁面";
+    $_SESSION['name'] = $arr[0]['name'];
+    $_SESSION['shopId'] = $arr[0]['shopId'];
     exit();
   }
-  header("Refresh: 3; url=./index.php");
-  echo "登入失敗…3秒後自動回登入頁";
+  header("Refresh: 0; url=../backStage/log.php");
+  echo "<script>alert('登入失敗')</script>";
 } else {
-  header("Refresh: 3; url=./index.php");
-  echo "請確實登入…3秒後自動回登入頁";
+  header("Refresh: 0; url=../backStage/log.php");
+  echo "<script>alert('請確實登入')</script>";
 }

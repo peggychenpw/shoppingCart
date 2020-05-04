@@ -2,9 +2,8 @@
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php');
-require_once('../templates/leftSideBar.php');
+require_once('../templates/shopLeftSideBar.php');
 require_once('../templates/rightContainer.php');
-
 
 if (isset($_GET['id'])) {
 
@@ -17,14 +16,12 @@ if (isset($_GET['id'])) {
           ON     `class`.`shopId` = `shop`.`shopId`
           WHERE `class`.`id` = ? ";
 
-
   $stmt = $pdo->prepare($sql);
   $arrParam = [$_GET['id']];
   $stmt->execute($arrParam);
 
   if ($stmt->rowCount() > 0) {
     $arr = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
-
 ?>
     <style>
       .cantOverride {
@@ -32,7 +29,7 @@ if (isset($_GET['id'])) {
       }
     </style>
 
-    <form class="mt-5" method="POST" enctype="multipart/form-data" action="../action/updateClass.php">
+    <form class="mt-5" method="POST" enctype="multipart/form-data" action="../action/updateShopClass.php">
       <div class="form-row col-12">
         <div class="form-group col-md-12 px-5">
           <label for="classId">課程編號：</label>
@@ -99,7 +96,7 @@ if (isset($_GET['id'])) {
         </div>
         <div class="d-flex w-100 justify-content-between px-5 mt-3">
           <input name="id" type="hidden" value="<?php echo $_GET['id'] ?>">
-          <a class="btn btn-outline-secondary mr-5" href="./classManagement.php">返回</a>
+          <a class="btn btn-outline-secondary mr-5" href="./shopClassManagement.php">返回</a>
           <input class="btn btn-outline-secondary" type="submit" value="修改">
         </div>
       </div>

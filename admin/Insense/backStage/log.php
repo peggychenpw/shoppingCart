@@ -3,16 +3,48 @@ session_start();
 require_once('../action/db.inc.php');
 require_once('../templates/header.php');
 ?>
-<form method="POST" action="../action/login.php">
-  <label>
-    帳號:<input type="text" name="username">
-  </label>
-  <label>
-    密碼:<input type="text" name="pwd">
-  </label>
-  <input type="submit" value="送出">
-</form>
+<style>
+  body {
+    background-image: url("https://images.unsplash.com/photo-1508717272800-9fff97da7e8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
+  .box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .box h2 {
+    color: var(--main-logo-blue);
+    font-size: 4rem;
+  }
+
+  .logForm {
+    border: 2px solid var(--main-light-blue);
+    border-radius: 2rem;
+  }
+</style>
+<div class="box m-auto text-center">
+  <h2 class="mb-4">InSense</h2>
+  <form class="logForm p-5" method="POST" action="../action/login.php">
+    <div class="form-group">
+      <label>
+        帳號<input type="text" class="form-control" name="username">
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        密碼<input type="password" class="form-control" name="pwd">
+      </label>
+    </div>
+    <div>
+      <input class="w-100 btn btn-outline-secondary mt-3" type="submit" value="登入">
+    </div>
+  </form>
+</div>
 
 </div> <!-- new container -->
 <!-- jquery -->
