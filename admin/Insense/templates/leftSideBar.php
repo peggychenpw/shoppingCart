@@ -1,3 +1,8 @@
+<style>
+  #sidebar header a {
+    cursor: text;
+  }
+</style>
 <div id="viewport">
   <!-- Sidebar -->
   <div id="sidebar">

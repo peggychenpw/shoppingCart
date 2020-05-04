@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
       }
     </style>
 
-    <form method="POST" enctype="multipart/form-data" action="../action/updateShopClass.php">
+    <form class="mt-5" method="POST" enctype="multipart/form-data" action="../action/updateShopClass.php">
       <div class="form-row col-12">
         <div class="form-group col-md-12 px-5">
           <label for="classId">課程編號：</label>
