@@ -49,20 +49,20 @@ WHERE `couponId` = ? ";
     <tbody>
         <tr>
             <td class="border">
-                <input type="text" name="couponName" value="" maxlength="100" />
+                <input type="text" name="couponName" value="" maxlength="100" required />
             </td>
             <td class="border">
-                <input type="text" name="couponCode" value="" maxlength="11" />
+                <input type="text" name="couponCode" value="" maxlength="11" required/>
             </td>
             <td class="border">
-                <input type="text" name="couponDiscount" value="" maxlength="5" />
+                <input type="text" name="couponDiscount" value="" maxlength="5" required />
             </td>
             <td class="border">
-                <input name="couponStart" id="date" type="date" > 
+                <input name="couponStart" id="date" type="date" required> 
                 </input>
             </td>
             <td class="border">
-                <input name="couponEnd" id="date" type="date">
+                <input name="couponEnd" id="date" type="date" required>
                 </input>
             </td>
         </tr>

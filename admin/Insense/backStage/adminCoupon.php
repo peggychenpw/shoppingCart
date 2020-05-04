@@ -82,7 +82,7 @@ $sqlTotalCatogories = "SELECT count(1) FROM ({$sql}) AS `aaa`";
 
 //取得商品種類總筆數
 $totalCatogories = $pdo->query($sqlTotalCatogories)->fetch(PDO::FETCH_NUM)[0];
-$numPerPage = 5; //每頁幾筆
+$numPerPage = 20; //每頁幾筆
 $totalPages = ceil($totalCatogories / $numPerPage); // 總頁數
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1; //目前第幾頁
 $page = $page < 1 ? 1 : $page; //若 page 小於 1，則回傳 1
@@ -94,8 +94,8 @@ require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
 <h3>我的優惠券</h3>
+<a class="btn btn-outline-secondary" href="./createCoupon.php">新增優惠券</a>
 
-<a href="./createCoupon.php">新增優惠券</a>
 <hr/>
 <form name="couponSearchForm" entype="multipart/form-data" method="POST" action="adminCoupon.php">
 <div>
@@ -118,11 +118,11 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 if ($totalCatogories > 0) {
 ?>
   <!-- Table 樣板 -->
-  <form name="myForm2" entype="multipart/form-data" method="POST" action="deleteCoupon.php">
+  <form name="myform2" id="myform2" entype="multipart/form-data" method="POST" action="deleteCoupon.php">
     <table class="table table-striped table-gray">
       <thead class="thead-dark">
         <tr>
-          <th class="border">勾選</th>
+          <th class="border"><input type='checkbox' name='Check_ctr' onClick="Check('chk[]')">全選</th>
           <th class="border">優惠券名稱</th>
           <th class="border">優惠碼</th>
           <th class="border">優惠券折扣</th>
@@ -167,10 +167,10 @@ if ($totalCatogories > 0) {
 
           for ($i = 0; $i < count($arr); $i++) {
         ?>
-        
+            
             <tr>
               <td class="border">
-                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['couponId']; ?>" />
+                  <input type="checkbox" name="chk[]" id="chk[]" value="<?php echo $arr[$i]['couponId']; ?>" />
               </td>
               <td class="border"><?php echo $arr[$i]['couponName']; ?></td>
               <td class="border"><?php echo $arr[$i]['couponCode']; ?></td>
@@ -184,6 +184,7 @@ if ($totalCatogories > 0) {
               ">優惠券編輯</a>
               </td>
             </tr>
+          
           <?php
           }
         } else {
@@ -212,10 +213,27 @@ if ($totalCatogories > 0) {
         </tfoo>
     </table>
   </form>
+  <script>
+        function Check(chk) {
+            let chkbox = document.getElementsByName(chk);
+            if (document.myform2.Check_ctr.checked == true) {
+                for (i = 0; i < chkbox.length; i++) {
+                    chkbox[i].checked = true;
+                }
+            } else {
+                for (i = 0; i < chkbox.length; i++) {
+                    chkbox[i].checked = false;
+                }
+
+            }
+        }
+    </script>
 <?php
 } else {
   //引入尚未建立商品種類的文字描述
   require_once('../templates/noCategoryCoupon.php');
 }
+
 require_once('../templates/footer.php');
 ?>
+    
