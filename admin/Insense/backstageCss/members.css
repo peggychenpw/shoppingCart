@@ -6,6 +6,7 @@
 /* ================共用標籤================ */
 a,a link {
     text-decoration: none;
+    font-size: 25px;
 }
 thead{
     background-color: #e9ecef;
