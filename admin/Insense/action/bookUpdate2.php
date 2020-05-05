@@ -98,11 +98,15 @@ require_once('../templates/rightContainer.php');
 ?>
 
 <style>
-  .loading-icon{
+  .loading-icon {
     position: absolute;
-    top:50%;
-    left: calc( 50% + 7.5vw );
-    transform: translate(-50%,-50%);
+    top: 50%;
+    left: calc(50% + 7.5vw);
+    transform: translate(-50%, -50%);
+  }
+
+  .loading-content {
+    border: transparent;
   }
 </style>
 <?php
@@ -118,25 +122,34 @@ if ($_POST['bookStatusSelect'] === "取消") {
     $objResponse['info'] = "更新成功";
     // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
 ?>
-    <div class="d-flex justify-content-center loading-icon">
-      <div class="spinner-grow text-secondary" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
+    <div class="loading-icon">
+      <button class="btn btn-outline-secondary d-flex align-items-center loading-content" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        <span class="mb-1 ml-2">更新成功 !</span>
+      </button>
     </div>
-    <script>
+    <!-- <script>
       setTimeout(() => {
         alert("更新成功")
       }, 200);
-    </script>
+    </script> -->
 
-    <?php
+  <?php
     // exit();
   } else {
     header("Refresh: 1; url=../backStage/bookSearch2.php?page={$_GET['page']}");
     $objResponse['success'] = false;
     $objResponse['code'] = 400;
     $objResponse['info'] = "沒有任何更新";
-    echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+    // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  ?>
+    <div class="loading-icon">
+      <button class="btn btn-outline-secondary d-flex align-items-center loading-content" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        <span class="mb-1 ml-2">沒有任何更新...</span>
+      </button>
+    </div>
+    <?php
     // exit();
   }
 } else {
@@ -152,16 +165,17 @@ if ($_POST['bookStatusSelect'] === "取消") {
       $objResponse['info'] = "更新成功";
       // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
     ?>
-      <div class="d-flex justify-content-center loading-icon">
-        <div class="spinner-grow text-secondary" style="width: 3rem; height: 3rem;" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
+      <div class="loading-icon">
+        <button class="btn btn-outline-secondary d-flex align-items-center loading-content" type="button" disabled>
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          <span class="mb-1 ml-2">更新成功 !</span>
+        </button>
       </div>
-      <script>
+      <!-- <script>
         setTimeout(() => {
           alert("更新成功")
         }, 200);
-      </script>
+      </script> -->
     <?php
       // exit();
     } else {
@@ -169,15 +183,28 @@ if ($_POST['bookStatusSelect'] === "取消") {
       $objResponse['success'] = false;
       $objResponse['code'] = 400;
       $objResponse['info'] = "沒有任何更新";
-      echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+      // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+    ?>
+      <div class="loading-icon">
+        <button class="btn btn-outline-secondary d-flex align-items-center loading-content" type="button" disabled>
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          <span class="mb-1 ml-2">沒有任何更新...</span>
+        </button>
+      </div>
+    <?php
       // exit();
     }
   } else {
     $spaceLeft = $classPeopleLimit - $currentOtherPeople
     ?>
+    <div class="loading-icon">
+      <button class="btn btn-outline-secondary d-flex align-items-center loading-content" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        <span class="mb-1 ml-2">沒有任何更新...</span>
+      </button>
+    </div>
     <script>
       setTimeout(() => {
-
         alert("報名人數超過課程上限，目前最多僅可預約" + <?php echo $spaceLeft ?> + "個名額")
       }, 100);
     </script>
@@ -186,8 +213,8 @@ if ($_POST['bookStatusSelect'] === "取消") {
     $objResponse['success'] = false;
     $objResponse['code'] = 400;
     $objResponse['info'] = "沒有任何更新";
-    echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
-    exit();
+    // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+    // exit();
   }
 }
 ?>
