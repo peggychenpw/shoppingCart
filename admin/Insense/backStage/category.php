@@ -38,7 +38,7 @@ function buildTree($pdo, $parentId = 0)
       echo '<div class="input-group py-2 mx-2">';
       echo '<div class="input-group-prepend ">';
       echo '<div class="input-group-text">';
-      echo "<input class='bgColor' type='radio' name='categoryId' id='itemCategory" . $arr[$i]['categoryId'] . "' />";
+      echo "<input class='bgColor' type='radio' name='categoryId' value='" . $arr[$i]['categoryId'] . "' id='itemCategory" . $arr[$i]['categoryId'] . "' />";
       echo '</div>';
       echo '</div>';
       echo '<label class="input-group-text labelCategory bgColor" for="itemCategory' . $arr[$i]['categoryId'] . '">' . $arr[$i]['categoryName'] . ":" . '</label>';

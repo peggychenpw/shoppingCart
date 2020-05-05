@@ -51,7 +51,7 @@ require_once('../templates/rightContainer.php');
         </td>
         <td class="border">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+            <input type="file" name="itemImg" class="custom-file-input" id="validatedCustomFile" required>
             <label class="custom-file-label" for="validatedCustomFile"></label>
             <div class="invalid-feedback">Example invalid custom file feedback</div>
           </div>

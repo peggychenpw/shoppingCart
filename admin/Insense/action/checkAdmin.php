@@ -9,9 +9,20 @@ if (!isset($_SESSION['username'])) {
   exit();
 }
 
-// if($_SESSION['identity'] !== 'admin'){
-//     //3 秒後跳頁
+// $sql = "SELECT `shop`.`shopId`
+//         FROM `shop`
+//         WHERE `shop`.`username` = '{$_SESSION['username']}'";
+
+// $stmt = $pdo->query($sql);
+
+// if ($_SESSION['username'] !== 'admin') {
+//   if($stmt->rowCount()==0){
 //     header("Refresh: 3; url=../frontStage/login.php");
 //     echo "您無權使用該網頁…3秒後自動回登入頁";
-//     exit();
+//   }
+//   else{
+
+//   }
+//   //3 秒後跳頁
+//   exit();
 // }
