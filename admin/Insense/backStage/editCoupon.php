@@ -8,7 +8,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 
 <a class="home btn btn-outline-secondary ml-3 my-3" href="./adminCoupon.php">我的優惠券</a>
 <h3 class="ml-3 pb-2">編輯優惠券</h3>
-<form name="myForm" enctype="multipart/form-data" method="POST" action="updateCoupon.php">
+<form name="myForm" enctype="multipart/form-data" method="POST" action="../action/updateCoupon.php">
   <table class="table table-striped table-gray text-center">
     <thead class="thead-light">
       <tr>

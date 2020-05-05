@@ -1,5 +1,5 @@
 <?php
-require_once('./checkAdmin.php'); //引入登入判斷
+require_once('./checkShop.php'); //引入登入判斷
 require_once('./db.inc.php'); //引用資料庫連線
 
 

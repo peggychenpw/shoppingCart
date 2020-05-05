@@ -15,6 +15,7 @@ require_once('../templates/header.php');
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-width: 30vw;
   }
 
   .box h2 {

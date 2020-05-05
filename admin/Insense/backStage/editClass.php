@@ -42,13 +42,18 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
         <option value="13:00">13:00</option>
         <option value="14:00">14:00</option>
         <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+        <option value="18:00">18:00</option>
+        <option value="19:00">19:00</option>
+        <option value="20:00">20:00</option>
       </select>
     </div>
     <div class="form-group col-md-3 px-5">
       <label for="shopName">廠商名稱</label>
       <select name="shopName" id="shopName" class="form-control">
-        <option value="S_001">隨便</option>
-        <option value="S_002">青菜</option>
+        <option value="S_001">ShopA</option>
+        <option value="S_002">ShopB</option>
       </select>
     </div>
     <div class="d-flex w-100 px-5 mt-3">

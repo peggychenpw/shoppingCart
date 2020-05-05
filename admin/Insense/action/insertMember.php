@@ -37,7 +37,7 @@ $arr = [
   $_POST['address_new'],
   $_POST['userEmail_new'],
   $_POST['phoneNumber_new'],
-  $imgFileName,
+  @$imgFileName,
   $_POST['username_new'],
   sha1($_POST['pwd_new']),
   $_POST['userPoint_new'],

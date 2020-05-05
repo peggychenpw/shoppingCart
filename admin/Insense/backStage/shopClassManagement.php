@@ -1,5 +1,5 @@
 <?php
-require_once('../action/checkAdmin.php'); //引入登入判斷
+require_once('../action/checkShop.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/shopLeftSideBar.php'); // 2. 引入leftSiderBar
@@ -152,7 +152,7 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
   }
 </style>
 <div class="d-flex">
-  <button class="btn btn-outline-secondary my-3 mx-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+  <button class="btn btn-outline-info my-3 mx-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
     課程搜尋
   </button>
   <a class="btn btn-outline-secondary my-3 mr-3" href="./editShopClass.php">新增課程</a>

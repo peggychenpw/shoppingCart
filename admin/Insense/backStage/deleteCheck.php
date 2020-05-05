@@ -1,3 +1,15 @@
+<style>
+  .loading-icon {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 7.5vw);
+    transform: translate(-50%, -50%);
+  }
+
+  .loading-content {
+    border: transparent;
+  }
+</style>
 <?php
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
@@ -134,10 +146,10 @@ if (!isset($_POST['chk'])) {
     </table>
     <form name="myForm" method="GET" action="./Alldelete.php">
 
-      
+
       <button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">取消全部
       </button>
-    
+
     </form>
     </div>
 
@@ -156,9 +168,7 @@ if (!isset($_POST['chk'])) {
 }
 ?>
 
-<?php
-require_once('../templates/footer.php');
-?>
+
 
 
 <?php
@@ -209,12 +219,21 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
 }
 
 if ($count > 0) {
-  header("Refresh: 0; url=./orders.php");
-  echo "<script type='text/javascript'>alert(`刪除成功 >w<`);</script>";
-  exit();
-} else {
-  header("Refresh: 1; url=./orders.php");
-  echo "<script type='text/javascript'>alert(`刪除失敗 >w<`);</script>";
-  exit();
-}
+  header("Refresh: 1; url=./checkSearch.php");
+  // echo "<script type='text/javascript'>alert(`刪除成功 >w<`);</script>";
 ?>
+  <div class="loading-icon">
+    <button class="d-flex align-items-center loading-content" type="button" disabled>
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      <span class="mb-1 ml-2">刪除成功 >w<</span> </button> </div> <?php
+                                                              } else {
+                                                                header("Refresh: 1; url=./checkSearch.php");
+                                                                // echo "<script type='text/javascript'>alert(`刪除失敗 >w<`);</script>";
+                                                                ?> <div class="loading-icon">
+          <button class="d-flex align-items-center loading-content" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            <span class="mb-1 ml-2">刪除失敗 >w<</span> </button> </div> <?php
+                                                                    }
+                                                                      ?> <?php
+    require_once('../templates/footer.php');
+    ?>

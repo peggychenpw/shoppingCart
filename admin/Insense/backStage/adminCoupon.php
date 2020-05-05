@@ -151,7 +151,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 if ($totalCatogories > 0) {
 ?>
   <!-- Table 樣板 -->
-  <form name="myform2" id="myform2" entype="multipart/form-data" method="POST" action="deleteCoupon.php">
+  <form name="myform2" id="myform2" entype="multipart/form-data" method="POST" action="../action/deleteCoupon.php">
     <table class="table table-striped table-gray text-center">
       <thead class="thead-light">
         <tr>

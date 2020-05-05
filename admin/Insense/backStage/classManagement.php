@@ -159,7 +159,7 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
   }
 </style>
 <div class="d-flex">
-  <button class="btn btn-outline-secondary my-3 mx-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+  <button class="btn btn-outline-info my-3 mx-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
     課程搜尋
   </button>
   <a class="btn btn-outline-secondary my-3 mr-3" href="./editClass.php">新增商品</a>

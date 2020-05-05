@@ -1,5 +1,5 @@
 <?php
-require_once('../action/checkAdmin.php'); //引入登入判斷
+require_once('../action/checkShop.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/shopLeftSideBar.php'); // 2. 引入leftSiderBar
@@ -42,6 +42,11 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
         <option value="13:00">13:00</option>
         <option value="14:00">14:00</option>
         <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+        <option value="18:00">18:00</option>
+        <option value="19:00">19:00</option>
+        <option value="20:00">20:00</option>
       </select>
     </div>
     <input type="hidden" name="shopId" value="<?php echo $_SESSION['shopId'] ?>">
