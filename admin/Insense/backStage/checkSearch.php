@@ -20,7 +20,7 @@ error_reporting(0);
 
             <tr>
                 <td class="border" colspan="2">
-                    <button class="btn btn-outline-secondary" type="submit" name="smb_add">
+                    <button class="btn btn-outline-info" type="submit" name="smb_add">
                      搜尋
                     </button>
                 </td>
@@ -117,7 +117,7 @@ error_reporting(0);
                 <form name="myForm" method="GET" action="./Alldelete.php">
 
                 <td class="border" colspan="2">
-                    <button class="btn btn-outline-secondary ml-3" type="submit" name="smb_add">
+                    <button class="btn btn-outline-danger ml-3" type="submit" name="smb_add">
                     取消全部
                     </button>
                  </td>

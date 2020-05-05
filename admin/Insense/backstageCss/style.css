@@ -71,7 +71,7 @@ body {
   border-bottom: 0.5px dashed var(--main-padding-grey);
 }
 
-#sidebar header a {
+#sidebar header a{
   color: var(--main-bg-white);
   text-decoration: none;
   font-family: 'Playfair Display', sans-serif; ;

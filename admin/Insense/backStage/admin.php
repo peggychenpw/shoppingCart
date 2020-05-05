@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 
@@ -234,7 +236,7 @@ if ($totalCatogories > 0) {
         ?>
             <tr>
               <td class="border">
-                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['itemId']; ?>" />
+                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['itemId']; ?>"/>
               </td>
               <td class="border"><?php echo $arr[$i]['itemId']; ?></td>
               <td class="border"><?php echo $arr[$i]['itemName']; ?></td>
@@ -272,7 +274,7 @@ if ($totalCatogories > 0) {
 
         <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="10"><input type="submit" name="smb" value="刪除"></td>
+            <td class="border" colspan="10"><input type="submit" name="smb" value="刪除" class="btn btn-outline-danger"></td>
           </tr>
         <?php } ?>
 

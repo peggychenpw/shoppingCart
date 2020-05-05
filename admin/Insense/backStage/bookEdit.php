@@ -56,11 +56,9 @@ require_once('../templates/rightContainer.php');
 
                 switch ($arr[0]['bookStatus']) {
                     case "成功":
-                        $allSelect = "selected";
                         $success = "selected";
                         break;
                     case "取消":
-                        $sql .= "AND `book`.`bookStatus` = '成功'";
                         $cancelled = "selected";
                         break;
                 }
@@ -98,7 +96,7 @@ require_once('../templates/rightContainer.php');
             <tr>
                 <td class="border" colspan="7"><input class="btn btn-primary" type="submit" name="smb" value="更新"></td>
             </tr>
-            </tfoo>
+            </tfoot>
     </table>
     <input type="hidden" name="bookId" value="<?php echo $_GET['bookId']; ?>">
 </form>

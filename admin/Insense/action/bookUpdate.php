@@ -2,10 +2,10 @@
 require_once('./checkAdmin.php'); //引入登入判斷
 require_once('./db.inc.php'); //引用資料庫連線
 
-// echo "<pre>";
-// print_r($_POST);
-// echo "</pre>";
-// exit();
+echo "<pre>";
+print_r($_POST);
+echo "</pre>";
+exit();
 
 // echo $_POST['bookId'];
 // exit();

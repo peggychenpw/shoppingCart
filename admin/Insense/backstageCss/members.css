@@ -1,0 +1,226 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+}
+/* ================共用標籤================ */
+a,a link {
+    text-decoration: none;
+}
+thead{
+    background-color: #e9ecef;
+    color: #495057;
+}
+tbody tr:nth-child(2n){
+    /* background-color: #F2F2F2; */
+}
+tbody tr:nth-child(2n+1){
+    background-color:#F2F2F2 ;
+}
+legend{
+    width: auto;
+}
+/* ================共用class================ */
+.container {
+    max-width: 96%;
+    margin: 0 auto;
+}
+.d-flex {
+    display: flex;
+}
+.justify-content-between {
+    justify-content: space-between;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-flex-start {
+    justify-content: flex-start;
+}
+.justify-content-flex-end {
+    justify-content: flex-end;
+}
+.list-unstyled {
+    list-style: none;
+    padding: 0px;
+}
+.cover-fit {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.contain-fit {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.line {
+    width: 24px;
+    height: 24px;
+}
+.text-center {
+    text-align: center;
+}
+.position-center {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.position-center-X {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.line-position {
+    position: absolute;
+    left: 50%;
+}
+/* ================自訂class================ */
+.myBtn{
+    width: 130px;
+    height: 30px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+.myRequireBtn{
+    width: 80px;
+    font-size: 14px;
+}
+.myFeatureBtn{
+    width: 60px;
+    height: 30px;
+    font-size: 14px;
+    vertical-align: middle;
+    align-items: flex-start;
+}
+.myPageBtn{
+    width: 30px;   
+}
+.btnDiv{
+    justify-content: space-between;
+}
+.tableWrap{
+    margin-top: 10px;
+}
+.border {
+    height: 50px;
+    border: 1px solid;
+    text-align: left;
+}
+.head_check_w{
+    width: 100px;    
+}
+.head_id_w,.head_name_w,.head_gender_w,.head_points_w,
+.head_loyalty_w{
+    width: 70px;  
+    align-items:center;
+    object-fit: cover;
+}
+.head_birth_w{
+    width: 80px;    
+}
+.head_acc_w,.head_phone_w{
+    width: 120px;    
+}
+.head_pwd_w{
+    max-width: 120px; 
+    /* 強制不斷行 */
+    white-space: nowrap;
+    /* 超出的部分隱藏 */
+    overflow: hidden;
+    /* 後面變成... */
+    text-overflow: ellipsis;
+}
+.head_email_w,.head_address_w{
+    width: 180px;    
+}
+.head_features_w{
+    width: 150px;  
+    align-items:center;
+    justify-content: space-between;
+}
+.page_{
+    text-align: center;    
+}
+.searchDD_2_1{
+    width: 100px;   
+}
+.searchBtn_D_1,.searchBtn_D_2{
+    width: 100px;
+}
+.searchInput{
+    width: 820px;
+    padding: 5px 5px;
+}
+.checkbox{
+    vertical-align:middle;    
+}
+.checkLabel{
+    margin-right: 20px;
+}
+.clickAll_d,.clickReverse_d{
+    width: 40px;
+    height: 20px;
+}
+.checkBoxLabel{
+    width: 40px;
+}
+.myIList{
+    width: 20px;
+    font-size: 20px;
+    color:var(--nav-bg-grey);
+}
+.myIList:hover{
+    color:var(--main-light-blue);
+    cursor:pointer;
+}
+.myIList:active{
+    color:var(--main-logo-blue);
+    cursor:pointer;
+}
+.w100px {
+    width: 100px;
+    height: 100px;
+    border:1px solid;
+    border-radius: 10px;
+}
+.accountInfo,.personalInfo,.contactInfo{
+    padding: 10px 10px;
+}
+.buttons{
+    padding: 10px 10px;
+    text-align: right;
+}
+.accountInfo_field,.personalInfo_field,.contactInfo_field{
+    padding: 10px 10px;
+    border:1px solid;
+    border-radius: 10px;
+}
+._accountInfo,._personalInfo,._contactInfo{
+    justify-content: space-around;
+}
+._accountInfo_left,._accountInfo_right,
+._personalInfo_left,._personalInfo_right,
+._contactInfo_left,._contactInfo_right{
+    width: 250px;
+}
+
+.infoLine{
+    height: 30px;
+}
+.member_gender{
+    width: 80px;
+}
+.card{
+    border: none;
+}
+.fig{
+    margin:10px 0px;    
+}
+.modal-background-new{
+    background-color: #96FED1;
+}
+.modal-background-edit{
+    background-color: #ACD6FF ;
+}

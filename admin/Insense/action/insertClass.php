@@ -4,7 +4,7 @@ require_once('./db.inc.php'); //引用資料庫連線
 
 $sql = "INSERT INTO `class` ( `className`,`classPrice`,`classPeopleLimit`,
                              `classCategoryId`,`classDate`,`classTime`,`shopId`,`isAlive`) 
-        VALUES (?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?)";
 $openClass = '開課';
 
 $arrParam = [
@@ -34,6 +34,11 @@ $stmt = $pdo->prepare($sqlItemCode);
 $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
+  echo '<script>alert("新增成功")</script>';
   header("Refresh: 0; url=../backStage/classManagement.php");
+  exit();
+} else {
+  echo '<script>alert("新增失敗")</script>';
+  header("Refresh: 0; url=../backStage/editClass.php");
   exit();
 }

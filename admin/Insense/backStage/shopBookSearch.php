@@ -13,28 +13,28 @@ $dateToday =  date("Y-m-d");
 
 //每次剛進入預約查詢，清空SESSION，以利重新查詢
 if (!isset($_GET['page'])) {
-    $_SESSION['searchMethod'] = "";
-    $_SESSION['searchText'] = "";
-    $_SESSION['searchStatus'] = "all";
-    $_SESSION['searchDirection'] = "dateRange";
-    $_SESSION['searchStartDate'] = "";
-    $_SESSION['searchEndDate'] = "";
-    $_SESSION['sortOrder'] = "byClassDate";
-    $_SESSION['searchOrder'] = "forward";
+  $_SESSION['searchMethod'] = "";
+  $_SESSION['searchText'] = "";
+  $_SESSION['searchStatus'] = "all";
+  $_SESSION['searchDirection'] = "dateRange";
+  $_SESSION['searchStartDate'] = "";
+  $_SESSION['searchEndDate'] = "";
+  $_SESSION['sortOrder'] = "byClassDate";
+  $_SESSION['searchOrder'] = "forward";
 }
 
 //關鍵字查詢後，可跳頁，並保持查詢方式
 if (isset($_POST["searchMethod"])) {
-    //驗證有無進去判斷
-    // echo "yes";
-    $_SESSION['searchMethod'] = $_POST['searchMethod'];
-    $_SESSION['searchText'] = $_POST['searchText'];
-    $_SESSION['searchStatus'] = $_POST['searchStatus'];
-    $_SESSION['searchDirection'] = $_POST['searchDirection'];
-    $_SESSION['searchStartDate'] = $_POST['searchStartDate'];
-    $_SESSION['searchEndDate'] = $_POST['searchEndDate'];
-    $_SESSION['sortOrder'] = $_POST['sortOrder'];
-    $_SESSION['searchOrder'] =  $_POST['searchOrder'];
+  //驗證有無進去判斷
+  // echo "yes";
+  $_SESSION['searchMethod'] = $_POST['searchMethod'];
+  $_SESSION['searchText'] = $_POST['searchText'];
+  $_SESSION['searchStatus'] = $_POST['searchStatus'];
+  $_SESSION['searchDirection'] = $_POST['searchDirection'];
+  $_SESSION['searchStartDate'] = $_POST['searchStartDate'];
+  $_SESSION['searchEndDate'] = $_POST['searchEndDate'];
+  $_SESSION['sortOrder'] = $_POST['sortOrder'];
+  $_SESSION['searchOrder'] =  $_POST['searchOrder'];
 }
 
 
@@ -43,113 +43,110 @@ $sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`
         INNER JOIN `class`
         ON `book`.`classId` = `class`.`classId`
         INNER JOIN `users`
-        ON `book`.`userId` = `users`.`userId`";
+        ON `book`.`userId` = `users`.`userId`
+        INNER JOIN `shop`
+        ON `class`.`shopId` = `shop`.`shopId` ";
 
+// echo $sql;
 
 //驗證SESSION存在
 // echo $_SESSION["searchMethod"];
 // echo $_SESSION["searchText"];
-
-function getSql($colFirst, $colSec)
-{
-    $searchSql = "WHERE `$colFirst`.`$colSec` LIKE '%{$_SESSION['searchText']}%'";
-    return $searchSql;
-}
 
 // echo getSql('book','bookId');
 // exit();
 
 //搜尋方式
 switch ($_SESSION["searchMethod"]) {
-    case "bookId":
-        $sql .= getSql('book', 'bookId');
-        // echo $sql;
-        // $sql .= "WHERE `book`.`bookId` LIKE '%{$_SESSION['searchText']}%'";
-        $bookIdSelect = "selected";
-        break;
-    case "classId":
-        $sql .= "WHERE `class`.`classId` LIKE '%{$_SESSION["searchText"]}%'";
-        $classIdSelect = "selected";
-        break;
-    case "className":
-        $sql .= "WHERE `class`.`className` LIKE '%{$_SESSION["searchText"]}%'";
-        $classNameSelect = "selected";
-        break;
-    case "userId":
-        $sql .= "WHERE `book`.`userId` LIKE '%{$_SESSION["searchText"]}%'";
-        $userIdSelect = "selected";
-        break;
-    case "userName":
-        $sql .= "WHERE `users`.`userName` LIKE '%{$_SESSION["searchText"]}%'";
-        $userNameSelect = "selected";
-        break;
+  case "bookId":
+    $sql .= "WHERE `book`.`bookId` LIKE '%{$_SESSION['searchText']}%'";
+    $bookIdSelect = "selected";
+    break;
+  case "classId":
+    $sql .= "WHERE `class`.`classId` LIKE '%{$_SESSION["searchText"]}%'";
+    $classIdSelect = "selected";
+    break;
+  case "className":
+    $sql .= "WHERE `class`.`className` LIKE '%{$_SESSION["searchText"]}%'";
+    $classNameSelect = "selected";
+    break;
+  case "userId":
+    $sql .= "WHERE `book`.`userId` LIKE '%{$_SESSION["searchText"]}%'";
+    $userIdSelect = "selected";
+    break;
+  case "userName":
+    $sql .= "WHERE `users`.`userName` LIKE '%{$_SESSION["searchText"]}%'";
+    $userNameSelect = "selected";
+    break;
 }
 
 //預約狀態
 switch ($_SESSION['searchStatus']) {
-    case "all":
-        $allSelect = "selected";
-        break;
-    case "success":
-        $sql .= "AND `book`.`bookStatus` = '成功'";
-        $successSelect = "selected";
-        break;
-    case "cancelled":
-        $sql .= "AND `book`.`bookStatus` = '取消'";
-        $cancelledSelect = "selected";
-        break;
+  case "all":
+    $allSelect = "selected";
+    break;
+  case "success":
+    $sql .= "AND `book`.`bookStatus` = '成功'";
+    $successSelect = "selected";
+    break;
+  case "cancelled":
+    $sql .= "AND `book`.`bookStatus` = '取消'";
+    $cancelledSelect = "selected";
+    break;
 }
 
 //搜尋時間
 switch ($_SESSION['searchDirection']) {
-    case "future":
-        $sql .= "AND `class`.`classDate` >= '{$dateToday}'";
-        $futureCheck = 'checked="true"';
-        break;
-    case "past":
-        $sql .= "AND `class`.`classDate` <= '{$dateToday}'";
-        $pastCheck = 'checked="true"';
-        break;
-    case "dateRange":
-        $dateRangeCheck = 'checked="true"';
-        if ($_SESSION['searchStartDate'] !== "") {
-            $sql .= "AND `class`.`classDate` >= '{$_SESSION['searchStartDate']}'";
-        }
-        if ($_SESSION['searchEndDate'] !== "") {
-            $sql .= "AND `class`.`classDate` <= '{$_SESSION['searchEndDate']}'";
-        }
-}
+  case "future":
+    $sql .= "AND `class`.`classDate` >= '{$dateToday}'";
+    $futureCheck = 'checked="true"';
+    break;
+  case "past":
+    $sql .= "AND `class`.`classDate` <= '{$dateToday}'";
+    $pastCheck = 'checked="true"';
+    break;
+  case "dateRange":
+    $dateRangeCheck = 'checked="true"';
+    if ($_SESSION['searchStartDate'] !== "") {
+      $sql .= "AND `class`.`classDate` >= '{$_SESSION['searchStartDate']}'";
+    }
+    if ($_SESSION['searchEndDate'] !== "") {
+      $sql .= "AND `class`.`classDate` <= '{$_SESSION['searchEndDate']}'";
+    }
+};
+
+$sql .= "AND `class`.`shopId` = '{$_SESSION['shopId']}' ";
 
 //排序方式
 switch ($_SESSION["sortOrder"]) {
-    case "byClassDate":
-        $sql .= "ORDER BY `class`.`classDate` ";
-        $byClassDateCheck = 'checked="true"';
-        break;
-    case "byBookId":
-        $sql .= "ORDER BY `book`.`bookId` ";
-        $byBookIdCheck = 'checked="true"';
-        break;
-    case "byClassId":
-        $sql .= "ORDER BY `class`.`classId` ";
-        $byClassIdCheck = 'checked="true"';
-        break;
-    case "byUserId":
-        $sql .= "ORDER BY `book`.`userId` ";
-        $byUserIdCheck = 'checked="true"';
-        break;
+  case "byClassDate":
+    $sql .= "ORDER BY `class`.`classDate` ";
+    $byClassDateCheck = 'checked="true"';
+    break;
+  case "byBookId":
+    $sql .= "ORDER BY `book`.`bookId` ";
+    $byBookIdCheck = 'checked="true"';
+    break;
+  case "byClassId":
+    $sql .= "ORDER BY `class`.`classId` ";
+    $byClassIdCheck = 'checked="true"';
+    break;
+  case "byUserId":
+    $sql .= "ORDER BY `book`.`userId` ";
+    $byUserIdCheck = 'checked="true"';
+    break;
 }
 
 //順向或逆向
 switch ($_SESSION["searchOrder"]) {
-    case "forward":
-        $sql .= "ASC ";
-        $forwardSelect = "selected";
-        break;
-    case "backforward":
-        $sql .= "DESC ";
-        $backforwardSelect = "selected";
-        break;
+  case "forward":
+    $sql .= "ASC ";
+    $forwardSelect = "selected";
+    break;
+  case "backforward":
+    $sql .= "DESC ";
+    $backforwardSelect = "selected";
+    break;
 }
 // echo $sql;
 
@@ -176,7 +173,7 @@ $sqlTotalClasses = "SELECT count(1) FROM `class`";
 $totalClasses = $pdo->query($sqlTotalClasses)->fetch(PDO::FETCH_NUM)[0];
 
 require_once('../templates/header.php'); //  1.引入header
-require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
+require_once('../templates/shopLeftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
 
@@ -189,7 +186,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 </div>
 <div class="collapse" id="searchDivDetail">
   <!-- 搜尋功能 -->
-  <form name="bookSearchForm" entype="multipart/form-data" method="POST" action="bookSearch.php">
+  <form name="bookSearchForm" entype="multipart/form-data" method="POST" action="shopBookSearch.php">
     <div>
       <span class="ml-4">搜尋方式：</span>
       <select name="searchMethod" id="">
@@ -241,7 +238,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
     </div>
 
     <input type="submit" name="smbSearch" class="ml-4">
-    <a href="bookSearch.php" class="ml-4">重新搜尋</a>
+    <a href="shopBookSearch.php" class="ml-4">重新搜尋</a>
   </form>
 
 </div>
@@ -271,7 +268,7 @@ if ($totalClasses > 0) {
       <tbody>
         <?php
         //各頁資料
-        $sql .= "LIMIT ?, ? ";
+        $sql .= " LIMIT ?, ? ";
         $arrParam = [($page - 1) * $numPerPage, $numPerPage];
         $stmt = $pdo->prepare($sql);
         $stmt->execute($arrParam);
@@ -303,7 +300,7 @@ if ($totalClasses > 0) {
               <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
               <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
               <td class="border">
-                <a href="./bookEdit.php?bookId=<?php echo $arr[$i]['bookId'] ?>">資料更改</a>
+                <a href="./shopBookEdit.php?bookId=<?php echo $arr[$i]['bookId'] ?>">資料更改</a>
               </td>
             </tr>
           <?php
@@ -328,7 +325,7 @@ if ($totalClasses > 0) {
 
         <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="11"><input type="submit" name="smb" value="刪除"></td>
+            <td class="border" colspan="12"><input type="submit" name="smb" value="刪除"></td>
           </tr>
         <?php } ?>
 
@@ -338,31 +335,29 @@ if ($totalClasses > 0) {
 
 <?php
 } else {
-    //引入尚未建立商品種類的文字描述
-    echo "<div>無任何課程</div>";
+  //引入尚未建立商品種類的文字描述
+  echo "<div>無任何課程</div>";
 } ?>
 
 <?php require_once('../templates/footer.php'); // 最後在引入footer
 ?>
 
 <script>
+  let allCheckFunc = function() {
+    let checkbox = document.getElementsByName('chk[]')
 
-    let allCheckFunc = function(){
-        let checkbox = document.getElementsByName('chk[]')
-
-        if(document.myForm.allCheck.checked == true){
-            for( i = 0; i < checkbox.length; i++ ){
-                checkbox[i].checked = true;
-            }
-        }
-        else{
-            for( i = 0; i < checkbox.length; i++ ){
-                checkbox[i].checked = false;
-            }
-        }
+    if (document.myForm.allCheck.checked == true) {
+      for (i = 0; i < checkbox.length; i++) {
+        checkbox[i].checked = true;
+      }
+    } else {
+      for (i = 0; i < checkbox.length; i++) {
+        checkbox[i].checked = false;
+      }
     }
+  }
 
-    document.getElementById('allCheck').addEventListener('click', function(){
-        allCheckFunc()})
-
+  document.getElementById('allCheck').addEventListener('click', function() {
+    allCheckFunc()
+  })
 </script>
