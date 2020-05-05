@@ -51,7 +51,7 @@ if (!isset($_POST['chk'])) {
         <tr>
 
           <th scope="col" class="border">
-            <div class="py-2 text-uppercase">取消</div>
+            <div class="py-2 text-uppercase">取消訂單</div>
           </th>
 
           <th scope="col" class="border">
@@ -60,7 +60,7 @@ if (!isset($_POST['chk'])) {
           <th scope="col" class="border">
             <div class="py-2 text-uppercase">付款方式</div>
           </th>
-          <th scope="col" class="border">
+          <th scope="col" class="border w-50">
             <div class="py-2 text-uppercase">詳細資訊</div>
           </th>
 
@@ -134,7 +134,7 @@ if (!isset($_POST['chk'])) {
     </table>
     <form name="myForm" method="GET" action="./Alldelete.php">
 
-      <td class="border" colspan="2"><button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">取消訂單</button>
+      <td class="border" colspan="2"><button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">取消全部</button>
       </td>
     </form>
     </div>

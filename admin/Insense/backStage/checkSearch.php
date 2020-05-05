@@ -47,7 +47,7 @@ error_reporting(0);
                             <th scope="col" class="border">
                                 <div class="py-2 text-uppercase">付款方式</div>
                             </th>
-                            <th scope="col" class="border">
+                            <th scope="col" class="border w-50">
                                 <div class="py-2 text-uppercase">詳細資訊</div>
                             </th>
                            
@@ -122,7 +122,7 @@ error_reporting(0);
                 <form name="myForm" method="GET" action="./Alldelete.php">
 
                 <td class="border" colspan="2">
-                    <button class="btn btn-outline-danger ml-3" type="submit" name="smb_add">
+                    <button class="btn btn-outline-danger" type="submit" name="smb_add">
                     取消全部
                     </button>
                  </td>

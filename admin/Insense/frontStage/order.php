@@ -8,6 +8,14 @@ require_once("./tpl/func-buildTree.php");
 require_once("./tpl/func-getRecursiveCategoryIds.php");
 ?>
 
+<style>
+  .center-orderId{
+    display: flex!important;
+    margin-left: 10%;
+    margin-top: 42%;
+  }
+</style>
+
 <form name="myForm" method="POST" action="./deleteOrder.php">
 
   <div class="container-fluid">
@@ -50,11 +58,11 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
               $stmtOrder->execute($arrParamOrder);
               if ($stmtOrder->rowCount() > 0) {
                 $arrOrders = $stmtOrder->fetchAll(PDO::FETCH_ASSOC);
-                for ($i = 0; $i < count($arrOrders); $i++) {
+                // for ($i = 0; $i < count($arrOrders); $i++) {
               ?>
                   <tr>
-                    <th scope="row" class="border-0"><?php echo $arrOrders[$i]["orderId"] ?></th>
-                    <td class="border-0 align-middle"><?php echo $arrOrders[$i]["paymentTypeName"] ?></td>
+                    <th scope="row" class="border-0 center-orderId"><?php echo $arrOrders[0]["orderId"] ?></th>
+                    <td class="border-0 align-middle"><?php echo $arrOrders[0]["paymentTypeName"] ?></td>
                     <td class="border-0 align-middle">
                       <?php
                       $sqlItemList = "SELECT `item_lists`.`checkPrice`,`item_lists`.`checkQty`,`item_lists`.`checkSubtotal`,
@@ -68,7 +76,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                                             ORDER BY `item_lists`.`itemListId` ASC";
                       $stmtItemList = $pdo->prepare($sqlItemList);
                       $arrParamItemList = [
-                        $arrOrders[$i]["orderId"]
+                        $arrOrders[0]["orderId"]
                       ];
                       $stmtItemList->execute($arrParamItemList);
                       if ($stmtItemList->rowCount() > 0) {
@@ -88,7 +96,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                     <!-- <td class="border-0 align-middle"><a href="./deleteOrder.php?orderId=<?php echo $arrOrders[$i]["orderId"] ?>" class="text-dark">刪除</a></td> -->
                   </tr>
               <?php
-                }
+                // }
               }
               ?>
             </tbody>
