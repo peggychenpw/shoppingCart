@@ -5,10 +5,11 @@ require_once('../templates/header.php');
 require_once('../templates/leftSideBar.php');
 require_once('../templates/rightContainer.php');
 
+
 if (isset($_GET['id'])) {
 
   $sql = "SELECT `class`.`id`,`class`.`classId`,`class`.`className`,`class`.`classPeopleLimit`,`class`.`classPrice`,
-                 `classcategory`.`classCategoryName`,`class`.`classDate`,`class`.`classTime`,`shop`.`shopName`,`class`.`isAlive`,
+                 `classcategory`.`classCategoryName`,`class`.`classDate`,`class`.`classTime`,`shop`.`name`,`class`.`isAlive`,
                  `class`.`created_at`,`class`.`updated_at`
           FROM   `class` INNER JOIN `classcategory`
           ON     `class`.`classCategoryId` = `classcategory`.`classCategoryId`
@@ -16,12 +17,14 @@ if (isset($_GET['id'])) {
           ON     `class`.`shopId` = `shop`.`shopId`
           WHERE `class`.`id` = ? ";
 
+
   $stmt = $pdo->prepare($sql);
   $arrParam = [$_GET['id']];
   $stmt->execute($arrParam);
 
   if ($stmt->rowCount() > 0) {
     $arr = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+
 ?>
     <style>
       .cantOverride {
@@ -29,7 +32,7 @@ if (isset($_GET['id'])) {
       }
     </style>
 
-    <form method="POST" enctype="multipart/form-data" action="../action/updateClass.php">
+    <form class="mt-5" method="POST" enctype="multipart/form-data" action="../action/updateClass.php">
       <div class="form-row col-12">
         <div class="form-group col-md-12 px-5">
           <label for="classId">課程編號：</label>
@@ -84,7 +87,7 @@ if (isset($_GET['id'])) {
         </div>
         <div class="form-group col-md-4 px-5">
           <label for="shopName">廠商名稱:</label>
-          <input class="form-control cantOverride" type="text" name="shopName" id="shopName" value="<?php echo $arr['shopName'] ?>" disabled>
+          <input class="form-control cantOverride" type="text" name="shopName" id="shopName" value="<?php echo $arr['name'] ?>" disabled>
         </div>
         <div class="form-group col-md-4 px-5">
           <label for="created_at">新增時間:</label>

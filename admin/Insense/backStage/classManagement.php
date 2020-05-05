@@ -4,6 +4,7 @@ require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
+error_reporting(0);
 
 // search
 
@@ -129,16 +130,15 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
 <!-- #################### content #################### -->
 <style>
   /* class zone */
-
-  .classTd {
-    position: relative;
+  .allSelected {
+    color: #aaa;
+    border-bottom: 1px solid #bbb;
+    text-decoration: none;
   }
 
-  .classTd input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .allSelected:hover {
+    color: black;
+    text-decoration: none;
   }
 
   ._tr {
@@ -211,10 +211,9 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
         <label class="input-group-text" for="classDate">日期:</label>
         <input class="form-control" type="text" name='classDate' value="<?php echo $_SESSION['classDate'] ?>">
       </div>
-      <div>
+      <div class="d-flex justify-content-between">
         <input class="btn btn-outline-secondary" type="submit" value="查詢">
-        <input class="btn btn-outline-secondary ml-2" type="reset" value="清空">
-        <a class="_btn btn btn-outline-secondary ml-5" href="javascript:;">重新搜尋</a>
+        <a class="_btn btn btn-outline-secondary" href="javascript:;">重新搜尋</a>
         <!-- <input class="btn btn-outline-secondary ml-2" type="reset" value="重新搜尋"> -->
       </div>
     </div>
@@ -280,7 +279,7 @@ if ($totalClass > 0) {
       </tbody>
       <tfoot>
         <tr>
-          <td class="border" colspan="8">
+          <td class="border text-left" colspan="8">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
               <a href="?page=<?= $i ?>"><?= $i ?></a>
             <?php } ?>
@@ -288,7 +287,7 @@ if ($totalClass > 0) {
         </tr>
         <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="8"><input class="btn btn-outline-secondary" type="submit" name="smb" value="下架"></td>
+            <td class="border text-left" colspan="8"><input class="btn btn-outline-danger" type="submit" name="smb" value="下架"></td>
           </tr>
         <?php } ?>
 
