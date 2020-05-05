@@ -125,7 +125,7 @@ if ($_POST['bookStatusSelect'] === "取消") {
     <div class="loading-icon">
       <button class="btn btn-outline-secondary d-flex align-items-center loading-content" type="button" disabled>
         <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-        <span class="mb-1 ml-2">更新成功!</span>
+        <span class="mb-1 ml-2">更新成功 !</span>
       </button>
     </div>
     <!-- <script>
@@ -168,7 +168,7 @@ if ($_POST['bookStatusSelect'] === "取消") {
       <div class="loading-icon">
         <button class="btn btn-outline-secondary d-flex align-items-center loading-content" type="button" disabled>
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-          <span class="mb-1 ml-2">更新成功!</span>
+          <span class="mb-1 ml-2">更新成功 !</span>
         </button>
       </div>
       <!-- <script>
