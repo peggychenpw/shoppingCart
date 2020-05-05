@@ -8,22 +8,27 @@ require_once('../templates/header.php');
 require_once('../templates/leftSideBar.php');
 require_once('../templates/rightContainer.php');
 ?>
+<style>
+ .button-text {
+   font-size: 85%;
+ }
+</style>
 
 <h3 class="pt-2 pb-2 d-flex justify-content-center">訂單一覽</h3>
-<form name="myForm" method="POST" action="./checkSearch.php">
+<form name="myForm" method="POST" class="ml-3" action="./checkSearch.php">
   <tr>
     訂單編號 <input type="text" name="search" required>
     <td class="border" colspan="2">
-      <button class="btn btn-outline-dark" type="submit" name="smb_add">搜尋</button>
+      <button class="btn btn-outline-info button-text" type="submit" name="smb_add">搜尋</button>
     </td>
   </tr>
 </form>
 <form name="myForm" method="POST" action="./deleteCheck.php">
   <table class="border table table-hover">
-    <thead class="thead-dark">
+    <thead class="thead-light">
       <tr>
         <th scope="col" class="border">
-          <div class="py-2 text-uppercase">項目</div>
+          <div class="py-2 text-uppercase">取消訂單</div>
         </th>
         <th scope="col" class="border">
           <div class="p-2 px-3 text-uppercase">訂單編號</div>
@@ -96,7 +101,7 @@ require_once('../templates/rightContainer.php');
   </table>
 
   <form name="myForm" method="GET" action="./Alldelete.php">
-    <td class="border" colspan="2"><button class="btn btn-outline-dark" type="submit" name="smb_add">刪除</button></td>
+    <td class="border" colspan="2"><button class="btn btn-outline-danger" type="submit" name="smb_add">取消訂單</button></td>
   </form>
   </div>
 

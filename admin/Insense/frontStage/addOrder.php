@@ -4,8 +4,8 @@ require_once("./checkSession.php");
 require_once('../action/db.inc.php');
 
 if (!isset($_POST["paymentTypeId"])) {
-  header("Refresh: 3; url=./myCart.php");
-  echo "請選擇付款方式…3秒後回購物車列表";
+  header("Refresh: 0; url=./myCart.php");
+  echo "<script type='text/javascript'>alert(`請選擇付款方式！ ><`);</script>";
   exit();
 }
 
@@ -37,7 +37,7 @@ for ($i = 0; $i < count($_POST["itemId"]); $i++) {
 }
 
 if ($count > 0) {
-  header("Refresh: 3; url=./order.php");
+  header("Refresh: 0; url=./order.php");
 
   //帳號完成後，注銷購物車資訊
   unset($_SESSION["cart"]);
@@ -45,13 +45,13 @@ if ($count > 0) {
   $objResponse['success'] = true;
   $objResponse['code'] = 200;
   $objResponse['info'] = "訂單新增成功";
-  echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
   exit();
 } else {
-  header("Refresh: 3; url=./order.php");
+  header("Refresh: 0; url=./order.php");
   $objResponse['success'] = false;
   $objResponse['code'] = 400;
   $objResponse['info'] = "訂單新增失敗";
-  echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
   exit();
 }
