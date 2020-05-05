@@ -40,13 +40,13 @@ $arrParam = [
     $_POST['phoneNumber_edit'],
     $_POST['userEmail_edit'],
     $_POST['address_edit'],
-    $_POST['userCity_edit'],
+    @$_POST['userCity_edit'],
     $_POST['username_edit'],
     sha1($_POST['pwd_edit']),
     $_POST['userCreditCard_edit'],
     $_POST['userPoint_edit'],
-    $_POST['userLoyalty_edit'],
-    $_POST['gender_edit']   
+    @$_POST['userLoyalty_edit'],
+    @$_POST['gender_edit']   
 ];
 
 // 判斷檔案上傳是否正常，error = 0 為正常
