@@ -33,10 +33,10 @@ $stmt->execute($arrParam);
 
 if($stmt->rowCount() > 0) {
     header("Refresh: 0; url=./adminCoupon.php");
-    $objResponse['success'] = true;
-    $objResponse['code'] = 200;
-    $objResponse['info'] = "新增成功";
-    echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+    // $objResponse['success'] = true;
+    // $objResponse['code'] = 200;
+    // $objResponse['info'] = "新增成功";
+    // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
     //echo '<script language="javascript">';
     //echo 'alert("新增成功")';
     //echo '</script>';
@@ -44,9 +44,6 @@ if($stmt->rowCount() > 0) {
     exit();
 } else {
     header("Refresh: 0; url=./createCoupon.php");
-    $objResponse['success'] = false;
-    $objResponse['code'] = 500;
-    $objResponse['info'] = "沒有新增資料";
-    echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+    echo "<script type='text/javascript'>alert(`沒有新增資料`);</script>";
     exit();
 }
