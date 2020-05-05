@@ -87,12 +87,12 @@ if( $_FILES["userImg_edit"]["error"] === 0 ) {
             $arrImg = $stmtGetImg->fetchAll(PDO::FETCH_ASSOC)[0];
 
             //若是 studentImg 裡面不為空值，代表過去有上傳過
-            if($arrImg[0]['userImg'] !== NULL){
-                // 刪除實體檔案
-                // @有強壓的意思，unlink會回傳true或false，
-                // 加上@則不館unlink回傳什麼，就是執行就對了。
-                @unlink("../images/members/".$arrImg['userImg']);
-            } 
+            // if($arrImg[0]['userImg'] !== NULL){
+            //     // 刪除實體檔案
+            //     // @有強壓的意思，unlink會回傳true或false，
+            //     // 加上@則不館unlink回傳什麼，就是執行就對了。
+            //     @unlink("../images/members/".$arrImg['userImg']);
+            // } 
             
             /**
              * 因為前面 `studentDescription` = ? 後面沒有加「,」，
@@ -121,9 +121,9 @@ $stmt->execute($arrParam);
 
 if( $stmt->rowCount() > 0 ){
     // 3秒後更新，url導向新的頁面後面給編號
-    header("Refresh: 3; url=../backStage/members.php");
-    echo "更新成功";
+    header("Refresh: 0; url=../backStage/updateMembSuccess.php");
+    // echo "更新成功";
 } else {
-    header("Refresh: 3; url=../backStage/members.php");
-    echo "沒有任何更新";
+    header("Refresh: 0; url=../backStage/updateMembFail.php");
+    // echo "沒有任何更新";
 }
