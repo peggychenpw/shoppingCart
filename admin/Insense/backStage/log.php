@@ -5,7 +5,7 @@ require_once('../templates/header.php');
 ?>
 <style>
   body {
-    background: var(--main-bg-white);
+    background-image: url("https://images.unsplash.com/photo-1508717272800-9fff97da7e8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80");
   }
 
   .box {
@@ -43,7 +43,7 @@ require_once('../templates/header.php');
     </div>
   </form>
 </div>
-
+=
 </div> <!-- new container -->
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
