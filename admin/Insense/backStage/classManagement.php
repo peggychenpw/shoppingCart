@@ -130,16 +130,15 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
 <!-- #################### content #################### -->
 <style>
   /* class zone */
-
-  .classTd {
-    position: relative;
+  .allSelected {
+    color: #aaa;
+    border-bottom: 1px solid #bbb;
+    text-decoration: none;
   }
 
-  .classTd input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .allSelected:hover {
+    color: black;
+    text-decoration: none;
   }
 
   ._tr {
@@ -280,7 +279,7 @@ if ($totalClass > 0) {
       </tbody>
       <tfoot>
         <tr>
-          <td class="border" colspan="8">
+          <td class="border text-left" colspan="8">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
               <a href="?page=<?= $i ?>"><?= $i ?></a>
             <?php } ?>
@@ -288,7 +287,7 @@ if ($totalClass > 0) {
         </tr>
         <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="8"><input class="btn btn-outline-secondary" type="submit" name="smb" value="下架"></td>
+            <td class="border text-left" colspan="8"><input class="btn btn-outline-danger" type="submit" name="smb" value="下架"></td>
           </tr>
         <?php } ?>
 
