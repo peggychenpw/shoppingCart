@@ -177,6 +177,16 @@ require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
+<style>
+    a.disabled {
+        pointer-events: none;
+        color: #999999;
+    }
+    .disabled-border {
+        cursor:no-drop;
+    }
+
+</style>
 
 <h3>預約課程列表</h3>
 <!--       search start              -->
@@ -246,12 +256,12 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 //若有課程存在，才顯示
 if ($totalClasses > 0) {
 ?>
-    <form name="myForm" entype="multipart/form-data" method="POST" action="delete.php">
+    <form name="myForm" entype="multipart/form-data" method="POST" action="delete.php?page=<?php echo $page?>">
         <table class="border">
             <thead>
                 <tr>
-                    <th class="border"><input type="checkbox" name="allCheck" id="allCheck" >
-                    <label for="allCheck">全選</label>    
+                    <th class="border"><input type="checkbox" name="allCheck" id="allCheck">
+                        <label for="allCheck">全選</label>
                     </th>
                     <th class="border">預約編號</th>
                     <th class="border">課程編號</th>
@@ -289,7 +299,7 @@ if ($totalClasses > 0) {
                 ?>
                         <tr>
                             <td class="border">
-                                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['itemId']; ?>" />
+                                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['bookId']; ?>" />
                             </td>
                             <td class="border"><?php echo $arr[$i]['bookId']; ?></td>
                             <td class="border"><?php echo $arr[$i]['classId']; ?></td>
@@ -302,8 +312,8 @@ if ($totalClasses > 0) {
                             <td class="border"><?php echo $arr[$i]['isAlive']; ?></td>
                             <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
                             <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
-                            <td class="border">
-                                <a href="./bookEdit.php?page=<?php echo $page ?>&bookId=<?php echo $arr[$i]['bookId'] ?>">資料更改</a>
+                            <td class="border <?php if($arr[$i]['isAlive']=='停課'){echo 'disabled-border';}?>">
+                                <a href="./bookEdit.php?page=<?php echo $page ?>&bookId=<?php echo $arr[$i]['bookId'] ?>" class ="<?php if($arr[$i]['isAlive']=='停課'){echo 'disabled';}?>">資料更改</a>
                             </td>
                         </tr>
                     <?php
@@ -345,23 +355,21 @@ if ($totalClasses > 0) {
 ?>
 
 <script>
-
-    let allCheckFunc = function(){
+    let allCheckFunc = function() {
         let checkbox = document.getElementsByName('chk[]')
 
-        if(document.myForm.allCheck.checked == true){
-            for( i = 0; i < checkbox.length; i++ ){
+        if (document.myForm.allCheck.checked == true) {
+            for (i = 0; i < checkbox.length; i++) {
                 checkbox[i].checked = true;
             }
-        }
-        else{
-            for( i = 0; i < checkbox.length; i++ ){
+        } else {
+            for (i = 0; i < checkbox.length; i++) {
                 checkbox[i].checked = false;
             }
         }
     }
 
-    document.getElementById('allCheck').addEventListener('click', function(){
-        allCheckFunc()})
-
+    document.getElementById('allCheck').addEventListener('click', function() {
+        allCheckFunc()
+    })
 </script>
