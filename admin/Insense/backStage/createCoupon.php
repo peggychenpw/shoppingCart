@@ -48,7 +48,7 @@ WHERE `couponId` = ? ";
     </tbody>
     <tfoot>
       <tr class="text-left">
-        <td class="border" colspan="5"><input class="btn btn-outline-secondary" type="submit" name="smb" value="新增"></td>
+        <td class="border" colspan="5"><input class="btn btn-outline-info" type="submit" name="smb" value="新增"></td>
       </tr>
     </tfoot>
   </table>

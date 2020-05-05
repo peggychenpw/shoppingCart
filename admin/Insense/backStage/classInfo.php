@@ -97,10 +97,10 @@ if (isset($_GET['id'])) {
           <label for="updated_at">更新時間:</label>
           <input class="form-control cantOverride" type="text" id="updated_at" value="<?php echo $arr['updated_at'] ?>" disabled>
         </div>
-        <div class="d-flex w-100 justify-content-between px-5 mt-3">
+        <div class="d-flex w-100 px-5 mt-3">
           <input name="id" type="hidden" value="<?php echo $_GET['id'] ?>">
-          <a class="btn btn-outline-secondary mr-5" href="./classManagement.php">返回</a>
-          <input class="btn btn-outline-secondary" type="submit" value="修改">
+          <a class="btn btn-outline-secondary mr-3" href="./classManagement.php">返回</a>
+          <input class="btn btn-outline-info" type="submit" value="修改">
         </div>
       </div>
     </form>
