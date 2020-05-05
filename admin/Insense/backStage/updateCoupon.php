@@ -48,13 +48,11 @@ $stmt->execute($arrParam);
 
 if ($stmt->rowCount() > 0) {
   header("Refresh: 0; url=./adminCoupon.php?couponId={$_POST['couponId']}");
-  $objResponse['success'] = true;
-  $objResponse['code'] = 204;
-  $objResponse['info'] = "更新成功";
-  echo json_encode($objResponse, JSON_UNESCAPED_UNICODE); 
+  
+  
   exit();
 } else {
-  header("Refresh: 0; url=./editCoupon.php?couponId={$_POST['couponId']}");
+  header("Refresh: 3; url=./editCoupon.php?couponId={$_POST['couponId']}");
   $objResponse['success'] = false;
   $objResponse['code'] = 400;
   $objResponse['info'] = "沒有任何更新";
