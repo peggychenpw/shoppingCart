@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6 d-flex justify-content-center mb-3">
-        <h1>香水一覽</h1>
+        <h1>探索香氛</h1>
       </div>
       <div class="col-md-3"></div>
     </div>
