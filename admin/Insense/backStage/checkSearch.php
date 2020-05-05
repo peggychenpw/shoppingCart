@@ -13,14 +13,19 @@ require_once('../templates/rightContainer.php');
 error_reporting(0);
 ?>
 
+<style>
+ .button-text {
+   font-size: 85%;
+ }
+</style>
         <h3 class="pt-3 pb-2 d-flex justify-content-center">訂單管理</h3>
             
             <form name="myForm" method="POST" action="./checkSearch.php" class="ml-3">
-           訂單號  <input type="text" name="checkSearch" required >
+           訂單編號  <input type="text" name="checkSearch" required >
 
             <tr>
                 <td class="border" colspan="2">
-                    <button class="btn btn-outline-info" type="submit" name="smb_add">
+                    <button class="btn btn-outline-info button-text" type="submit" name="smb_add">
                      搜尋
                     </button>
                 </td>

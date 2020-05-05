@@ -19,7 +19,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
       <div class="col-md-10 col-sm-9">
         <div class="table-responsive">
 
-          <table class="table table-sm">
+          <table class="table table-striped table-bordered table-sm">
             <thead>
               <tr>
                 <th scope="col" class="border-0 bg-light">
