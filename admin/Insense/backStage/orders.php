@@ -101,7 +101,9 @@ require_once('../templates/rightContainer.php');
   </table>
 
   <form name="myForm" method="GET" action="./Alldelete.php">
-    <td class="border" colspan="2"><button class="btn btn-outline-danger" type="submit" name="smb_add">取消全部</button></td>
+   
+    <button class="btn btn-outline-danger ml-3" type="submit" name="smb_add">取消全部
+    </button>
   </form>
   </div>
 

@@ -11,8 +11,8 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
 <style>
   .center-orderId{
     display: flex!important;
-    margin-left: 10%;
-    margin-top: 42%;
+    margin-left: 15%;
+    margin-top: 40%;
   }
 </style>
 
@@ -28,7 +28,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
         <div class="table-responsive">
 
           <table class="table table-striped table-sm">
-            <thead>
+            <thead class="thead-light">
               <tr>
                 <th scope="col" class="border-0 bg-light">
                   <div class="p-2 px-3 text-uppercase">訂單編號</div>

@@ -75,7 +75,7 @@ if (!isset($_POST['chk'])) {
                             FROM `orders` INNER JOIN `payment_types`
                             ON `orders`.`paymentTypeId` = `payment_types`.`paymentTypeId`
                              WHERE `orderId` LIKE '%{$string}%'
-                            ORDER BY `orders`.`orderId`";
+                            ORDER BY `orders`.`orderId` DESC";
         $stmtOrder = $pdo->prepare($sqlOrder);
         $stmtOrder->execute();
         if ($stmtOrder->rowCount() > 0) {
@@ -134,8 +134,10 @@ if (!isset($_POST['chk'])) {
     </table>
     <form name="myForm" method="GET" action="./Alldelete.php">
 
-      <td class="border" colspan="2"><button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">取消全部</button>
-      </td>
+      
+      <button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">取消全部
+      </button>
+    
     </form>
     </div>
 
