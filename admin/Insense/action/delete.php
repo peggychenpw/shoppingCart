@@ -20,7 +20,7 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
     $arr = $stmt_img->fetchAll();
 
     //刪除檔案
-    $bool = unlink("../images/items/" . $arr[0]['itemImg'].".png");
+    $bool = unlink("../images/items/" . $arr[0]['itemImg'] . ".png");
 
 
     //若檔案刪除成功，則刪除資料???????????
@@ -36,17 +36,11 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
   }
 }
 if ($count > 0) {
-  header("Refresh: 1; url=../backStage/admin.php");
-  $objResponse['success'] = true;
-  $objResponse['code'] = 200;
-  $objResponse['info'] = "刪除成功";
-  // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  header("Refresh: 0; url=../backStage/admin.php");
+  echo '<script>alert("刪除成功")</script>';
   exit();
 } else {
-  header("Refresh: 1; url=../backStage/admin.php");
-  $objResponse['success'] = false;
-  $objResponse['code'] = 500;
-  $objResponse['info'] = "刪除失敗";
-  // echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
+  header("Refresh: 0; url=../backStage/admin.php");
+  echo '<script>alert("刪除失敗")</script>';
   exit();
 }

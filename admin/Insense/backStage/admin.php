@@ -266,7 +266,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
           </div>
         </div>
 
-        <input class="btn btn-outline-secondary" type="submit" name="smbSearch" class="ml-4 mr-3">
+        <input class="btn btn-outline-info" type="submit" name="smbSearch" class="ml-4 mr-3">
         <a class="btn btn-outline-secondary ml-2" href="admin.php" class="search-again">重新搜尋</a>
       </form>
     </div>
