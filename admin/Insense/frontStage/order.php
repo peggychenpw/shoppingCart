@@ -9,24 +9,22 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
 ?>
 
 <style>
-  .center-orderId{
-    display: flex!important;
-    margin-left: 15%;
-    margin-top: 40%;
+
+  .container {
+    margin: 0 auto;
   }
 </style>
 
 <form name="myForm" method="POST" action="./deleteOrder.php">
 
-  <div class="container-fluid">
-    <div class="row">
+  <div class="container">
+    <div class="text">
+      <h3 class="mt-3 mb-3 ml-4">感謝購買</h3>
       <!-- 樹狀商品種類連結 -->
-      <div class="col-md-2 col-sm-3"><?php buildTree($pdo, 0); ?></div>
-
+      <!-- <div class="col-md-2 col-sm-3"><?php buildTree($pdo, 0); ?></div> -->
       <!-- 商品項目清單 -->
-      <div class="col-md-10 col-sm-9">
+      <div class="col-md-12 col-sm-9">
         <div class="table-responsive">
-
           <table class="table table-striped table-sm">
             <thead class="thead-light">
               <tr>
@@ -36,7 +34,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 <th scope="col" class="border-0 bg-light">
                   <div class="py-2 text-uppercase">付款方式</div>
                 </th>
-                <th scope="col" class="border-0 bg-light">
+                <th scope="col" class="border-0 bg-light w-50">
                   <div class="py-2 text-uppercase">詳細資訊</div>
                 </th>
                 <!-- <th scope="col" class="border-0 bg-light">
@@ -61,7 +59,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 // for ($i = 0; $i < count($arrOrders); $i++) {
               ?>
                   <tr>
-                    <th scope="row" class="border-0 center-orderId"><?php echo $arrOrders[0]["orderId"] ?></th>
+                    <th scope="row" class="border-0 pl-5 align-middle"><?php echo $arrOrders[0]["orderId"] ?></th>
                     <td class="border-0 align-middle"><?php echo $arrOrders[0]["paymentTypeName"] ?></td>
                     <td class="border-0 align-middle">
                       <?php

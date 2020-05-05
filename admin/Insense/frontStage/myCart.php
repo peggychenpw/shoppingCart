@@ -11,10 +11,10 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
   <div class="container-fluid">
     <div class="row">
       <!-- 樹狀商品種類連結 -->
-      <div class="col-md-2 col-sm-3"><?php buildTree($pdo, 0); ?></div>
+      <!-- <div class="col-md-2 col-sm-3"><?php buildTree($pdo, 0); ?></div> -->
 
       <!-- 商品項目清單 -->
-      <div class="col-md-10 col-sm-9">
+      <div class="col-md-12 col-sm-9">
         <div class="row pl-3 pr-3">
           <div class="table-responsive">
             <table class="table table-sm">
