@@ -214,13 +214,22 @@ legend{
 }
 .card{
     border: none;
+
 }
 .fig{
     margin:10px 0px;    
 }
-.modal-background-new{
-    background-color: #96FED1;
+.modal-bg-new{   
+    background-image: url(../images/members/bgEdit.png);
 }
-.modal-background-edit{
-    background-color: #ACD6FF ;
+.modal-bg-edit{   
+    background-image: url(../images/members/bgNew.jpg);
+}
+
+.card{    
+    background-color: rgba(0,0,0,0);
+}
+.modalBorder{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }

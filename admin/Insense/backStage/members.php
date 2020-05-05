@@ -134,7 +134,7 @@ $checkBar_2_11 = isset($_POST['_2_11']) ?  "true" : "false";
     <form name="myForm3" method="POST" action="../action/deleteMultipleMember.php">
             <div class="btnDiv d-flex">
                 <input type="submit" class="myBtn btn btn-outline-danger mx-2" name="smb" onclick="return confirm('是否刪除?')" value="刪除勾選">
-                <button type="button" class="myFeatureBtn btn btn-outline-success mx-2" id="newMemb" onclick="newFunc()" data-toggle="modal" data-target="#newModel" 
+                <button type="button" class="myFeatureBtn btn btn-outline-info mx-2" id="newMemb" onclick="newFunc()" data-toggle="modal" data-target="#newModel" 
                 data-whatever="">新增</button>
             </div>
             <div class="tableWrap">
@@ -255,7 +255,7 @@ $checkBar_2_11 = isset($_POST['_2_11']) ?  "true" : "false";
                             <td class="border head_features_w pl-1 tbodyTd12 d-flex">
                                 <!-- <a href="">詳細資料</a> -->
                                 <!-- onclick function(this)this就是送自己 -->
-                                <button type="button" class="myFeatureBtn btn btn-outline-primary mx-2" onclick="editFunc(this)" data-toggle="modal" data-target="#editModel" data-id="<?php echo $arr[$i]['id']; ?>" 
+                                <button type="button" class="myFeatureBtn btn btn-outline-secondary mx-2" onclick="editFunc(this)" data-toggle="modal" data-target="#editModel" data-id="<?php echo $arr[$i]['id']; ?>" 
                                 data-whatever="<?php echo $arr[$i]['id']; ?>">編輯</button>
                                 
                                 <button type="button" class="myFeatureBtn btn btn-outline-danger mx-2" onclick="if(confirm('是否刪除?'))location.href='../action/deleteMember.php?deleteId=<?php echo $arr[$i]['id']; ?>'" >刪除</button>
@@ -837,16 +837,16 @@ $checkBar_2_11 = isset($_POST['_2_11']) ?  "true" : "false";
 
         <div class="modal fade" id="newModel" tabindex="-1" role="dialog" aria-labelledby="newModelLabel" aria-hidden="true">
             <div class="modal-dialog vertical-align-center" role="document">
-                <div class="modal-content" style="width:700px;height:auto;">
-                    <div class="modal-header modal-background-new">
+                <div class="modal-content modal-bg-new" style="width:700px;height:auto;">
+                    <div class="modal-header">
                         <h1 class="modal-title" id="newModelLabel">新增會員資料</h1>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body modalBorder">
                         <div style="width:auto;height:auto;overflow:auto;">
-                            <form name="myForm_new" method="POST" action="../action/insertMember.php" enctype="multipart/form-data">
+                            <form class="was-validated" name="myForm_new" method="POST" action="../action/insertMember.php" enctype="multipart/form-data">
                                 <?php
                                 // 引入新增頁面
                                 require_once('./newMember.php');
@@ -854,7 +854,7 @@ $checkBar_2_11 = isset($_POST['_2_11']) ?  "true" : "false";
                             </form>
                         </div>
                     </div> 
-                    <div class="modal-footer modal-background-new">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary" id="newGo" onclick="newGo()">新增</button>
                     </div>                   
@@ -865,14 +865,14 @@ $checkBar_2_11 = isset($_POST['_2_11']) ?  "true" : "false";
 
         <div class="modal fade" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
             <div class="modal-dialog vertical-align-center" role="document">
-                <div class="modal-content" style="width:700px;height:auto;">
-                    <div class="modal-header modal-background-edit">
+                <div class="modal-content modal-bg-edit" style="width:700px;height:auto;">
+                    <div class="modal-header">
                         <h1 class="modal-title" id="editModelLabel">編輯會員資料</h1>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body modalBorder">
                         <div style="width:auto;height:auto;overflow:auto;">
                             <form name="myForm_edit" method="POST" action="../action/updateEditMember.php" enctype="multipart/form-data">
                                 <?php
@@ -882,7 +882,7 @@ $checkBar_2_11 = isset($_POST['_2_11']) ?  "true" : "false";
                             </form>
                         </div>
                     </div>
-                    <div class="modal-footer modal-background-edit">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary" id="editGo" onclick="editGo()">更新</button>
                          
@@ -894,7 +894,9 @@ $checkBar_2_11 = isset($_POST['_2_11']) ?  "true" : "false";
         <input type="hidden" id="iList1_data" name="iList1_data" value="down" />
         <input type="hidden" id="iList2_data" name="iList2_data" value="down" />
         <input type="hidden" id="iList3_data" name="iList3_data" value="down" />
-
+<script>
+    
+</script>
 <?php
 require_once('../templates/footer.php');
 ?>

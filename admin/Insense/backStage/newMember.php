@@ -6,7 +6,9 @@
                 <div class="_accountInfo_left">
                     <div class="infoLine">
                         <label class="" for="userId_new">會員編號：</label>
-                        <input type="text" id="userId_new" name="userId_new" value="" maxlength="9" />
+                        <input type="text" id="userId_new" name="userId_new" value="whatever" maxlength="9" required/>
+                        
+                        
                     </div>
                     <div class="infoLine">
                         <label class="" for="username_new">會員帳號：</label>
@@ -100,18 +102,18 @@
                     </div>
                     <div class="infoLine">
                         <label class="" for="address_new">會員地址：</label>
-                        <input type="text" name="address_new" value="" maxlength="10" />
+                        <input type="text" name="address_new" value="" maxlength="40" />
                         
                     </div>
                 </div>
                 <div  class="_contactInfo_right">
                     <div class="infoLine">
                         <label class="" for="userEmail_new">會員信箱：</label>
-                        <input type="text" name="userEmail_new" value="" maxlength="10" />
+                        <input type="text" name="userEmail_new" value="" maxlength="40" />
                     </div>
                     <div class="infoLine">
                         <label class="" for="phoneNumber_new">會員電話：</label>
-                        <input type="text" name="phoneNumber_new" value="" maxlength="10" />
+                        <input type="text" name="phoneNumber_new" value="" maxlength="13" />
                     </div>                    
                 </div>
             </div>                                
