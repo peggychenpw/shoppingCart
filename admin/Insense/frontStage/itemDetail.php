@@ -11,6 +11,24 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
  .button-text {
    font-size: 80%;
  }
+
+ ul {
+  /* list-style-type: lower-greek; */
+  list-style: none;
+ }
+
+ ul li::before {
+  content: "\2022";
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em;
+  color: #89B0AE;
+ }
+
+ ul li a {
+  color: #6381a8;
+ }
+
 </style>
 <div class="container-fluid">
   <div class="row">

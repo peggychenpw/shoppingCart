@@ -23,7 +23,7 @@
     </a>
 
     <?php if(isset($_SESSION["username"])) { ?>
-    <a class="p-2 text-dark" href="./check.php"><i class="zmdi zmdi-file-text"></i>我的訂單</a>
+    <a class="p-2 text-dark" href="./order.php"><i class="zmdi zmdi-file-text"></i>我的訂單</a>
     <?php } ?>
 
     </nav>

@@ -47,7 +47,7 @@ error_reporting(0);
                             <th scope="col" class="border">
                                 <div class="py-2 text-uppercase">付款方式</div>
                             </th>
-                            <th scope="col" class="border">
+                            <th scope="col" class="border w-50">
                                 <div class="py-2 text-uppercase">詳細資訊</div>
                             </th>
                            
@@ -62,7 +62,7 @@ error_reporting(0);
                             FROM `orders` INNER JOIN `payment_types`
                             ON `orders`.`paymentTypeId` = `payment_types`.`paymentTypeId`
                              WHERE `orderId` LIKE '%{$string}%'
-                            ORDER BY `orders`.`orderId`";
+                            ORDER BY `orders`.`orderId` DESC";
                                     $stmtOrder = $pdo->prepare($sqlOrder);
                         $stmtOrder->execute();
                         if ($stmtOrder->rowCount() > 0) {
@@ -121,11 +121,11 @@ error_reporting(0);
                 </table>
                 <form name="myForm" method="GET" action="./Alldelete.php">
 
-                <td class="border" colspan="2">
+                <!-- <td class="border" colspan="2"> -->
                     <button class="btn btn-outline-danger ml-3" type="submit" name="smb_add">
                     取消全部
                     </button>
-                 </td>
+                 <!-- </td> -->
                  </form>
         </div>
 

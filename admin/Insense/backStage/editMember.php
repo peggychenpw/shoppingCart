@@ -21,7 +21,7 @@
                 <div class="_accountInfo_right">
                     <div class="infoLine">
                         <label class="" for="userCreditCard_edit">信用卡號：</label>
-                        <input type="text" id="userCreditCard_edit" name="userCreditCard_edit" value="" maxlength="10" />
+                        <input type="text" id="userCreditCard_edit" name="userCreditCard_edit" value="" maxlength="20" />
                     </div>
                     <div class="infoLine">
                         <label class="" for="userPoint_edit">會員點數：</label>
@@ -107,17 +107,17 @@
                     </div>
                     <div class="infoLine">
                         <label class="" for="address_edit">會員地址：</label>
-                        <input type="text" id="address_edit" name="address_edit" value="" maxlength="10" />
+                        <input type="text" id="address_edit" name="address_edit" value="" maxlength="40" />
                     </div>
                 </div>
                 <div  class="_contactInfo_right">
                     <div class="infoLine">
                         <label class="" for="userEmail">會員信箱：</label>
-                        <input type="text" id="userEmail_edit" name="userEmail_edit" value="" maxlength="10" />
+                        <input type="text" id="userEmail_edit" name="userEmail_edit" value="" maxlength="40" />
                     </div>
                     <div class="infoLine">
                         <label class="" for="phoneNumber">會員電話：</label>
-                        <input type="text" id="phoneNumber_edit" name="phoneNumber_edit" value="" maxlength="10" />
+                        <input type="text" id="phoneNumber_edit" name="phoneNumber_edit" value="" maxlength="13" />
                     </div> 
                 </div>
             </div>
