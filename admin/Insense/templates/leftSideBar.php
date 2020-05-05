@@ -1,3 +1,8 @@
+<style>
+  #sidebar header a {
+    cursor: text;
+  }
+</style>
 <div id="viewport">
   <!-- Sidebar -->
   <div id="sidebar">
@@ -26,7 +31,7 @@
         </a>
       </li>
       <li>
-        <a href="../backStage/bookSearch.php">
+        <a href="../backStage/bookSearch2.php">
           <i class="zmdi zmdi-calendar-check"></i> 課程預約管理
         </a>
       <li>

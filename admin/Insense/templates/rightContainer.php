@@ -2,10 +2,10 @@
   <!-- Content -->
   <div>
     <nav class="navbar header-grey">
-      <div class="container-fluid d-flex justify-content-end pt-2">
-        <ul class="d-flex">
-          <li class="mr-5"><a href="#"><?php echo $_SESSION['name'] ?></a></li>
-          <li><a href="">登出</a></li>
+      <div class="container-fluid d-flex justify-content-end pt-1">
+        <ul class="d-flex align-items-center">
+          <li class="mr-3"><span href="#"><?php echo $_SESSION['name'] ?></span></li>
+          <li><a class="btn btn-outline-secondary " href="../action/logout.php?logout=1">登出</a></li>
         </ul>
       </div>
     </nav>

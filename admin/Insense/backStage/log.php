@@ -6,6 +6,8 @@ require_once('../templates/header.php');
 <style>
   body {
     background-image: url("https://images.unsplash.com/photo-1508717272800-9fff97da7e8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .box {
@@ -30,12 +32,12 @@ require_once('../templates/header.php');
   <form class="logForm p-5" method="POST" action="../action/login.php">
     <div class="form-group">
       <label>
-        帳號:<input type="text" class="form-control" name="username">
+        帳號<input type="text" class="form-control" name="username">
       </label>
     </div>
     <div class="form-group">
       <label>
-        密碼:<input type="password" class="form-control" name="pwd">
+        密碼<input type="password" class="form-control" name="pwd">
       </label>
     </div>
     <div>

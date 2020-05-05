@@ -28,8 +28,6 @@ $checkBar_2_9 = isset($_POST['_2_9']) ?  "true" : "false";
 $checkBar_2_10 = isset($_POST['_2_10']) ?  "true" : "false";
 $checkBar_2_11 = isset($_POST['_2_11']) ?  "true" : "false";
 
-$iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
-
 ?>         
         <div class="container">
             <div class="searchDiv">
@@ -131,12 +129,12 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
                     <input type="hidden" id="iList3_data" name="iList3_data" value="" />
                     <input type="submit" id="postSort" name="postSort" style="display:none;" /> -->
                 </form>    
-            </div>
-    
+            </div>                
+
     <form name="myForm3" method="POST" action="../action/deleteMultipleMember.php">
             <div class="btnDiv d-flex">
-                <input type="submit" class="myBtn btn btn-outline-danger mx-2" name="smb" value="刪除勾選">
-                <button type="button" class="myBtn btn btn btn-outline-success mx-2" onclick="newFunc()" data-toggle="modal" data-target="#newModel" 
+                <input type="submit" class="myBtn btn btn-outline-danger mx-2" name="smb" onclick="return confirm('是否刪除?')" value="刪除勾選">
+                <button type="button" class="myFeatureBtn btn btn-outline-success mx-2" id="newMemb" onclick="newFunc()" data-toggle="modal" data-target="#newModel" 
                 data-whatever="">新增</button>
             </div>
             <div class="tableWrap">
@@ -162,72 +160,12 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
                     </thead>
                     <tbody class="myTbody" id="myTbody">
     <?php
-    //SQL 敘述
-    // $sql = "SELECT `id`, `userId`, `name`, `gender`, `birthday`,
-    //                 `userCity`, `address`, `userEmail`,`phoneNumber`,
-    //                 `username`,`pwd`,`userPoint`,`userLoyalty`";
-
     
-    // if(isset($_POST['searchInput1'])){
-        
-    //     $sql = "SELECT `id`, `userId`";
-        
-    //     if($checkBar_1_2=="true"){
-    //         $sql .= " , `name` ";
-    //     }
-    //     if($checkBar_1_3=="true"){
-    //         $sql .= " , `username` ";
-    //     }
-    //     if($checkBar_1_4=="true"){
-    //         $sql .= " , `pwd` ";
-    //     }
-    //     if($checkBar_1_5=="true"){
-    //         $sql .= " , `gender` ";
-    //     }
-    //     if($checkBar_1_6=="true"){
-    //         $sql .= " , `birthday` ";
-    //     }
-    //     if($checkBar_1_7=="true"){
-    //         $sql .= " , `address` ";
-    //     }
-    //     if($checkBar_1_8=="true"){
-    //         $sql .= " , `userEmail` ";
-    //     }
-    //     if($checkBar_1_9=="true"){
-    //         $sql .= " , `phoneNumber` ";
-    //     }
-    //     if($checkBar_1_10=="true"){
-    //         $sql .= " , `userPoint` ";
-    //     }
-    //     if($checkBar_1_11=="true"){
-    //         $sql .= " , `userLoyalty` ";
-    //     }
-
-    // }else{
-    //     $sql = "SELECT `id`, `userId`, `name`, `gender`, `birthday`,
-    //                 `userCity`, `address`, `userEmail`,`phoneNumber`,
-    //                 `username`,`pwd`,`userPoint`,`userLoyalty`";
-    // }
     $sql = "SELECT `id`, `userId`, `name`, `gender`, `birthday`,`userCreditCard`,
                     `userCity`, `address`, `userEmail`,`phoneNumber`,
                     `username`,`pwd`,`userPoint`,`userLoyalty`";
     
-
     $sql .= "FROM `users`" ;
-    
-    // if(isset($_POST['searchInput1'])){
-    //     $sql .= " WHERE `userId` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `name` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `username` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `pwd` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `gender` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `birthday` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `address` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `userEmail` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `phoneNumber` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `userPoint` LIKE '%{$_POST['searchInput1']}%' ";
-    //     $sql .= " OR `userLoyalty` LIKE '%{$_POST['searchInput1']}%' ";
-    // }
     
     if(isset($_POST['searchInput1'])){
         
@@ -263,10 +201,8 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
         if($checkBar_1_11=="true"){
             $sql .= " OR `address` LIKE '%{$_POST['searchInput1']}%' ";
         }
-
     }
-    
-                        
+                     
     $sql .= " ORDER BY `id` ASC ";
     
     //SQL 敘述: 取得 students 資料表總筆數
@@ -295,8 +231,6 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
     $stmt = $pdo->prepare($sql);
     $stmt->execute($arrParam);
 
-    
-    
     //資料數量大於 0，則列出所有資料
     if ($stmt->rowCount() > 0) {
         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -304,7 +238,7 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
             ?>              
                       
                         <tr class="myTbodyTr" id="myTbodyTr">
-                        <td class="border pl-2 tbodyTd0">
+                            <td class="border pl-2 tbodyTd0">
                                 <input type="checkbox" class="ifdelete" id="ifdelete" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
                             </td>                            
                             <td class="border head_id_w pl-1 tbodyTd1"><?php echo $arr[$i]['userId']; ?></td>
@@ -324,7 +258,7 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
                                 <button type="button" class="myFeatureBtn btn btn-outline-primary mx-2" onclick="editFunc(this)" data-toggle="modal" data-target="#editModel" data-id="<?php echo $arr[$i]['id']; ?>" 
                                 data-whatever="<?php echo $arr[$i]['id']; ?>">編輯</button>
                                 
-                                <a class="myFeatureBtn btn btn-outline-danger mx-2" href="../action/deleteMember.php?deleteId=<?php echo $arr[$i]['id']; ?>">刪除</a>
+                                <button type="button" class="myFeatureBtn btn btn-outline-danger mx-2" onclick="if(confirm('是否刪除?'))location.href='../action/deleteMember.php?deleteId=<?php echo $arr[$i]['id']; ?>'" >刪除</button>
 
                             </td>
                         </tr>
@@ -423,6 +357,9 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
         checkArr2[9]= document.getElementById('checkArr2_9');
         checkArr2[9].addEventListener('click', checked_2);
 
+        // 找到tbody
+        var myTbody = document.getElementById('myTbody');
+                
         // 找到thead和tbody的tr
         var myTheadTr = document.getElementById('myTheadTr');
         var myTbodyTr = document.getElementById('myTbodyTr');
@@ -454,23 +391,18 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
         // newHeadTh0.appendChild(clickAll_d);
         // newHeadTh0.appendChild(clickReverse_d);
 
-
-
         var newHeadTh0=document.getElementById('headTh_0');
             // 丟進arr
         tableTitle[0]=newHeadTh0;
 
         var newHeadTh1 = document.createElement('th');
-        newHeadTh1.className = "border head_id_w pl-1 d-flex";
-        var textTheadTh1 = document.createTextNode("編號");
-        // textTheadTh1.setAttribute('cursor','pointer');
+        newHeadTh1.className = "border head_id_w pl-1";
+        var textTheadTh1 = document.createTextNode("編號");        
         var iTheadTh1 = document.createElement('i');
         iTheadTh1.className="zmdi zmdi-caret-down-circle myIList mx-2";
         iTheadTh1.id="iList1";
-        iTheadTh1.setAttribute('name','iList1');
-        // iTheadTh1.setAttribute('cursor','pointer');
-        iTheadTh1.addEventListener('click', iList1Func);
-        // iTheadTh1.setAttribute('sort','down');
+        iTheadTh1.setAttribute('name','iList1');        
+        iTheadTh1.addEventListener('click', iList1Func);        
         newHeadTh1.appendChild(textTheadTh1);
         newHeadTh1.appendChild(iTheadTh1);
         tableTitle[1]=newHeadTh1;
@@ -500,7 +432,7 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
         tableTitle[4]=newHeadTh4;
 
         var newHeadTh5 = document.createElement('th');
-        newHeadTh5.className = "border head_gender_w pl-1 d-flex";
+        newHeadTh5.className = "border head_gender_w pl-1";
         var textTheadTh5 = document.createTextNode("性別");
         var iTheadTh5 = document.createElement('i');
         iTheadTh5.className="zmdi zmdi-caret-down-circle myIList mx-2";
@@ -548,17 +480,27 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
         tableTitle[11]=newHeadTh11;
 
         var newHeadTh12 = document.createElement('th');
-        newHeadTh12.className = "border head_features_w pl-1";
-        var textTheadTh12 = document.createTextNode("功能");
+        newHeadTh12.className = "border head_features_w pl-1 d-flex";
+        var newMemberBtn = document.getElementById('newMemb');
+
+        // newMemberBtn.setAttribute('type','button');
+        // newMemberBtn.className="myFeatureBtn btn btn-outline-success mx-2";       
+        // newMemberBtn.addEventListener('click', newFunc);
+        // newMemberBtn.setAttribute('data-toggle','modal');
+        // newMemberBtn.setAttribute('data-target','#newModal');
+        var textTheadTh12 = document.createTextNode("功能");        
         newHeadTh12.appendChild(textTheadTh12);
+        newHeadTh12.appendChild(newMemberBtn);
         tableTitle[12]=newHeadTh12;
         
         // ========================================  onload  ========================================
         window.onload = function () {          
             showThead(2);
-            console.log($('#iList1_data').val()); 
-            console.log($('#iList2_data').val()); 
-            console.log($('#iList3_data').val()); 
+            // console.log($('#iList1_data').val()); 
+            // console.log($('#iList2_data').val()); 
+            // console.log($('#iList3_data').val()); 
+            // console.log($('#myTbody').children('tr').length);
+            
         };
         // ========================================  函式  ========================================
         function showThead(sw){
@@ -623,16 +565,13 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
         function click_all(){            
             clickReverse.checked=false;
             if (clickAll.checked == true){                                
-                console.log("clicl all = true");
-                for(var i=0;i<ifDeleteArr.length;i++){
-                    
-                    ifDeleteArr[i].checked=true;
-                    
-                }
-                
+                // console.log("clicl all = true");
+                for(var i=0;i<ifDeleteArr.length;i++){                    
+                    ifDeleteArr[i].checked=true;                    
+                }                
             }
             else{                
-                console.log("clicl all = false");
+                // console.log("clicl all = false");
                 for(var i=0;i<ifDeleteArr.length;i++){
                     ifDeleteArr[i].checked=false;
                 }
@@ -642,21 +581,17 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
             clickAll.checked == false;
             for(var i=0;i<ifDeleteArr.length;i++){
                 if (ifDeleteArr[i].checked == true){              
-                    ifDeleteArr[i].checked = false;
-                    
+                    ifDeleteArr[i].checked = false;                    
                 }
                 else{                
-                    ifDeleteArr[i].checked = true;
-                
-            }
+                    ifDeleteArr[i].checked = true;                
                 }
+            }
             if (clickReverse.checked == true){              
-                console.log("clicl Reverse = true");
-                
+                // console.log("clicl Reverse = true");                
             }
             else{                
-                console.log("clicl Reverse = false");
-                
+                // console.log("clicl Reverse = false");                
             }
         }
         // 清除內容 
@@ -676,8 +611,7 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
             var showImg_new =$("#userImg_new").get(0).files ;
             if(showImg_new[0].name){                                
                 $("#userImg_new_src").attr('src','../images/members/'+showImg_new[0].name);
-            }
-            
+            }            
         }
         
         function changeImg_edit(){
@@ -685,96 +619,87 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
             if(showImg_edit[0].name){                                
                 $("#userImg_edit_src").attr('src','../images/members/'+showImg_edit[0].name);
                 $("#userImg_edit_label").text(showImg_edit[0].name);
-            }
-            
+            }            
         }
+        
         // 排序圖示
         function iList1Func(){  
-            console.log('1'+$('#iList1_data').val());          
+            // console.log('按了1 : '+$('#iList1_data').val());          
+            var sw;
             if(($('#iList1_data').val()=='down')||($('#iList1_data').val()=='')){                
                 // $('#iList1').attr('sort','up');
                 $('#iList1').attr('class','zmdi zmdi-caret-up-circle myIList mx-2');
                 $('#iList1_data').val('up');
+                sw='up';
             }
             else{
                 // $('#iList1').attr('sort','down');
                 $('#iList1').attr('class','zmdi zmdi-caret-down-circle myIList mx-2');
                 $('#iList1_data').val('down');
+                sw='down';
             }     
             $('#iList2').attr('class','zmdi zmdi-caret-down-circle myIList mx-2');
             $('#iList3').attr('class','zmdi zmdi-caret-down-circle myIList mx-2');
             $('#iList2_data').val('down');
-            $('#iList3_data').val('down');  
-            console.log($('#iList1_data').val()); 
-            console.log($('#iList2_data').val()); 
-            console.log($('#iList3_data').val());   
-            // $('#postSort').click();   
+            $('#iList3_data').val('down');
+             
+            sortClick(1,sw);   
         }
         function iList2Func(){
-            console.log('2'+$('#iList2_data').val());  
+            // console.log('按了2 : '+$('#iList2_data').val());  
             if($('#iList2_data').val()=='down'){                
                 // $('#iList2').attr('sort','up');
                 $('#iList2').attr('class','zmdi zmdi-caret-up-circle myIList mx-2');
                 $('#iList2_data').val('up');
+                sw='up';
             }
             else{
                 // $('#iList2').attr('sort','down');
                 $('#iList2').attr('class','zmdi zmdi-caret-down-circle myIList mx-2');
                 $('#iList2_data').val('down');
+                sw='down'; 
             }
             $('#iList1').attr('class','zmdi zmdi-caret-down-circle myIList mx-2');
             $('#iList3').attr('class','zmdi zmdi-caret-down-circle myIList mx-2');
             $('#iList1_data').val('down');
-            $('#iList3_data').val('down'); 
-            console.log($('#iList1_data').val()); 
-            console.log($('#iList2_data').val()); 
-            console.log($('#iList3_data').val());
-            // $('#postSort').click();  
+            $('#iList3_data').val('down');
+            
+            sortClick(3,sw);  
         }
         function iList3Func(){
-            console.log('3'+$('#iList3_data').val());  
+            // console.log('按了3 : '+$('#iList3_data').val());  
             if($('#iList3_data').val()=='down'){                
                 // $('#iList3').attr('sort','up');
                 $('#iList3').attr('class','zmdi zmdi-caret-up-circle myIList mx-2');
                 $('#iList3_data').val('up');
+                sw='up';
             }
             else{
                 // $('#iList3').attr('sort','down');
                 $('#iList3').attr('class','zmdi zmdi-caret-down-circle myIList mx-2');
                 $('#iList3_data').val('down');
+                sw='down';
             }
             $('#iList1').attr('class','zmdi zmdi-caret-down-circle myIList mx-2');
             $('#iList2').attr('class','zmdi zmdi-caret-down-circle myIList mx-2');
             $('#iList1_data').val('down');
             $('#iList2_data').val('down'); 
-            console.log($('#iList1_data').val()); 
-            console.log($('#iList2_data').val()); 
-            console.log($('#iList3_data').val()); 
-            // $('#postSort').click(); 
-        }
-    
-        
-        // $('#_test').click(function(){
-                
-        //         // alert($('#_test').attr('data-id'));
-        //         // var getId=$('#_test').attr('data-id');
-                
-        //     });
+            sortClick(5,sw); 
+        }                    
 
         // modal按鈕觸發Form裡面的submit
-        function newGo(){
-            console.log('test ok');
+        function newGo(){            
             $('#smb_new').click();
         }
-        function editGo(){
+        function editGo(){            
             $('#smb_edit').click();
         }
-        
         
         // 新增按鈕Func
         function newFunc(){
 
         }
+
         // 編輯按鈕Func
         function editFunc(selfone){
             var linkId=$(selfone).attr('data-id');  // btn this data
@@ -793,10 +718,10 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
             })
             .done(function(data) {  // suc
                 var dataJson=JSON.parse(data);
-                console.log(JSON.parse(data));                
+                // console.log(JSON.parse(data));                
                 // alert(data['pwd']);
                 // alert(data['address']);
-                console.log(dataJson["name"]);
+                // console.log(dataJson["name"]);
                 // 給editId值，該值是修改鈕送過來的值
                 $("#editId").val(linkId);
                 // 把傳回來的data裡的值用jquery丟進input
@@ -834,13 +759,86 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
             .fail(function (jqXHR, textStatus) {
                 alert("Request failed: " + textStatus);
             });            
-        }                
+        } 
+
+        // 排序勾選欄位
+        function sortClick(_sort,sw){
+            var _arrNew=[];
+            var _arrSort=[];
+            var _arr=$('#myTbody').children('tr');
+            for( let i = 0 ; i < _arr.length ; i++ ){
+                
+                _arrSort[i]=_arr[i].getElementsByTagName("td");
+                // console.log(_arrSort[i][_sort].innerHTML);
+                // console.log(_arr[i]);
+
+                // _arrSort[i].append(_arr[i].getElementsByTagName("td"));                  
+                // console.log(_arrSort[i]);
+                // console.log(_arrSort[i].innerHTML);
+            }  
+            // console.log(_arrSort[1]);
+            bubbleSort(_arr,_arrSort,_sort,sw);
+
+            for( let i = 0 ; i < _arr.length ; i++ ){
+                
+                // _arrSort[1][i]=_arr[i].getElementsByTagName("td");
+                // console.log(_arr[i]);
+                // console.log(_arr[i]);
+
+                // _arrSort[i].append(_arr[i].getElementsByTagName("td"));                  
+                // console.log(_arrSort[i]);
+                // console.log(_arrSort[i][0].innerHTML);
+            } 
+
+            _showBody(_arr);            
+                
+                           
+        }   
+        function swap(data, i, j){ 
+            var tmp = data[i];
+            data[i] = data[j];
+            data[j] = tmp;
+        };
+
+        function bubbleSort(_arr,_arrSort,_sort,sw){
+            var flag = true;
+            // alert(sw);
+            for(var i = 0; i < _arrSort.length - 1 && flag; i++){
+                flag = false;
+                for(var j = 0; j < _arrSort.length - i - 1; j++){
+                    if(sw=='down'){
+                        if(_arrSort[j+1][_sort].innerHTML < _arrSort[j][_sort].innerHTML){
+                        swap(_arrSort, j+1, j);
+                        swap(_arr, j+1, j);
+                        flag = true;
+                        }
+                    }
+                    if(sw=='up'){
+                        if(_arrSort[j+1][_sort].innerHTML > _arrSort[j][_sort].innerHTML){
+                        swap(_arrSort, j+1, j);
+                        swap(_arr, j+1, j);
+                        flag = true;
+                        }
+                    }
+                }
+            }
+        };    
+
+        function _showBody(_arr){
+            while (myTbody.firstChild) {
+                myTbody.removeChild(myTbody.firstChild);
+            }
+            for( let i = 0 ; i < _arr.length ; i++ ){
+                myTbody.appendChild(_arr[i]);                
+            } 
+            
+        }
     </script>
 
         <div class="modal fade" id="newModel" tabindex="-1" role="dialog" aria-labelledby="newModelLabel" aria-hidden="true">
             <div class="modal-dialog vertical-align-center" role="document">
                 <div class="modal-content" style="width:700px;height:auto;">
-                    <div class="modal-header">
+                    <div class="modal-header modal-background-new">
                         <h1 class="modal-title" id="newModelLabel">新增會員資料</h1>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -856,7 +854,7 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
                             </form>
                         </div>
                     </div> 
-                    <div class="modal-footer">
+                    <div class="modal-footer modal-background-new">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary" id="newGo" onclick="newGo()">新增</button>
                     </div>                   
@@ -868,7 +866,7 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
         <div class="modal fade" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
             <div class="modal-dialog vertical-align-center" role="document">
                 <div class="modal-content" style="width:700px;height:auto;">
-                    <div class="modal-header">
+                    <div class="modal-header modal-background-edit">
                         <h1 class="modal-title" id="editModelLabel">編輯會員資料</h1>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -884,9 +882,9 @@ $iList1_ = isset($_POST['iList1_data']) ?  $_POST['iList1_data'] : "down";
                             </form>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer modal-background-edit">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" id="editGo" onclick="editGo()">執行更新</button>
+                        <button type="button" class="btn btn-primary" id="editGo" onclick="editGo()">更新</button>
                          
                     </div>
                 </div>

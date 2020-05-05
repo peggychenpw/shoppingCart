@@ -1,8 +1,14 @@
+<style>
+  #sidebar header a {
+    cursor: text;
+  }
+</style>
+
 <div id="viewport">
   <!-- Sidebar -->
   <div id="sidebar">
     <header>
-      <span>INSENSE</span>
+      <a href="#">INSENSE</a>
     </header>
     <ul class="nav">
       <li>

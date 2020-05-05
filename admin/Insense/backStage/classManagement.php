@@ -4,6 +4,7 @@ require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
+error_reporting(0);
 
 // search
 
@@ -129,23 +130,21 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
 <!-- #################### content #################### -->
 <style>
   /* class zone */
-
-  .classTd {
-    position: relative;
+  .allSelected {
+    color: #aaa;
+    border-bottom: 1px solid #bbb;
+    text-decoration: none;
   }
 
-  .classTd input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .allSelected:hover {
+    color: black;
+    text-decoration: none;
   }
 
   ._tr {
     cursor: no-drop;
     opacity: .5;
   }
-
   ._td {
     vertical-align: middle !important;
   }
@@ -211,10 +210,9 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
         <label class="input-group-text" for="classDate">日期:</label>
         <input class="form-control" type="text" name='classDate' value="<?php echo $_SESSION['classDate'] ?>">
       </div>
-      <div>
+      <div class="d-flex justify-content-between">
         <input class="btn btn-outline-secondary" type="submit" value="查詢">
-        <input class="btn btn-outline-secondary ml-2" type="reset" value="清空">
-        <a class="_btn btn btn-outline-secondary ml-5" href="javascript:;">重新搜尋</a>
+        <a class="_btn btn btn-outline-secondary" href="javascript:;">重新搜尋</a>
         <!-- <input class="btn btn-outline-secondary ml-2" type="reset" value="重新搜尋"> -->
       </div>
     </div>
@@ -254,16 +252,16 @@ if ($totalClass > 0) {
           for ($i = 0; $i < count($arr); $i++) {
         ?>
             <tr class="<?php if ($arr[$i]['isAlive'] === '停課') echo '_tr' ?>">
-              <td class="border classTd">
+              <td class="border classTd _td">
                 <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
               </td>
-              <td class="border _td"><?php echo $arr[$i]['className']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classPrice']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classCategoryName']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classDate']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classTime']; ?></td>
-              <td class="border">
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['className']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classPrice']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classCategoryName']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classDate']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classTime']; ?></td>
+              <td class="border _td">
                 <a class="btn btn-outline-secondary" href="./classInfo.php?id=<?php echo $arr[$i]['id'] ?>">修改</a>
               </td>
             </tr>
@@ -280,7 +278,7 @@ if ($totalClass > 0) {
       </tbody>
       <tfoot>
         <tr>
-          <td class="border" colspan="8">
+          <td class="border text-left" colspan="8">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
               <a href="?page=<?= $i ?>"><?= $i ?></a>
             <?php } ?>
@@ -288,7 +286,7 @@ if ($totalClass > 0) {
         </tr>
         <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="8"><input class="btn btn-outline-secondary" type="submit" name="smb" value="下架"></td>
+            <td class="border text-left" colspan="8"><input class="btn btn-outline-danger" type="submit" name="smb" value="下架"></td>
           </tr>
         <?php } ?>
 
@@ -301,25 +299,20 @@ if ($totalClass > 0) {
       let classRadio = document.querySelectorAll('input[type=radio]')
       let classText = document.querySelectorAll('input[type=text]')
       let classSelect = document.querySelectorAll('select')
-      // 點擊後所有select選項會變成第一個option
       classSelect.forEach(el => {
         el.options[0].setAttribute('selected', true)
       })
-      // 點擊後所有radio全部變成沒有選取的狀態
       classRadio.forEach(el => {
         el.removeAttribute('checked')
       })
-      // 點擊後所以input::text的值為null
       classText.forEach(el => {
         el.value = null;
       })
     })
-    // 全選
+
     document.querySelector('.allSelected').addEventListener('click', function() {
       let _checkBox = document.querySelectorAll('input[type=checkbox]')
-      // 判斷是否有全選,有全選擇清空,沒有則相反
       _checkBox.forEach(el => {
-
         el.hasAttribute('checked') ? el.removeAttribute('checked') : el.setAttribute('checked', true)
       })
     })

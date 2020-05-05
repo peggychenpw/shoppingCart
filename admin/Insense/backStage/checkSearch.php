@@ -10,6 +10,7 @@ require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php');
 require_once('../templates/leftSideBar.php');
 require_once('../templates/rightContainer.php');
+error_reporting(0);
 ?>
 
         <h3 class="pt-3 pb-2 d-flex justify-content-center">訂單管理</h3>
@@ -19,7 +20,7 @@ require_once('../templates/rightContainer.php');
 
             <tr>
                 <td class="border" colspan="2">
-                    <button class="btn btn-outline-secondary" type="submit" name="smb_add">
+                    <button class="btn btn-outline-info" type="submit" name="smb_add">
                      搜尋
                     </button>
                 </td>
@@ -116,7 +117,7 @@ require_once('../templates/rightContainer.php');
                 <form name="myForm" method="GET" action="./Alldelete.php">
 
                 <td class="border" colspan="2">
-                    <button class="btn btn-outline-secondary ml-3" type="submit" name="smb_add">
+                    <button class="btn btn-outline-danger ml-3" type="submit" name="smb_add">
                     取消全部
                     </button>
                  </td>
