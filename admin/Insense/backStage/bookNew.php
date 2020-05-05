@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 
@@ -87,7 +89,7 @@ $dateToday =  date("Y-m-d");
 
 $sql = "SELECT `classId`, `classDate`,`className`, `isAlive`
         FROM `class`
-        WHERE `classDate`<='{$dateToday}'";
+        WHERE `classDate`> '{$dateToday}'";
 
 $stmtClass = $pdo->query($sql);
 $arr = $stmtClass->fetchAll(PDO::FETCH_ASSOC);
