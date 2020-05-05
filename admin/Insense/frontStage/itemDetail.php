@@ -7,6 +7,11 @@ require_once("./tpl/func-buildTree.php");
 require_once("./tpl/func-getRecursiveCategoryIds.php");
 ?>
 
+<style>
+ .button-text {
+   font-size: 80%;
+ }
+</style>
 <div class="container-fluid">
   <div class="row">
     <!-- 樹狀商品種類連結 -->
@@ -69,7 +74,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 <form name="cartForm" id="cartForm" method="POST" action="./addCart.php">
                   <label>數量: </label>
                   <input type="text" name="cartQty" id="cartQty" value="1" maxlength="5">
-                  <button type="button" class="btn btn-info btn-lg" id="btn_addCart" data-item-id="<?php echo $_GET['itemId'] ?>">加入購物車</button>
+                  <button type="button" class="btn btn-info btn-lg button-text" id="btn_addCart" data-item-id="<?php echo $_GET['itemId'] ?>">加入購物車</button>
                   <!-- <button type="button" class="btn btn-info btn-lg" id="btn_addItemTracking" data-item-id="<?php echo $_GET['itemId'] ?>">追蹤此商品</button> -->
                   <input type="hidden" name="itemId" id="itemId" value="<?php echo $_GET['itemId'] ?>">
                 </form>
