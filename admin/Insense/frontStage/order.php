@@ -19,7 +19,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
       <div class="col-md-10 col-sm-9">
         <div class="table-responsive">
 
-          <table class="table table-sm">
+          <table class="table table-striped table-sm">
             <thead>
               <tr>
                 <th scope="col" class="border-0 bg-light">
@@ -31,10 +31,10 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 <th scope="col" class="border-0 bg-light">
                   <div class="py-2 text-uppercase">詳細資訊</div>
                 </th>
-                <th scope="col" class="border-0 bg-light">
+                <!-- <th scope="col" class="border-0 bg-light">
                   <div class="py-2 text-uppercase">功能</div>
                 </th>
-              </tr>
+              </tr> -->
             </thead>
             <tbody>
               <?php
@@ -85,7 +85,7 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                       }
                       ?>
                     </td>
-                    <td class="border-0 align-middle"><a href="./deleteOrder.php?orderId=<?php echo $arrOrders[$i]["orderId"] ?>" class="text-dark">刪除</a></td>
+                    <!-- <td class="border-0 align-middle"><a href="./deleteOrder.php?orderId=<?php echo $arrOrders[$i]["orderId"] ?>" class="text-dark">刪除</a></td> -->
                   </tr>
               <?php
                 }
