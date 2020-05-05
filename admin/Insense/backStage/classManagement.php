@@ -141,6 +141,10 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
     text-decoration: none;
   }
 
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
+
   ._tr {
     cursor: no-drop;
     opacity: .5;
@@ -240,7 +244,7 @@ if ($totalClass > 0) {
           <th class="border">課程類別</th>
           <th class="border">上限人數</th>
           <th class="border">上課日期</th>
-          <th class="border">上線時間</th>
+          <th class="border">上課時間</th>
           <th class="border">詳細資訊</th>
         </tr>
       </thead>
