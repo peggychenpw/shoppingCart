@@ -121,9 +121,9 @@ $stmt->execute($arrParam);
 
 if( $stmt->rowCount() > 0 ){
     // 3秒後更新，url導向新的頁面後面給編號
-    header("Refresh: 3; url=../backStage/members.php");
-    echo "更新成功";
+    header("Refresh: 0; url=../backStage/updateMembSuccess.php");
+    // echo "更新成功";
 } else {
-    header("Refresh: 3; url=../backStage/members.php");
-    echo "沒有任何更新";
+    header("Refresh: 0; url=../backStage/updateMembFail.php");
+    // echo "沒有任何更新";
 }

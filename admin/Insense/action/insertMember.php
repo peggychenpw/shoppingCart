@@ -49,9 +49,9 @@ $arr = [
 $stmt = $pdo->prepare($sql);
 $stmt->execute($arr);
 if($stmt->rowCount() === 1) {
-    header("Refresh: 3; url=../backStage/members.php");
-    echo "新增成功";
+    header("Refresh: 0; url=../backStage/insertMembSuccess.php");
+    // echo "新增成功";
 } else {
-    header("Refresh: 3; url=../backStage/members.php");
-    echo "新增失敗";
+    header("Refresh: 0; url=../backStage/insertMembFail.php");
+    // echo "新增失敗";
 }

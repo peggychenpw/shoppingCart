@@ -6,7 +6,7 @@
                 <div class="_accountInfo_left">
                     <div class="infoLine">
                         <label class="" for="userId_new">會員編號：</label>
-                        <input type="text" id="userId_new" name="userId_new" value="whatever" maxlength="9" required/>
+                        <input type="text" id="userId_new" name="userId_new" maxlength="9" required/>
                         
                         
                     </div>

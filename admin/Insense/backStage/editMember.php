@@ -21,7 +21,7 @@
                 <div class="_accountInfo_right">
                     <div class="infoLine">
                         <label class="" for="userCreditCard_edit">信用卡號：</label>
-                        <input type="text" id="userCreditCard_edit" name="userCreditCard_edit" value="" maxlength="10" />
+                        <input type="text" id="userCreditCard_edit" name="userCreditCard_edit" value="" maxlength="20" />
                     </div>
                     <div class="infoLine">
                         <label class="" for="userPoint_edit">會員點數：</label>

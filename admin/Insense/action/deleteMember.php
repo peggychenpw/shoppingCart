@@ -38,9 +38,9 @@ $stmt->execute($arrParam);
 
 
 if($stmt->rowCount() > 0) {
-    header("Refresh: 3; url=../backStage/members.php");
-    echo "刪除成功";
+    header("Refresh: 0; url=../backStage/deleteMembSuccess.php");
+    // echo "刪除成功";
 } else {
-    header("Refresh: 3; url=../backStage/members.php");
-    echo "刪除失敗";
+    header("Refresh: 0; url=../backStage/deleteMembFail.php");
+    // echo "刪除失敗";
 }
