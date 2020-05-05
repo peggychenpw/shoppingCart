@@ -1,8 +1,8 @@
 <?php
 //資料庫主機設定 I changed $db_name from shopping_cart to shoppingCart
 $db_host = "localhost";
-$db_username = "root";
-$db_password = "root";
+$db_username = "test";
+$db_password = "t1stlocalhost";
 $db_name = "shopping_cart";
 $db_charset = "utf8mb4";
 $db_collate = "utf8mb4_unicode_ci";
