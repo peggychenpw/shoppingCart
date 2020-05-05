@@ -45,9 +45,9 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
       </select>
     </div>
     <input type="hidden" name="shopId" value="<?php echo $_SESSION['shopId'] ?>">
-    <div class="d-flex w-100 justify-content-between px-5 mt-3">
-      <a class="btn btn-outline-secondary" href="./ShopClassManagement.php">返回</a>
-      <input class="btn btn-outline-secondary" type="submit" value="送出">
+    <div class="d-flex w-100 px-5 mt-3">
+      <a class="btn btn-outline-secondary mr-3" href="./ShopClassManagement.php">返回</a>
+      <input class="btn btn-outline-info" type="submit" value="送出">
     </div>
 </form>
 

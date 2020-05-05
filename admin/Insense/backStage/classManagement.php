@@ -141,16 +141,25 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
     text-decoration: none;
   }
 
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
+
   ._tr {
     cursor: no-drop;
     opacity: .5;
   }
+
   ._td {
     vertical-align: middle !important;
   }
+
+  .page {
+    font-size: 24px;
+  }
 </style>
-<div class="d-flex justify-content-between">
-  <button class="btn btn-outline-secondary my-3 ml-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+<div class="d-flex">
+  <button class="btn btn-outline-secondary my-3 mx-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
     課程搜尋
   </button>
   <a class="btn btn-outline-secondary my-3 mr-3" href="./editClass.php">新增商品</a>
@@ -210,8 +219,8 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
         <label class="input-group-text" for="classDate">日期:</label>
         <input class="form-control" type="text" name='classDate' value="<?php echo $_SESSION['classDate'] ?>">
       </div>
-      <div class="d-flex justify-content-between">
-        <input class="btn btn-outline-secondary" type="submit" value="查詢">
+      <div class="d-flex">
+        <input class="btn btn-outline-info mr-3" type="submit" value="查詢">
         <a class="_btn btn btn-outline-secondary" href="javascript:;">重新搜尋</a>
         <!-- <input class="btn btn-outline-secondary ml-2" type="reset" value="重新搜尋"> -->
       </div>
@@ -235,7 +244,7 @@ if ($totalClass > 0) {
           <th class="border">課程類別</th>
           <th class="border">上限人數</th>
           <th class="border">上課日期</th>
-          <th class="border">上線時間</th>
+          <th class="border">上課時間</th>
           <th class="border">詳細資訊</th>
         </tr>
       </thead>
@@ -280,7 +289,7 @@ if ($totalClass > 0) {
         <tr>
           <td class="border text-left" colspan="8">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-              <a href="?page=<?= $i ?>"><?= $i ?></a>
+              <a class="mr-2 page" href="?page=<?= $i ?>"><?= $i ?></a>
             <?php } ?>
           </td>
         </tr>

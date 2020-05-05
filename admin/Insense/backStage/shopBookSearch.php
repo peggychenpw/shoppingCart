@@ -177,10 +177,9 @@ require_once('../templates/shopLeftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
 
-<h3 class=" mt-2 ml-4">預約課程列表</h3>
 <!--       search start              -->
 <div>
-  <button class="btn btn-outline-secondary mt-2 ml-4" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+  <button class="btn btn-outline-secondary mt-3 ml-4" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
     關鍵字搜尋
   </button>
 </div>
