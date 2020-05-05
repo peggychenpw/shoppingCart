@@ -179,6 +179,16 @@ require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/leftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
+<style>
+    a.disabled {
+        pointer-events: none;
+        color: #999999;
+    }
+    .disabled-border {
+        cursor:no-drop;
+    }
+
+</style>
 
 <h3 class=" mt-2 ml-4">預約課程列表</h3>
 <!--       search start              -->
@@ -250,92 +260,95 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 //若有課程存在，才顯示
 if ($totalClasses > 0) {
 ?>
-  <form name="myForm" entype="multipart/form-data" method="POST" action="delete.php">
-    <table class="table mt-3 ">
-      <thead class="thead-light">
-        <tr>
-          <th class="border">勾選</th>
-          <th class="border">預約編號</th>
-          <th class="border">課程編號</th>
-          <th class="border">課程名稱</th>
-          <th class="border">課程日期</th>
-          <th class="border">課程時間</th>
-          <th class="border">會員編號</th>
-          <th class="border">會員名稱</th>
-          <th class="border">預約狀態</th>
-          <th class="border">預約人數</th>
-          <th class="border">新增時間</th>
-          <th class="border">功能</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        //各頁資料
-        $sql .= "LIMIT ?, ? ";
-        $arrParam = [($page - 1) * $numPerPage, $numPerPage];
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($arrParam);
-        // echo $sql;
+    <form name="myForm" entype="multipart/form-data" method="POST" action="delete.php?page=<?php echo $page?>">
+        <table class="border">
+            <thead>
+                <tr>
+                    <th class="border"><input type="checkbox" name="allCheck" id="allCheck">
+                        <label for="allCheck">全選</label>
+                    </th>
+                    <th class="border">預約編號</th>
+                    <th class="border">課程編號</th>
+                    <th class="border">課程名稱</th>
+                    <th class="border">課程日期</th>
+                    <th class="border">課程時間</th>
+                    <th class="border">會員編號</th>
+                    <th class="border">會員名稱</th>
+                    <th class="border">預約狀態</th>
+                    <th class="border">課程狀態</th>
+                    <th class="border">預約人數</th>
+                    <th class="border">新增時間</th>
+                    <th class="border">功能</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                //各頁資料
+                $sql .= "LIMIT ?, ? ";
+                $arrParam = [($page - 1) * $numPerPage, $numPerPage];
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute($arrParam);
+                // echo $sql;
 
-        //若數量大於 0，則列出商品
-        if ($stmt->rowCount() > 0) {
+                //若數量大於 0，則列出商品
+                if ($stmt->rowCount() > 0) {
 
-          $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-          // echo "<pre>";
-          // print_r($arr);
-          // echo "</pre>";
-          // exit();
+                    $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // echo "<pre>";
+                    // print_r($arr);
+                    // echo "</pre>";
+                    // exit();
 
-          for ($i = 0; $i < count($arr); $i++) {
-        ?>
-            <tr>
-              <td class="border">
-                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['itemId']; ?>" />
-              </td>
-              <td class="border"><?php echo $arr[$i]['bookId']; ?></td>
-              <td class="border"><?php echo $arr[$i]['classId']; ?></td>
-              <td class="border"><?php echo $arr[$i]['className']; ?></td>
-              <td class="border"><?php echo $arr[$i]['classDate']; ?></td>
-              <td class="border"><?php echo $arr[$i]['classTime']; ?></td>
-              <td class="border"><?php echo $arr[$i]['userId']; ?></td>
-              <td class="border"><?php echo $arr[$i]['userName']; ?></td>
-              <td class="border"><?php echo $arr[$i]['bookStatus']; ?></td>
-              <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
-              <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
-              <td class="border">
-                <a href="./bookEdit.php?bookId=<?php echo $arr[$i]['bookId'] ?>">資料更改</a>
-              </td>
-            </tr>
-          <?php
-          }
-        } else {
-          ?>
-          <tr>
-            <td class="border" colspan="12">沒有資料</td>
-          </tr>
-        <?php
-        }
-        ?>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td class="border" colspan="12">
-            <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-              <a href="?page=<?= $i ?>"><?= $i ?></a>
-            <?php } ?>
-          </td>
-        </tr>
+                    for ($i = 0; $i < count($arr); $i++) {
+                ?>
+                        <tr>
+                            <td class="border">
+                                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['bookId']; ?>" />
+                            </td>
+                            <td class="border"><?php echo $arr[$i]['bookId']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['classId']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['className']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['classDate']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['classTime']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['userId']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['userName']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['bookStatus']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['isAlive']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
+                            <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
+                            <td class="border <?php if($arr[$i]['isAlive']=='停課'){echo 'disabled-border';}?>">
+                                <a href="./bookEdit.php?page=<?php echo $page ?>&bookId=<?php echo $arr[$i]['bookId'] ?>" class ="<?php if($arr[$i]['isAlive']=='停課'){echo 'disabled';}?>">資料更改</a>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                } else {
+                    ?>
+                    <tr>
+                        <td class="border" colspan="11">沒有資料</td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="border" colspan="11">
+                        <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                            <a href="?page=<?= $i ?>"><?= $i ?></a>
+                        <?php } ?>
+                    </td>
+                </tr>
 
-        <?php if ($total > 0) { ?>
-          <tr>
-            <td class="border" colspan="11"><input type="submit" name="smb" value="刪除"></td>
-          </tr>
-        <?php } ?>
+                <?php if ($total > 0) { ?>
+                    <tr>
+                        <td class="border" colspan="11"><input type="submit" name="smb" value="刪除"></td>
+                    </tr>
+                <?php } ?>
 
-        </tfoo>
-    </table>
-  </form>
-
+                </tfoo>
+        </table>
+    </form>
 <?php
 } else {
     //引入尚未建立商品種類的文字描述
@@ -346,23 +359,21 @@ if ($totalClasses > 0) {
 ?>
 
 <script>
-
-    let allCheckFunc = function(){
+    let allCheckFunc = function() {
         let checkbox = document.getElementsByName('chk[]')
 
-        if(document.myForm.allCheck.checked == true){
-            for( i = 0; i < checkbox.length; i++ ){
+        if (document.myForm.allCheck.checked == true) {
+            for (i = 0; i < checkbox.length; i++) {
                 checkbox[i].checked = true;
             }
-        }
-        else{
-            for( i = 0; i < checkbox.length; i++ ){
+        } else {
+            for (i = 0; i < checkbox.length; i++) {
                 checkbox[i].checked = false;
             }
         }
     }
 
-    document.getElementById('allCheck').addEventListener('click', function(){
-        allCheckFunc()})
-
+    document.getElementById('allCheck').addEventListener('click', function() {
+        allCheckFunc()
+    })
 </script>
