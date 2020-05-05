@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 
@@ -91,7 +93,7 @@ $dateToday =  date("Y-m-d");
 
 $sql = "SELECT `classId`, `classDate`,`className`, `isAlive`
         FROM `class`
-        WHERE `classDate`>'{$dateToday}'";
+        WHERE `classDate` > '{$dateToday}'";
 
 $stmtClass = $pdo->query($sql);
 $arr = $stmtClass->fetchAll(PDO::FETCH_ASSOC);
@@ -111,11 +113,11 @@ require_once('../templates/rightContainer.php');
     }
 </style>
 
-<div class="d-flex justify-content-between">
-    <button class="btn btn-outline-secondary my-3 ml-3" type="button">
+<div class="d-flex align-items-center">
+    <button class="btn btn-outline-info my-3 mx-3" type="button">
         預約新課程
     </button>
-    <a class="btn btn-outline-secondary my-3 mr-3" href="./bookSearch2.php">預約查詢</a>
+    <input class="btn btn-outline-secondary ml-1 mr-2" type="button" value="返回" onclick="location.href='./bookSearch2.php?page=<?php echo $_GET['page'] ?>'">
 </div>
 <form name="myForm" enctype="multipart/form-data" method="POST" action="./bookNew.php?page=<?php echo $_GET['page'] ?>">
     <table class="table table-striped table-gray text-center">
@@ -153,9 +155,11 @@ require_once('../templates/rightContainer.php');
             </tr>
         </tbody>
         <tfoot>
-            <tr>
-                <td class="border _td" colspan="3"><input class="btn btn-outline-info" type="submit" name="smb" value="新增"></td>
-            </tr>
+            <div>
+                <td class="border _td text-left" colspan="3">
+                    <input class="btn btn-outline-info" type="submit" name="smb" value="新增">
+                </td>
+            </div>
         </tfoot>
     </table>
     <input type="hidden" name="refresh" value="yes">
@@ -252,7 +256,6 @@ if (isset($stmt)) {
     };
 }
 ?>
-<input class="btn btn-outline-secondary ml-3" type="button" value="返回" onclick="location.href='./bookSearch2.php?page=<?php echo $_GET['page'] ?>'">
 
 <?php
 require_once('../templates/footer.php');

@@ -33,7 +33,7 @@ if (!isset($_POST['chk'])) {
   <h3 class="pt-3 pb-2 d-flex justify-content-center">訂單管理</h3>
 
   <form name="myForm" method="POST" action="./checkSearch.php" class="ml-3">
-    訂單號 <input type="text" name="checkSearch" required>
+    訂單編號 <input type="text" name="checkSearch" required>
 
 
     <tr>
@@ -47,7 +47,7 @@ if (!isset($_POST['chk'])) {
   </form>
   <form name="myForm" method="POST" action="./deleteCheck.php">
     <table class="border table table-hover">
-      <thead class="thead-dark">
+      <thead class="thead-light">
         <tr>
 
           <th scope="col" class="border">

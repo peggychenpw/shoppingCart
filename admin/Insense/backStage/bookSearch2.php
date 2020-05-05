@@ -1,5 +1,6 @@
 <?php
-session_start();
+// session_start();
+error_reporting(0);
 
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
@@ -274,7 +275,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
         line-height: 10px;
     }
 
-    .page{
+    .page {
         font-size: 24px;
     }
 </style>
@@ -282,8 +283,8 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 <!-- <h3>預約課程列表</h3> -->
 <!--       search start              -->
 
-<div class="d-flex justify-content-between">
-    <button class="btn btn-outline-secondary my-3 ml-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+<div class="d-flex">
+    <button class="btn btn-outline-info my-3 mx-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
         預約查詢
     </button>
     <a class="btn btn-outline-secondary my-3 mr-3" href="./bookNew.php?page=<?php echo $page ?>">預約新課程</a>
@@ -306,7 +307,6 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
                 <input class="form-control" type="text" name="searchText" value="<?php echo $_SESSION['searchText'] ?>">
             </div>
         </div>
-
         <div class="form-group">
             <h5 class="ml-2 mb-2">搜尋時間</h5>
             <div class="d-flex row time-flex">
@@ -479,18 +479,18 @@ if ($totalClasses > 0) {
             </tbody>
             <tfoot>
                 <tr>
-                    <td class="border" colspan="13">
+                    <td class="border text-left" colspan="13">
                         <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
                             <a class="p-2 page <?php if ($page == $i) {
-                                            echo 'pageSelected';
-                                        } ?>" href="?page=<?= $i ?>"><?= $i ?></a>
+                                                    echo 'pageSelected';
+                                                } ?>" href="?page=<?= $i ?>"><?= $i ?></a>
                         <?php } ?>
                     </td>
                 </tr>
 
                 <?php if ($total > 0) { ?>
                     <tr>
-                        <td class="border" colspan="13"><input class="btn btn-outline-danger" type="submit" name="smb" value="刪除預約"></td>
+                        <td class="border text-left" colspan="13"><input class="btn btn-outline-danger" type="submit" name="smb" value="刪除預約"></td>
                     </tr>
                 <?php } ?>
 
@@ -583,7 +583,7 @@ if ($totalClasses > 0) {
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-outline-secondary">
+                            <input type="submit" class="btn btn-outline-info">
                         </div>
                     </form>
 

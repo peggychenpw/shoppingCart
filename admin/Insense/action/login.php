@@ -44,6 +44,7 @@ if (isset($_POST['username']) && isset($_POST['pwd'])) {
     $_SESSION['username'] = $arr[0]['username'];
     $_SESSION['name'] = $arr[0]['name'];
     $_SESSION['shopId'] = $arr[0]['shopId'];
+    echo "<script>alert('登入成功')</script>";
     exit();
   }
   header("Refresh: 0; url=../backStage/log.php");

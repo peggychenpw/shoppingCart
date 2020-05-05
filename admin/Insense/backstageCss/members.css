@@ -132,12 +132,13 @@ legend{
     /* 後面變成... */
     text-overflow: ellipsis;
 }
-.head_email_w{
+.head_email_w,.head_address_w{
     width: 180px;    
 }
-.head_address_w,.head_features_w{
+.head_features_w{
     width: 150px;  
     align-items:center;
+    justify-content: space-between;
 }
 .page_{
     text-align: center;    
@@ -215,7 +216,11 @@ legend{
     border: none;
 }
 .fig{
-    margin:10px 0px;
-    
+    margin:10px 0px;    
 }
-
+.modal-background-new{
+    background-color: #96FED1;
+}
+.modal-background-edit{
+    background-color: #ACD6FF ;
+}

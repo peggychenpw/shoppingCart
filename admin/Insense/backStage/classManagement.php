@@ -141,6 +141,10 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
     text-decoration: none;
   }
 
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
+
   ._tr {
     cursor: no-drop;
     opacity: .5;
@@ -149,9 +153,13 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
   ._td {
     vertical-align: middle !important;
   }
+
+  .page {
+    font-size: 24px;
+  }
 </style>
-<div class="d-flex justify-content-between">
-  <button class="btn btn-outline-secondary my-3 ml-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+<div class="d-flex">
+  <button class="btn btn-outline-secondary my-3 mx-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
     課程搜尋
   </button>
   <a class="btn btn-outline-secondary my-3 mr-3" href="./editClass.php">新增商品</a>
@@ -211,8 +219,8 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
         <label class="input-group-text" for="classDate">日期:</label>
         <input class="form-control" type="text" name='classDate' value="<?php echo $_SESSION['classDate'] ?>">
       </div>
-      <div class="d-flex justify-content-between">
-        <input class="btn btn-outline-secondary" type="submit" value="查詢">
+      <div class="d-flex">
+        <input class="btn btn-outline-info mr-3" type="submit" value="查詢">
         <a class="_btn btn btn-outline-secondary" href="javascript:;">重新搜尋</a>
         <!-- <input class="btn btn-outline-secondary ml-2" type="reset" value="重新搜尋"> -->
       </div>
@@ -236,7 +244,7 @@ if ($totalClass > 0) {
           <th class="border">課程類別</th>
           <th class="border">上限人數</th>
           <th class="border">上課日期</th>
-          <th class="border">上線時間</th>
+          <th class="border">上課時間</th>
           <th class="border">詳細資訊</th>
         </tr>
       </thead>
@@ -253,16 +261,16 @@ if ($totalClass > 0) {
           for ($i = 0; $i < count($arr); $i++) {
         ?>
             <tr class="<?php if ($arr[$i]['isAlive'] === '停課') echo '_tr' ?>">
-              <td class="border classTd">
+              <td class="border classTd _td">
                 <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['id']; ?>" />
               </td>
-              <td class="border _td"><?php echo $arr[$i]['className']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classPrice']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classCategoryName']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classDate']; ?></td>
-              <td class="border _td"><?php echo $arr[$i]['classTime']; ?></td>
-              <td class="border">
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['className']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classPrice']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classCategoryName']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classPeopleLimit']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classDate']; ?></td>
+              <td class="border _td input<?php echo $i ?>"><?php echo $arr[$i]['classTime']; ?></td>
+              <td class="border _td">
                 <a class="btn btn-outline-secondary" href="./classInfo.php?id=<?php echo $arr[$i]['id'] ?>">修改</a>
               </td>
             </tr>
@@ -281,7 +289,7 @@ if ($totalClass > 0) {
         <tr>
           <td class="border text-left" colspan="8">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-              <a href="?page=<?= $i ?>"><?= $i ?></a>
+              <a class="mr-2 page" href="?page=<?= $i ?>"><?= $i ?></a>
             <?php } ?>
           </td>
         </tr>
@@ -300,25 +308,20 @@ if ($totalClass > 0) {
       let classRadio = document.querySelectorAll('input[type=radio]')
       let classText = document.querySelectorAll('input[type=text]')
       let classSelect = document.querySelectorAll('select')
-      // 點擊後所有select選項會變成第一個option
       classSelect.forEach(el => {
         el.options[0].setAttribute('selected', true)
       })
-      // 點擊後所有radio全部變成沒有選取的狀態
       classRadio.forEach(el => {
         el.removeAttribute('checked')
       })
-      // 點擊後所以input::text的值為null
       classText.forEach(el => {
         el.value = null;
       })
     })
-    // 全選
+
     document.querySelector('.allSelected').addEventListener('click', function() {
       let _checkBox = document.querySelectorAll('input[type=checkbox]')
-      // 判斷是否有全選,有全選擇清空,沒有則相反
       _checkBox.forEach(el => {
-
         el.hasAttribute('checked') ? el.removeAttribute('checked') : el.setAttribute('checked', true)
       })
     })
