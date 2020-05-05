@@ -1,5 +1,6 @@
 <?php
-session_start();
+// session_start();
+error_reporting(0);
 
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
@@ -35,6 +36,7 @@ if (isset($_POST["searchMethod"])) {
     $_SESSION['sortOrder'] = $_POST['sortOrder'];
     $_SESSION['searchOrder'] =  $_POST['searchOrder'];
 }
+
 
 $sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `class`.`isAlive`, `book`.`bookQty`,`book`.`created_at` 
         FROM `book`  
@@ -188,68 +190,70 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 
 </style>
 
-<h3>預約課程列表</h3>
+<h3 class=" mt-2 ml-4">預約課程列表</h3>
 <!--       search start              -->
 <div>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
-        關鍵字搜尋
-    </button>
+  <button class="btn btn-outline-secondary mt-2 ml-4" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+    關鍵字搜尋
+  </button>
 </div>
 <div class="collapse" id="searchDivDetail">
+  <!-- 搜尋功能 -->
+  <form name="bookSearchForm" entype="multipart/form-data" method="POST" action="bookSearch.php">
+    <div>
+      <span class="ml-4">搜尋方式：</span>
+      <select name="searchMethod" id="">
+        <option value="bookId" <?php echo $bookIdSelect ?>>預約編號</option>
+        <option value="classId" <?php echo $classIdSelect ?>>課程編號</option>
+        <option value="className" <?php echo $classNameSelect ?>>課程名稱</option>
+        <option value="userId" <?php echo $userIdSelect ?>>會員編號</option>
+        <option value="userName" <?php echo $userNameSelect ?>>會員名稱</option>
+      </select>
+      <input type="text" name="searchText" value="<?php echo $_SESSION['searchText'] ?>">
+    </div>
+
+    <div>
+      <span class="ml-4">預約狀態：</span>
+      <select name="searchStatus" id="">
+        <option value="all" <?php echo $allSelect ?>>全部</option>Ï
+        <option value="success" <?php echo $successSelect ?>>成功</option>
+        <option value="cancelled" <?php echo $cancelledSelect ?>>取消</option>
+      </select>
+    </div>
+
+    <div>
+      <span class="ml-4 mt-4">搜尋時間：</span>
+      <input type="radio" id="future" name="searchDirection" value="future" <?php echo $futureCheck ?>>
+      <label for="future">未來預約</label>
+      <input type="radio" id="past" name="searchDirection" value="past" <?php echo $pastCheck ?>>
+      <label for="past">歷史紀錄</label>
+      <input type="radio" id="dateRange" name="searchDirection" value="dateRange" <?php echo $dateRangeCheck ?>>
+      <label for="dateRange">時間範圍:
+        <input id="dateStart" type="date" name="searchStartDate" value="<?php echo $_SESSION['searchStartDate'] ?>"> -
+        <input id="dateEnd" type="date" name="searchEndDate" value="<?php echo $_SESSION['searchEndDate'] ?>">
+      </label>
+    </div>
     <!-- 搜尋功能 -->
-    <form name="bookSearchForm" entype="multipart/form-data" method="POST" action="bookSearch.php">
-        <div>
-            <span>搜尋方式：</span>
-            <select name="searchMethod" id="">
-                <option value="bookId" <?php echo $bookIdSelect ?>>預約編號</option>
-                <option value="classId" <?php echo $classIdSelect ?>>課程編號</option>
-                <option value="className" <?php echo $classNameSelect ?>>課程名稱</option>
-                <option value="userId" <?php echo $userIdSelect ?>>會員編號</option>
-                <option value="userName" <?php echo $userNameSelect ?>>會員名稱</option>
-            </select>
-            <input type="text" name="searchText" value="<?php echo $_SESSION['searchText'] ?>">
-        </div>
+    <div>
+      <span class="ml-4">排序方式：</span>
+      <input type="radio" id="byClassDate" name="sortOrder" value="byClassDate" <?php echo $byClassDateCheck ?>>
+      <label for="byClassDate">課程時間</label>
+      <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
+      <label for="byBookId">預約編號</label>
+      <input type="radio" id="byClassId" name="sortOrder" value="byClassId" <?php echo $byClassIdCheck ?>>
+      <label for="byClassId">課程編號</label>
+      <input type="radio" id="byUserId" name="sortOrder" value="byUserId" <?php echo $byUserIdCheck ?>>
+      <label for="byUserId">會員編號</label>
+      <select name="searchOrder" id="">
+        <option value="forward" <?php echo $forwardSelect ?>>由小至大</option>
+        <option value="backforward" <?php echo $backforwardSelect ?>>由大至小</option>
+      </select>
+    </div>
 
-        <div>
-            <span>預約狀態：</span>
-            <select name="searchStatus" id="">
-                <option value="all" <?php echo $allSelect ?>>全部</option>Ï
-                <option value="success" <?php echo $successSelect ?>>成功</option>
-                <option value="cancelled" <?php echo $cancelledSelect ?>>取消</option>
-            </select>
-        </div>
+    <input type="submit" name="smbSearch" class="ml-4">
+    <a href="bookSearch.php" class="ml-4">重新搜尋</a>
+  </form>
 
-        <div>
-            <span>搜尋時間：</span>
-            <input type="radio" id="future" name="searchDirection" value="future" <?php echo $futureCheck ?>>
-            <label for="future">未來預約</label>
-            <input type="radio" id="past" name="searchDirection" value="past" <?php echo $pastCheck ?>>
-            <label for="past">歷史紀錄</label>
-            <input type="radio" id="dateRange" name="searchDirection" value="dateRange" <?php echo $dateRangeCheck ?>>
-            <label for="dateRange">時間範圍:
-                <input id="dateStart" type="date" name="searchStartDate" value="<?php echo $_SESSION['searchStartDate'] ?>"> -
-                <input id="dateEnd" type="date" name="searchEndDate" value="<?php echo $_SESSION['searchEndDate'] ?>">
-            </label>
-        </div>
-        <div>
-            <span>排序方式：</span>
-            <input type="radio" id="byClassDate" name="sortOrder" value="byClassDate" <?php echo $byClassDateCheck ?>>
-            <label for="byClassDate">課程時間</label>
-            <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
-            <label for="byBookId">預約編號</label>
-            <input type="radio" id="byClassId" name="sortOrder" value="byClassId" <?php echo $byClassIdCheck ?>>
-            <label for="byClassId">課程編號</label>
-            <input type="radio" id="byUserId" name="sortOrder" value="byUserId" <?php echo $byUserIdCheck ?>>
-            <label for="byUserId">會員編號</label>
-            <select name="searchOrder" id="">
-                <option value="forward" <?php echo $forwardSelect ?>>由小至大</option>
-                <option value="backforward" <?php echo $backforwardSelect ?>>由大至小</option>
-            </select>
-        </div>
-
-        <input type="submit" name="smbSearch">
-        <a href="bookSearch.php">重新搜尋</a>
-    </form>
 </div>
 <!--       search end              -->
 <?php

@@ -20,14 +20,14 @@ for($i = 0; $i < count($_POST['chk']); $i++){
     }
 // }
 if($count > 0) {
-    header("Refresh: 3; url=./adminCoupon.php");
+    header("Refresh: 0; url=./adminCoupon.php");
     $objResponse['success'] = true;
     $objResponse['code'] = 200;
     $objResponse['info'] = "刪除成功";
     echo json_encode($objResponse, JSON_UNESCAPED_UNICODE);
     exit();
 } else {
-    header("Refresh: 3; url=./adminCoupon.php");
+    header("Refresh: 0; url=./adminCoupon.php");
     $objResponse['success'] = false;
     $objResponse['code'] = 500;
     $objResponse['info'] = "刪除失敗";
