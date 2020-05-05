@@ -47,8 +47,12 @@ if ($_POST['refresh'] == 'yes') {
         $stmtFindPeople = $pdo->query($sqlFindPeople);
         $arrFindPeople = $stmtFindPeople->fetchAll(PDO::FETCH_ASSOC);
 
-        for ($i = 0; $i < count($arrFindPeople); $i++) {
-            $currentPeople += $arrFindPeople[$i]['bookQty'];
+        if (count($arrFindPeople) == 0) {
+            $currentPeople = 0;
+        } else {
+            for ($i = 0; $i < count($arrFindPeople); $i++) {
+                $currentPeople += $arrFindPeople[$i]['bookQty'];
+            }
         }
 
 
@@ -87,7 +91,7 @@ $dateToday =  date("Y-m-d");
 
 $sql = "SELECT `classId`, `classDate`,`className`, `isAlive`
         FROM `class`
-        WHERE `classDate`<='{$dateToday}'";
+        WHERE `classDate`>'{$dateToday}'";
 
 $stmtClass = $pdo->query($sql);
 $arr = $stmtClass->fetchAll(PDO::FETCH_ASSOC);
@@ -125,7 +129,9 @@ require_once('../templates/rightContainer.php');
         <tbody>
             <tr>
                 <td class="border _td">
-                    <input class="form-control" type="text" name="userId" value="<?php if(!isset($stmt)){echo $_POST['userId'];} ?>" maxlength="100" required />
+                    <input class="form-control" type="text" name="userId" value="<?php if (!isset($stmt)) {
+                                                                                        echo $_POST['userId'];
+                                                                                    } ?>" maxlength="100" required />
                 </td>
                 <td class="border _td">
                     <select class="custom-select" name="classChoice">
@@ -140,13 +146,15 @@ require_once('../templates/rightContainer.php');
                     </select>
                 </td>
                 <td class="border _td">
-                    <input class="form-control" type="text" name="bookQty" value="<?php if(!isset($stmt)){echo $_POST['bookQty'];} ?>" maxlength="3" required />
+                    <input class="form-control" type="text" name="bookQty" value="<?php if (!isset($stmt)) {
+                                                                                        echo $_POST['bookQty'];
+                                                                                    } ?>" maxlength="3" required />
                 </td>
             </tr>
         </tbody>
         <tfoot>
             <tr>
-                <td class="border _td" colspan="3"><input class="btn btn-outline-secondary" type="submit" name="smb" value="新增"></td>
+                <td class="border _td" colspan="3"><input class="btn btn-outline-info" type="submit" name="smb" value="新增"></td>
             </tr>
         </tfoot>
     </table>
@@ -176,7 +184,7 @@ if (isset($currentPeople) && $_POST['bookQty'] + $currentPeople > $classPeopleLi
 <?php
 }
 //若人數為0
-if ( isset($_POST['bookQty']) && $_POST['bookQty'] <= 0) {
+if (isset($_POST['bookQty']) && $_POST['bookQty'] <= 0) {
 ?>
     <script>
         setTimeout(() => {
@@ -202,7 +210,7 @@ if (isset($stmt)) {
 
         // print_r($arrJustAdded);
     ?>
-        <h4>剛新增資料</h4>
+        <h4 class="ml-3">剛新增資料</h4>
         <table class="border table table-striped table-gray text-center">
             <thead class="thead-light">
                 <tr>
@@ -244,7 +252,7 @@ if (isset($stmt)) {
     };
 }
 ?>
-<input class="btn btn-outline-secondary ml-3" type="button" value="返回" onclick="location.href='./bookSearch2.php?page=<?php echo $_GET['page']?>'">
+<input class="btn btn-outline-secondary ml-3" type="button" value="返回" onclick="location.href='./bookSearch2.php?page=<?php echo $_GET['page'] ?>'">
 
 <?php
 require_once('../templates/footer.php');
