@@ -8,9 +8,9 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
 ?>
 
 <style>
- .button-text {
-   font-size: 80%;
- }
+ /* .button-text {
+   font-size: 90%;
+ } */
 
  ul {
   /* list-style-type: lower-greek; */
@@ -59,6 +59,11 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
         if ($stmt->rowCount() > 0) {
           $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
       ?>
+      <style>
+        p , label{
+          font-size:32px;
+        }
+      </style>
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-5">
@@ -86,13 +91,13 @@ require_once("./tpl/func-getRecursiveCategoryIds.php");
                 </div>
               </div>
               <div class="col-md-7">
-                <p>商品名稱: <?php echo $arr[0]["itemName"]; ?></p>
-                <p>商品價格: <?php echo $arr[0]["itemPrice"]; ?></p>
-                <p>商品數量: <?php echo $arr[0]["itemQty"]; ?></p>
+                <h1 class="mx-5 my-5"><?php echo $arr[0]["itemName"]; ?></h1>
+                <p class="mx-5 mt-3">NT$ <?php echo $arr[0]["itemPrice"]; ?></p>
+                <!-- <p>商品數量: <?php echo $arr[0]["itemQty"]; ?></p> -->
                 <form name="cartForm" id="cartForm" method="POST" action="./addCart.php">
-                  <label>數量: </label>
+                  <label class="mx-5 mt-3">數量: </label>
                   <input type="text" name="cartQty" id="cartQty" value="1" maxlength="5">
-                  <button type="button" class="btn btn-info btn-lg button-text" id="btn_addCart" data-item-id="<?php echo $_GET['itemId'] ?>">加入購物車</button>
+                  <button type="button" class="btn btn-info btn-lg button-text d-block mx-5 mt-3" id="btn_addCart" data-item-id="<?php echo $_GET['itemId'] ?>">加入購物車</button>
                   <!-- <button type="button" class="btn btn-info btn-lg" id="btn_addItemTracking" data-item-id="<?php echo $_GET['itemId'] ?>">追蹤此商品</button> -->
                   <input type="hidden" name="itemId" id="itemId" value="<?php echo $_GET['itemId'] ?>">
                 </form>
