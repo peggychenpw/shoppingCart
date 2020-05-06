@@ -44,17 +44,6 @@ if ($count > 0) {
     </button>
   </div>
 <?php
-} elseif ($count === 1) {
-  $lessPage = $_POST['pageNum'] > 1 ? $_POST['pageNum'] - 1 : 1;
-  header("Refresh: 1;url=../backStage/classManagement.php?page={$lessPage}");
-?>
-  <div class="loading-icon">
-    <button class="d-flex align-items-center loading-content" type="button" disabled>
-      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-      <span class="mb-1 ml-2">下架成功</span>
-    </button>
-  </div>
-<?php
 } else {
   // echo '<script>alert("請先勾選再刪除!!!")</script>';
   header("Refresh: 1;url=../backStage/classManagement.php?page={$_POST['pageNum']}");

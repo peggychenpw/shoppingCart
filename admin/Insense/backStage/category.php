@@ -75,7 +75,7 @@ require_once('../templates/rightContainer.php');
     <tbody>
       <tr>
         <td class="border">
-          <input class="form-control" type="text" name="categoryName" value="" maxlength="100" />
+          <input class="form-control" type="text" name="categoryName" value="" maxlength="100" required />
         </td>
       </tr>
     </tbody>
