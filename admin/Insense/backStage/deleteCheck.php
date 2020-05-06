@@ -1,13 +1,26 @@
 <style>
   .loading-icon {
     position: absolute;
-    top: 50%;
-    left: calc(50% + 7.5vw);
+    top: 18%;
+    left: calc(38% + 7.5vw);
     transform: translate(-50%, -50%);
   }
 
   .loading-content {
+    background: transparent;
     border: transparent;
+  }
+
+  .spanColor {
+    color: var(--main-logo-blue);
+  }
+
+  h3 {
+    text-align: left;
+  }
+
+  .button-text {
+    font-size: 85% !important;
   }
 </style>
 <?php
@@ -25,32 +38,36 @@ require_once('../templates/rightContainer.php');
 $count = 0;
 
 if (!isset($_POST['chk'])) {
-  header('refresh:0.1;url=./checkSearch.php');  //改成checkSearch.php  popup效果先用alert替代
-  echo "<script type='text/javascript'>alert(`你沒選到要取消的訂單呦 >w<`);</script>";
+  header('refresh:1;url=./checkSearch.php');  //改成checkSearch.php  popup效果先用alert替代
+  // echo "<script type='text/javascript'>alert(`你沒選到要取消的訂單呦 >w<`);</script>";
 ?>
 
   <!-- <div class="con">
-            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                
-                <div class="card-body">
-                    <span class="badge badge-warning">Warning</span>
-                    <p class="card-text">請先勾選要刪除訂單</p>
-                    <button class="btn btn-primary" type="button" disabled>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Loading...
-                    </button>
-                </div>   
-        </div> -->
+    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
 
-  <h3 class="pt-3 pb-2 d-flex justify-content-center">訂單管理</h3>
-
+      <div class="card-body">
+        <span class="badge badge-warning">Warning</span>
+        <p class="card-text">請先勾選要刪除訂單</p>
+        <button class="btn btn-primary" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Loading...
+        </button>
+      </div>
+    </div> -->
+  <div class="loading-icon">
+    <button class="d-flex align-items-center loading-content" type="button" disabled>
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      <span class="mb-1 ml-2 spanColor">你沒選到要取消的訂單呦!!!</span>
+    </button>
+  </div>
+  <h3 class="pt-3 pb-2 ml-3 text-left">訂單管理</h3>
   <form name="myForm" method="POST" action="./checkSearch.php" class="ml-3">
     訂單編號 <input type="text" name="checkSearch" required>
 
 
     <tr>
       <td class="border" colspan="2">
-        <button class="btn btn-outline-dark" type="submit" name="smb_add">
+        <button class="btn btn-outline-info button-text" type="submit" name="smb_add">
           搜尋
         </button>
       </td>
@@ -235,5 +252,5 @@ if ($count > 0) {
             <span class="mb-1 ml-2">刪除失敗 >w<</span> </button> </div> <?php
                                                                     }
                                                                       ?> <?php
-    require_once('../templates/footer.php');
-    ?>
+                                                                          require_once('../templates/footer.php');
+                                                                          ?>

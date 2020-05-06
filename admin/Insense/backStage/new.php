@@ -47,7 +47,7 @@ require_once('../templates/rightContainer.php');
     <tbody>
       <tr>
         <td class="border">
-          <input class="form-control" type="text" name="itemName" value="" maxlength="100" />
+          <input class="form-control" type="text" name="itemName" value="" maxlength="100" required />
         </td>
         <td class="border">
           <div class="custom-file">
@@ -60,10 +60,10 @@ require_once('../templates/rightContainer.php');
           <input class="form-control" type="text" name="itemSize" value="" maxlength="11" />
         </td>
         <td class="border">
-          <input class="form-control" type="text" name="itemPrice" value="" maxlength="11" />
+          <input class="form-control" type="text" name="itemPrice" value="" maxlength="11" required />
         </td>
         <td class="border">
-          <input class="form-control" type="text" name="itemQty" value="" maxlength="3" />
+          <input class="form-control" type="text" name="itemQty" value="" maxlength="3" required />
         </td>
         <td class="border">
           <select class="custom-select" name="itemCategoryId">
