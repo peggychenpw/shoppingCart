@@ -6,6 +6,7 @@
 /* ================共用標籤================ */
 a,a link {
     text-decoration: none;
+    font-size: 25px;
 }
 thead{
     background-color: #e9ecef;
@@ -132,12 +133,13 @@ legend{
     /* 後面變成... */
     text-overflow: ellipsis;
 }
-.head_email_w{
+.head_email_w,.head_address_w{
     width: 180px;    
 }
-.head_address_w,.head_features_w{
+.head_features_w{
     width: 150px;  
     align-items:center;
+    justify-content: space-between;
 }
 .page_{
     text-align: center;    
@@ -213,9 +215,22 @@ legend{
 }
 .card{
     border: none;
+
 }
 .fig{
-    margin:10px 0px;
-    
+    margin:10px 0px;    
+}
+.modal-bg-new{   
+    background-image: url(../images/members/bgEdit.png);
+}
+.modal-bg-edit{   
+    background-image: url(../images/members/bgNew.jpg);
 }
 
+.card{    
+    background-color: rgba(0,0,0,0);
+}
+.modalBorder{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}

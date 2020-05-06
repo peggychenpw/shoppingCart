@@ -1,3 +1,15 @@
+<style>
+  .loading-icon {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 7.5vw);
+    transform: translate(-50%, -50%);
+  }
+
+  .loading-content {
+    border: transparent;
+  }
+</style>
 <?php
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
@@ -33,7 +45,7 @@ if (!isset($_POST['chk'])) {
   <h3 class="pt-3 pb-2 d-flex justify-content-center">訂單管理</h3>
 
   <form name="myForm" method="POST" action="./checkSearch.php" class="ml-3">
-    訂單號 <input type="text" name="checkSearch" required>
+    訂單編號 <input type="text" name="checkSearch" required>
 
 
     <tr>
@@ -47,11 +59,11 @@ if (!isset($_POST['chk'])) {
   </form>
   <form name="myForm" method="POST" action="./deleteCheck.php">
     <table class="border table table-hover">
-      <thead class="thead-dark">
+      <thead class="thead-light">
         <tr>
 
           <th scope="col" class="border">
-            <div class="py-2 text-uppercase">取消</div>
+            <div class="py-2 text-uppercase">取消訂單</div>
           </th>
 
           <th scope="col" class="border">
@@ -60,7 +72,7 @@ if (!isset($_POST['chk'])) {
           <th scope="col" class="border">
             <div class="py-2 text-uppercase">付款方式</div>
           </th>
-          <th scope="col" class="border">
+          <th scope="col" class="border w-50">
             <div class="py-2 text-uppercase">詳細資訊</div>
           </th>
 
@@ -75,7 +87,7 @@ if (!isset($_POST['chk'])) {
                             FROM `orders` INNER JOIN `payment_types`
                             ON `orders`.`paymentTypeId` = `payment_types`.`paymentTypeId`
                              WHERE `orderId` LIKE '%{$string}%'
-                            ORDER BY `orders`.`orderId`";
+                            ORDER BY `orders`.`orderId` DESC";
         $stmtOrder = $pdo->prepare($sqlOrder);
         $stmtOrder->execute();
         if ($stmtOrder->rowCount() > 0) {
@@ -134,8 +146,10 @@ if (!isset($_POST['chk'])) {
     </table>
     <form name="myForm" method="GET" action="./Alldelete.php">
 
-      <td class="border" colspan="2"><button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">取消訂單</button>
-      </td>
+
+      <button class="btn btn-outline-dark ml-3" type="submit" name="smb_add">取消全部
+      </button>
+
     </form>
     </div>
 
@@ -154,9 +168,7 @@ if (!isset($_POST['chk'])) {
 }
 ?>
 
-<?php
-require_once('../templates/footer.php');
-?>
+
 
 
 <?php
@@ -207,12 +219,21 @@ for ($i = 0; $i < count($_POST['chk']); $i++) {
 }
 
 if ($count > 0) {
-  header("Refresh: 0; url=./orders.php");
-  echo "<script type='text/javascript'>alert(`刪除成功 >w<`);</script>";
-  exit();
-} else {
-  header("Refresh: 1; url=./orders.php");
-  echo "<script type='text/javascript'>alert(`刪除失敗 >w<`);</script>";
-  exit();
-}
+  header("Refresh: 1; url=./checkSearch.php");
+  // echo "<script type='text/javascript'>alert(`刪除成功 >w<`);</script>";
 ?>
+  <div class="loading-icon">
+    <button class="d-flex align-items-center loading-content" type="button" disabled>
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      <span class="mb-1 ml-2">刪除成功 >w<</span> </button> </div> <?php
+                                                              } else {
+                                                                header("Refresh: 1; url=./checkSearch.php");
+                                                                // echo "<script type='text/javascript'>alert(`刪除失敗 >w<`);</script>";
+                                                                ?> <div class="loading-icon">
+          <button class="d-flex align-items-center loading-content" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            <span class="mb-1 ml-2">刪除失敗 >w<</span> </button> </div> <?php
+                                                                    }
+                                                                      ?> <?php
+    require_once('../templates/footer.php');
+    ?>

@@ -1,6 +1,21 @@
+<style>
+  .loading-icon {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 7.5vw);
+    transform: translate(-50%, -50%);
+  }
+
+  .loading-content {
+    border: transparent;
+  }
+</style>
 <?php
 require_once('./checkAdmin.php'); //引入登入判斷
 require_once('./db.inc.php'); //引用資料庫連線
+require_once('../templates/header.php');
+require_once('../templates/leftSideBar.php');
+require_once('../templates/rightContainer.php');
 
 $sql = "UPDATE `class` SET 
         `className` = ? ,`classPeopleLimit` = ? ,`classPrice` = ?,`classCategoryId` = ?, `isAlive` = ? ,`classDate` = ?,
@@ -22,10 +37,31 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($arrParam);
 
 if ($stmt->rowCount() > 0) {
-  echo '<script>alert("修改成功")</script>';
-  header("Refresh: 0; url=../backStage/classInfo.php?id={$_POST['id']}");
+  // echo '<script>alert("修改成功")</script>';
+  header("Refresh: 1; url=../backStage/classInfo.php?id={$_POST['id']}");
+?>
+  <div class="loading-icon">
+    <button class="d-flex align-items-center loading-content" type="button" disabled>
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      <span class="mb-1 ml-2">修改成功</span>
+    </button>
+  </div>
+<?php
 } else {
-  echo '<script>alert("修改失敗")</script>';
-  header("Refresh: 0; url=../backStage/classInfo.php?id={$_POST['id']}");
-  exit();
+  // echo '<script>alert("修改失敗")</script>';
+  header("Refresh: 1; url=../backStage/classInfo.php?id={$_POST['id']}");
+  // exit();
+?>
+  <div class="loading-icon">
+    <button class="d-flex align-items-center loading-content" type="button" disabled>
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      <span class="mb-1 ml-2">沒有做任何變更...</span>
+    </button>
+  </div>
+
+<?php
 }
+?>
+<?php
+require_once('../templates/footer.php');
+?>

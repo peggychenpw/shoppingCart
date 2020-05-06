@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+
 require_once('../action/checkAdmin.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 
@@ -47,8 +49,12 @@ if ($_POST['refresh'] == 'yes') {
         $stmtFindPeople = $pdo->query($sqlFindPeople);
         $arrFindPeople = $stmtFindPeople->fetchAll(PDO::FETCH_ASSOC);
 
-        for ($i = 0; $i < count($arrFindPeople); $i++) {
-            $currentPeople += $arrFindPeople[$i]['bookQty'];
+        if (count($arrFindPeople) == 0) {
+            $currentPeople = 0;
+        } else {
+            for ($i = 0; $i < count($arrFindPeople); $i++) {
+                $currentPeople += $arrFindPeople[$i]['bookQty'];
+            }
         }
 
 
@@ -87,7 +93,7 @@ $dateToday =  date("Y-m-d");
 
 $sql = "SELECT `classId`, `classDate`,`className`, `isAlive`
         FROM `class`
-        WHERE `classDate`<='{$dateToday}'";
+        WHERE `classDate` > '{$dateToday}'";
 
 $stmtClass = $pdo->query($sql);
 $arr = $stmtClass->fetchAll(PDO::FETCH_ASSOC);
@@ -107,11 +113,11 @@ require_once('../templates/rightContainer.php');
     }
 </style>
 
-<div class="d-flex justify-content-between">
-    <button class="btn btn-outline-secondary my-3 ml-3" type="button">
+<div class="d-flex align-items-center">
+    <button class="btn btn-outline-info my-3 mx-3" type="button">
         預約新課程
     </button>
-    <a class="btn btn-outline-secondary my-3 mr-3" href="./bookSearch2.php">預約查詢</a>
+    <input class="btn btn-outline-secondary ml-1 mr-2" type="button" value="返回" onclick="location.href='./bookSearch2.php?page=<?php echo $_GET['page'] ?>'">
 </div>
 <form name="myForm" enctype="multipart/form-data" method="POST" action="./bookNew.php?page=<?php echo $_GET['page'] ?>">
     <table class="table table-striped table-gray text-center">
@@ -125,7 +131,9 @@ require_once('../templates/rightContainer.php');
         <tbody>
             <tr>
                 <td class="border _td">
-                    <input class="form-control" type="text" name="userId" value="<?php if(!isset($stmt)){echo $_POST['userId'];} ?>" maxlength="100" required />
+                    <input class="form-control" type="text" name="userId" value="<?php if (!isset($stmt)) {
+                                                                                        echo $_POST['userId'];
+                                                                                    } ?>" maxlength="100" required />
                 </td>
                 <td class="border _td">
                     <select class="custom-select" name="classChoice">
@@ -140,14 +148,18 @@ require_once('../templates/rightContainer.php');
                     </select>
                 </td>
                 <td class="border _td">
-                    <input class="form-control" type="text" name="bookQty" value="<?php if(!isset($stmt)){echo $_POST['bookQty'];} ?>" maxlength="3" required />
+                    <input class="form-control" type="text" name="bookQty" value="<?php if (!isset($stmt)) {
+                                                                                        echo $_POST['bookQty'];
+                                                                                    } ?>" maxlength="3" required />
                 </td>
             </tr>
         </tbody>
         <tfoot>
-            <tr>
-                <td class="border _td" colspan="3"><input class="btn btn-outline-secondary" type="submit" name="smb" value="新增"></td>
-            </tr>
+            <div>
+                <td class="border _td text-left" colspan="3">
+                    <input class="btn btn-outline-info" type="submit" name="smb" value="新增">
+                </td>
+            </div>
         </tfoot>
     </table>
     <input type="hidden" name="refresh" value="yes">
@@ -176,7 +188,7 @@ if (isset($currentPeople) && $_POST['bookQty'] + $currentPeople > $classPeopleLi
 <?php
 }
 //若人數為0
-if ( isset($_POST['bookQty']) && $_POST['bookQty'] <= 0) {
+if (isset($_POST['bookQty']) && $_POST['bookQty'] <= 0) {
 ?>
     <script>
         setTimeout(() => {
@@ -202,7 +214,7 @@ if (isset($stmt)) {
 
         // print_r($arrJustAdded);
     ?>
-        <h4>剛新增資料</h4>
+        <h4 class="ml-3">剛新增資料</h4>
         <table class="border table table-striped table-gray text-center">
             <thead class="thead-light">
                 <tr>
@@ -244,7 +256,6 @@ if (isset($stmt)) {
     };
 }
 ?>
-<input class="btn btn-outline-secondary ml-3" type="button" value="返回" onclick="location.href='./bookSearch2.php?page=<?php echo $_GET['page']?>'">
 
 <?php
 require_once('../templates/footer.php');

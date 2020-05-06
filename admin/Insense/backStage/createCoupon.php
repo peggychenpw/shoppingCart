@@ -13,7 +13,7 @@ WHERE `couponId` = ? ";
 ?>
 <a class="btn btn-outline-secondary my-3 ml-2" class="home" href="./adminCoupon.php">我的優惠券</a>
 <h3 class="ml-3 pb-2">新增優惠券</h3>
-<form name="myForm" enctype="multipart/form-data" method="POST" action="addCoupon.php">
+<form name="myForm" enctype="multipart/form-data" method="POST" action="../action/addCoupon.php">
   <table class="table table-striped table-gray text-center">
     <thead class="thead-light">
       <tr>
@@ -48,7 +48,7 @@ WHERE `couponId` = ? ";
     </tbody>
     <tfoot>
       <tr class="text-left">
-        <td class="border" colspan="5"><input class="btn btn-outline-secondary" type="submit" name="smb" value="新增"></td>
+        <td class="border" colspan="5"><input class="btn btn-outline-info" type="submit" name="smb" value="新增"></td>
       </tr>
     </tfoot>
   </table>

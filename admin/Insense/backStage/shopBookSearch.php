@@ -1,8 +1,9 @@
 <?php
+
 // session_start();
 error_reporting(0);
 
-require_once('../action/checkAdmin.php'); //引入登入判斷
+require_once('../action/checkShop.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 
 // echo $_POST['searchMethod'];
@@ -37,8 +38,7 @@ if (isset($_POST["searchMethod"])) {
   $_SESSION['searchOrder'] =  $_POST['searchOrder'];
 }
 
-
-$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `class`.`isAlive`, `book`.`bookQty`,`book`.`created_at` 
+$sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`classDate`,`class`.`classTime`, `book`.`userId`, `users`.`userName`, `book`.`bookStatus`, `class`.`isAlive`, `book`.`bookQty`,`book`.`created_at`, `book`.`updated_at`  
         FROM `book`  
         INNER JOIN `class`
         ON `book`.`classId` = `class`.`classId`
@@ -47,14 +47,11 @@ $sql = "SELECT `book`.`bookId`, `book`.`classId`, `class`.`className`, `class`.`
         INNER JOIN `shop`
         ON `class`.`shopId` = `shop`.`shopId` ";
 
-// echo $sql;
 
 //驗證SESSION存在
 // echo $_SESSION["searchMethod"];
 // echo $_SESSION["searchText"];
 
-// echo getSql('book','bookId');
-// exit();
 
 //搜尋方式
 switch ($_SESSION["searchMethod"]) {
@@ -113,10 +110,9 @@ switch ($_SESSION['searchDirection']) {
     if ($_SESSION['searchEndDate'] !== "") {
       $sql .= "AND `class`.`classDate` <= '{$_SESSION['searchEndDate']}'";
     }
-};
+}
 
 $sql .= "AND `class`.`shopId` = '{$_SESSION['shopId']}' ";
-
 //排序方式
 switch ($_SESSION["sortOrder"]) {
   case "byClassDate":
@@ -176,99 +172,265 @@ require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/shopLeftSideBar.php'); // 2. 引入leftSiderBar
 require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 ?>
+<style>
+  .search-form {
+    background: #f7f7f7;
+  }
 
-<h3 class=" mt-2 ml-4">預約課程列表</h3>
+  .search-bar {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .chk-hidden {
+    display: none;
+  }
+
+  label {
+    margin: 1px 0 !important;
+  }
+
+  .time-flex {
+    align-items: center;
+  }
+
+  .time-text {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  button.disabled {
+    pointer-events: none;
+    color: #999999;
+    /* opacity:.5; */
+  }
+
+  .input-group-text {
+    margin: 0 !important;
+    height: 32px;
+  }
+
+  .time-select {
+    width: 136px;
+  }
+
+  .time-range-select {
+    width: 540px
+  }
+
+  .date-range {
+    height: 24px;
+    width: 172px;
+  }
+
+  .book-status {
+    width: 200px;
+  }
+
+  .search-order {
+    width: 120px;
+    height: 32px;
+  }
+
+  div .search-order {
+    width: 72px;
+  }
+
+  .search-order select {
+    width: 20px;
+    height: 32px;
+    font-size: 16px;
+    padding: 0 0 0 10px;
+    background: #f9f9f9;
+  }
+
+  .label-all-chk {
+    cursor: pointer;
+    color: #999999;
+    border-bottom: 2px dotted #999999;
+  }
+
+  .label-all-chk:hover {
+    color: #777777;
+  }
+
+  a.pageSelected {
+    pointer-events: none;
+    color: #999999;
+  }
+
+  .disabled-border {
+    cursor: no-drop;
+  }
+
+  ._td {
+    vertical-align: middle !important;
+  }
+
+  .col-form-label {
+    margin-bottom: 1px;
+    margin-top: 1px;
+  }
+
+  input[type="checkbox"] {
+    cursor: pointer;
+    transform: scale(1.2);
+    padding: 20px;
+    line-height: 10px;
+  }
+
+  .page {
+    font-size: 24px;
+  }
+</style>
+
+<!-- <h3>預約課程列表</h3> -->
 <!--       search start              -->
-<div>
-  <button class="btn btn-outline-secondary mt-2 ml-4" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
-    關鍵字搜尋
-  </button>
-</div>
-<div class="collapse" id="searchDivDetail">
-  <!-- 搜尋功能 -->
-  <form name="bookSearchForm" entype="multipart/form-data" method="POST" action="shopBookSearch.php">
-    <div>
-      <span class="ml-4">搜尋方式：</span>
-      <select name="searchMethod" id="">
-        <option value="bookId" <?php echo $bookIdSelect ?>>預約編號</option>
-        <option value="classId" <?php echo $classIdSelect ?>>課程編號</option>
-        <option value="className" <?php echo $classNameSelect ?>>課程名稱</option>
-        <option value="userId" <?php echo $userIdSelect ?>>會員編號</option>
-        <option value="userName" <?php echo $userNameSelect ?>>會員名稱</option>
-      </select>
-      <input type="text" name="searchText" value="<?php echo $_SESSION['searchText'] ?>">
-    </div>
 
-    <div>
-      <span class="ml-4">預約狀態：</span>
-      <select name="searchStatus" id="">
+<div class="d-flex">
+  <button class="btn btn-outline-info my-3 mx-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+    預約查詢
+  </button>
+  <a class="btn btn-outline-secondary my-3 mr-3" href="./ShopBookNew.php?page=<?php echo $page ?>">預約新課程</a>
+</div>
+<div class="collapse mt-1 mb-3" id="searchDivDetail">
+  <!-- 搜尋功能 -->
+  <form class="mx-3 p-3 search-form" name="bookSearchForm" entype="multipart/form-data" method="POST" action="shopBookSearch.php">
+    <div class="form-group">
+      <h5 class="ml-2 mb-2">搜尋方式</h5>
+      <div class="input-group">
+        <div class="input-group-prepend ">
+          <select class="custom-select search-bar" name="searchMethod">
+            <option value="bookId" <?php echo $bookIdSelect ?>>預約編號</option>
+            <option value="classId" <?php echo $classIdSelect ?>>課程編號</option>
+            <option value="className" <?php echo $classNameSelect ?>>課程名稱</option>
+            <option value="userId" <?php echo $userIdSelect ?>>會員編號</option>
+            <option value="userName" <?php echo $userNameSelect ?>>會員名稱</option>
+          </select>
+        </div>
+        <input class="form-control" type="text" name="searchText" value="<?php echo $_SESSION['searchText'] ?>">
+      </div>
+    </div>
+    <div class="form-group">
+      <h5 class="ml-2 mb-2">搜尋時間</h5>
+      <div class="d-flex row time-flex">
+        <label class="input-group time-select ml-3 mb-2" for="future">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" id="future" name="searchDirection" value="future" <?php echo $futureCheck ?>>
+            </div>
+          </div>
+          <div class="time-text input-group-text">未來預約</div>
+        </label>
+        <label class="input-group time-select ml-3 mb-2" for="past">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" id="past" name="searchDirection" value="past" <?php echo $pastCheck ?>>
+            </div>
+          </div>
+          <div class="time-text input-group-text">歷史紀錄</div>
+        </label>
+        <label class="input-group time-range-select ml-3 mb-2" for="dateRange">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" id="dateRange" name="searchDirection" value="dateRange" <?php echo $dateRangeCheck ?>>
+            </div>
+          </div>
+          <div class="time-text input-group-text"> 時間範圍
+            <input class="mx-2 date-range form-control" id="dateStart" type="date" name="searchStartDate" value="<?php echo $_SESSION['searchStartDate'] ?>"> -
+            <input class="mx-2 date-range form-control" id="dateEnd" type="date" name="searchEndDate" value="<?php echo $_SESSION['searchEndDate'] ?>">
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <h5 class="ml-2 mb-2">預約狀態</h5>
+      <select class="custom-select book-status" name="searchStatus" id="">
         <option value="all" <?php echo $allSelect ?>>全部</option>Ï
         <option value="success" <?php echo $successSelect ?>>成功</option>
         <option value="cancelled" <?php echo $cancelledSelect ?>>取消</option>
       </select>
     </div>
-
-    <div>
-      <span class="ml-4 mt-4">搜尋時間：</span>
-      <input type="radio" id="future" name="searchDirection" value="future" <?php echo $futureCheck ?>>
-      <label for="future">未來預約</label>
-      <input type="radio" id="past" name="searchDirection" value="past" <?php echo $pastCheck ?>>
-      <label for="past">歷史紀錄</label>
-      <input type="radio" id="dateRange" name="searchDirection" value="dateRange" <?php echo $dateRangeCheck ?>>
-      <label for="dateRange">時間範圍:
-        <input id="dateStart" type="date" name="searchStartDate" value="<?php echo $_SESSION['searchStartDate'] ?>"> -
-        <input id="dateEnd" type="date" name="searchEndDate" value="<?php echo $_SESSION['searchEndDate'] ?>">
-      </label>
+    <div class="form-group">
+      <h5 class="ml-2 mb-2">排序方式</h5>
+      <div class="d-flex row time-flex">
+        <label class="input-group time-select ml-3 mb-2" for="byClassDate">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" id="byClassDate" name="sortOrder" value="byClassDate" <?php echo $byClassDateCheck ?>>
+            </div>
+          </div>
+          <div class="time-text input-group-text">課程時間</div>
+        </label>
+        <label class="input-group time-select ml-1 mb-2" for="byBookId">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
+            </div>
+          </div>
+          <div class="time-text input-group-text">預約編號</div>
+        </label>
+        <label class="input-group time-select ml-1 mb-2" for="byClassId">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" id="byClassId" name="sortOrder" value="byClassId" <?php echo $byClassIdCheck ?>>
+            </div>
+          </div>
+          <div class="time-text input-group-text">課程編號</div>
+        </label>
+        <label class="input-group time-select ml-1 mb-2" for="byUserId">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" id="byUserId" name="sortOrder" value="byUserId" <?php echo $byUserIdCheck ?>>
+            </div>
+          </div>
+          <div class="time-text input-group-text">會員編號</div>
+        </label>
+        <div class="input-group search-order ml-1 mb-2">
+          <select class="custom-select" name="searchOrder" id="">
+            <option value="forward" <?php echo $forwardSelect ?>>小至大</option>
+            <option value="backforward" <?php echo $backforwardSelect ?>>大至小</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <!-- 搜尋功能 -->
     <div>
-      <span class="ml-4">排序方式：</span>
-      <input type="radio" id="byClassDate" name="sortOrder" value="byClassDate" <?php echo $byClassDateCheck ?>>
-      <label for="byClassDate">課程時間</label>
-      <input type="radio" id="byBookId" name="sortOrder" value="byBookId" <?php echo $byBookIdCheck ?>>
-      <label for="byBookId">預約編號</label>
-      <input type="radio" id="byClassId" name="sortOrder" value="byClassId" <?php echo $byClassIdCheck ?>>
-      <label for="byClassId">課程編號</label>
-      <input type="radio" id="byUserId" name="sortOrder" value="byUserId" <?php echo $byUserIdCheck ?>>
-      <label for="byUserId">會員編號</label>
-      <select name="searchOrder" id="">
-        <option value="forward" <?php echo $forwardSelect ?>>由小至大</option>
-        <option value="backforward" <?php echo $backforwardSelect ?>>由大至小</option>
-      </select>
+      <input class="btn btn-outline-info" type="submit" name="smbSearch" value="搜尋">
+      <a class="btn btn-outline-secondary ml-2" href="shopBookSearch.php">重新搜尋</a>
     </div>
-
-    <input type="submit" name="smbSearch" class="ml-4">
-    <a href="shopBookSearch.php" class="ml-4">重新搜尋</a>
   </form>
-
 </div>
 <!--       search end              -->
 <?php
 //若有課程存在，才顯示
 if ($totalClasses > 0) {
 ?>
-  <form name="myForm" entype="multipart/form-data" method="POST" action="delete.php">
-    <table class="table mt-3 ">
+  <form name="myForm" entype="multipart/form-data" method="POST" action="../action/shopBookDelete.php?page=<?php echo $page ?>">
+    <table class="table table-striped table-gray text-center">
       <thead class="thead-light">
         <tr>
-          <th class="border">勾選</th>
-          <th class="border">預約編號</th>
-          <th class="border">課程編號</th>
-          <th class="border">課程名稱</th>
-          <th class="border">課程日期</th>
-          <th class="border">課程時間</th>
-          <th class="border">會員編號</th>
-          <th class="border">會員名稱</th>
-          <th class="border">預約狀態</th>
-          <th class="border">預約人數</th>
-          <th class="border">新增時間</th>
-          <th class="border">功能</th>
+          <th class="border _td">
+            <input class="chk-hidden" type="checkbox" name="allCheck" id="allCheck">
+            <label class="label-all-chk" for="allCheck">全選</label>
+          </th>
+          <th class="border _td">預約編號</th>
+          <th class="border _td">課程編號</th>
+          <th class="border _td">課程名稱</th>
+          <th class="border _td">課程日期</th>
+          <th class="border _td">課程時間</th>
+          <th class="border _td">會員編號</th>
+          <th class="border _td">會員名稱</th>
+          <th class="border _td">預約狀態</th>
+          <th class="border _td">課程狀態</th>
+          <th class="border _td">人數</th>
+          <!-- <th class="border _td">新增時間</th> -->
+          <th class="border _td">功能</th>
         </tr>
       </thead>
       <tbody>
         <?php
         //各頁資料
-        $sql .= " LIMIT ?, ? ";
+        $sql .= "LIMIT ?, ? ";
         $arrParam = [($page - 1) * $numPerPage, $numPerPage];
         $stmt = $pdo->prepare($sql);
         $stmt->execute($arrParam);
@@ -286,21 +448,26 @@ if ($totalClasses > 0) {
           for ($i = 0; $i < count($arr); $i++) {
         ?>
             <tr>
-              <td class="border">
-                <input type="checkbox" name="chk[]" value="<?php echo $arr[$i]['itemId']; ?>" />
+              <td class="border _td">
+                <input class="chk-delete" type="checkbox" name="chk[]" value="<?php echo $arr[$i]['bookId']; ?>" />
               </td>
-              <td class="border"><?php echo $arr[$i]['bookId']; ?></td>
-              <td class="border"><?php echo $arr[$i]['classId']; ?></td>
-              <td class="border"><?php echo $arr[$i]['className']; ?></td>
-              <td class="border"><?php echo $arr[$i]['classDate']; ?></td>
-              <td class="border"><?php echo $arr[$i]['classTime']; ?></td>
-              <td class="border"><?php echo $arr[$i]['userId']; ?></td>
-              <td class="border"><?php echo $arr[$i]['userName']; ?></td>
-              <td class="border"><?php echo $arr[$i]['bookStatus']; ?></td>
-              <td class="border"><?php echo $arr[$i]['bookQty']; ?></td>
-              <td class="border"><?php echo $arr[$i]['created_at']; ?></td>
-              <td class="border">
-                <a href="./shopBookEdit.php?bookId=<?php echo $arr[$i]['bookId'] ?>">資料更改</a>
+              <td class="border _td"><?php echo $arr[$i]['bookId']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['classId']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['className']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['classDate']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['classTime']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['userId']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['userName']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['bookStatus']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['isAlive']; ?></td>
+              <td class="border _td"><?php echo $arr[$i]['bookQty']; ?></td>
+              <!-- <td class="border _td"><?php echo $arr[$i]['created_at']; ?></td> -->
+              <td class="border _td <?php if ($arr[$i]['isAlive'] == '停課') {
+                                      echo 'disabled-border';
+                                    } ?>">
+                <button type="button" class="btn btn-outline-secondary <?php if ($arr[$i]['isAlive'] == '停課') {
+                                                                          echo 'disabled';
+                                                                        } ?>" data-toggle="modal" data-target="#bookModify<?php echo $i ?>" data-whatever="@mdo">修改</button>
               </td>
             </tr>
           <?php
@@ -308,7 +475,7 @@ if ($totalClasses > 0) {
         } else {
           ?>
           <tr>
-            <td class="border" colspan="12">沒有資料</td>
+            <td class="border" colspan="13">沒有資料</td>
           </tr>
         <?php
         }
@@ -316,23 +483,118 @@ if ($totalClasses > 0) {
       </tbody>
       <tfoot>
         <tr>
-          <td class="border" colspan="12">
+          <td class="border text-left" colspan="13">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-              <a href="?page=<?= $i ?>"><?= $i ?></a>
+              <a class="p-2 page <?php if ($page == $i) {
+                                    echo 'pageSelected';
+                                  } ?>" href="?page=<?= $i ?>"><?= $i ?></a>
             <?php } ?>
           </td>
         </tr>
 
         <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="12"><input type="submit" name="smb" value="刪除"></td>
+            <td class="border text-left" colspan="13"><input class="btn btn-outline-danger" type="submit" name="smb" value="刪除預約"></td>
           </tr>
         <?php } ?>
 
-        </tfoo>
+      </tfoot>
     </table>
   </form>
+  <?php for ($i = 0; $i < count($arr); $i++) { ?>
+    <div class="modal fade" id="bookModify<?php echo $i ?>" tabindex="-1" role="dialog" aria-labelledby="bookModifyLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title ml-3" id="bookModifyLabel<?php echo $i ?>">修改預約</h5>
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </div>
+          <form name="modifyForm<?php echo $i ?>" entype="multipart/form-data" method="POST" action="../action/shopBookUpdate.php?page=<?php echo $page ?>&bookId=<?php echo $arr[$i]['bookId'] ?>&classId=<?php echo $arr[$i]['classId'] ?>">
+            <div class="modal-body">
+              <div class="form-group container-fluid">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="book-id<?php echo $i ?>" class="col-form-label ml-1">預約編號</label>
+                    <input type="text" class="form-control" id="book-id<?php echo $i ?>" value="<?php echo $arr[$i]['bookId']; ?>" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group container-fluid">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="user-id<?php echo $i ?>" class="col-form-label ml-1">會員編號</label>
+                    <input type="text" class="form-control" id="user-id<?php echo $i ?>" value="<?php echo $arr[$i]['userId']; ?>" disabled>
+                  </div>
+                  <div class="col-md-8">
+                    <label for="user-name<?php echo $i ?>" class="col-form-label ml-1">會員名稱</label>
+                    <input type="text" class="form-control" id="user-name<?php echo $i ?>" value="<?php echo $arr[$i]['userName']; ?>" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group container-fluid">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="class-id<?php echo $i ?>" class="col-form-label ml-1">課程編號</label>
+                    <input type="text" class="form-control" id="class-id<?php echo $i ?>" value="<?php echo $arr[$i]['classId']; ?>" disabled>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="class-name<?php echo $i ?>" class="col-form-label ml-1">課程名稱</label>
+                    <input type="text" class="form-control" id="class-name<?php echo $i ?>" value="<?php echo $arr[$i]['className']; ?>" disabled>
+                  </div>
+                  <div class="col-md-6 mt-2">
+                    <label for="class-date<?php echo $i ?>" class="col-form-label ml-1">課程日期</label>
+                    <input type="text" class="form-control" id="class-date<?php echo $i ?>" value="<?php echo $arr[$i]['classDate']; ?>" disabled>
+                  </div>
+                  <div class="col-md-6 mt-2">
+                    <label for="class-time<?php echo $i ?>" class="col-form-label ml-1">課程時間</label>
+                    <input type="text" class="form-control" id="class-time<?php echo $i ?>" value="<?php echo $arr[$i]['classTime']; ?>" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group container-fluid">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p for="" class="col-form-label ml-1">預約狀態</p>
+                    <select class="custom-select" name="bookStatusSelect">
+                      <option value="成功" <?php if ($arr[$i]['bookStatus'] == "成功") {
+                                            echo "selected";
+                                          } ?>>成功</option>
+                      <option value="取消" <?php if ($arr[$i]['bookStatus'] == "取消") {
+                                            echo "selected";
+                                          } ?>>取消</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8 mb-0">
+                    <label for="book-qty<?php echo $i ?>" class="col-form-label ml-1">預約人數</label>
+                    <input type="text" class="form-control" name="bookQtyChange" id="book-qty<?php echo $i ?>" value="<?php echo $arr[$i]['bookQty']; ?>" required>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group container-fluid">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="add-time<?php echo $i ?>" class="col-form-label ml-1">新增時間</label>
+                    <input type="text" class="form-control" id="add-time<?php echo $i ?>" value="<?php echo $arr[$i]['created_at']; ?>" disabled>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="modify-time<?php echo $i ?>" class="col-form-label ml-1">更新時間</label>
+                    <input type="text" class="form-control" id="modify-time<?php echo $i ?>" value="<?php echo $arr[$i]['updated_at']; ?>" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <input type="submit" class="btn btn-outline-info">
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  <?php } ?>
 <?php
 } else {
   //引入尚未建立商品種類的文字描述

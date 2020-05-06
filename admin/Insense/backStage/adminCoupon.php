@@ -117,6 +117,10 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
   ._checkbox:hover {
     color: #000;
   }
+
+  .page {
+    font-size: 24px;
+  }
 </style>
 
 <a class="btn btn-outline-secondary ml-2 my-3" href="./createCoupon.php">新增優惠券</a>
@@ -147,7 +151,7 @@ require_once('../templates/rightContainer.php'); // 3. 引入rightContainer
 if ($totalCatogories > 0) {
 ?>
   <!-- Table 樣板 -->
-  <form name="myform2" id="myform2" entype="multipart/form-data" method="POST" action="deleteCoupon.php">
+  <form name="myform2" id="myform2" entype="multipart/form-data" method="POST" action="../action/deleteCoupon.php">
     <table class="table table-striped table-gray text-center">
       <thead class="thead-light">
         <tr>
@@ -228,7 +232,7 @@ if ($totalCatogories > 0) {
         <tr>
           <td class="border text-left" colspan="9">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-              <a href="?page=<?= $i ?>"><?= $i ?></a>
+              <a class="page p-2" href="?page=<?= $i ?>"><?= $i ?></a>
             <?php } ?>
           </td>
         </tr>

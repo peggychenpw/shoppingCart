@@ -1,5 +1,5 @@
 <?php
-require_once('../action/checkAdmin.php'); //引入登入判斷
+require_once('../action/checkShop.php'); //引入登入判斷
 require_once('../action/db.inc.php'); //引用資料庫連線
 require_once('../templates/header.php'); //  1.引入header
 require_once('../templates/shopLeftSideBar.php'); // 2. 引入leftSiderBar
@@ -127,16 +127,15 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
 <!-- #################### content #################### -->
 <style>
   /* class zone */
-
-  .classTd {
-    position: relative;
+  .allSelected {
+    color: #aaa;
+    border-bottom: 1px solid #bbb;
+    text-decoration: none;
   }
 
-  .classTd input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .allSelected:hover {
+    color: black;
+    text-decoration: none;
   }
 
   ._tr {
@@ -147,9 +146,13 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
   ._td {
     vertical-align: middle !important;
   }
+
+  .page {
+    font-size: 24px;
+  }
 </style>
-<div class="d-flex justify-content-between">
-  <button class="btn btn-outline-secondary my-3 ml-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
+<div class="d-flex">
+  <button class="btn btn-outline-info my-3 mx-3" type="button" data-toggle="collapse" data-target="#searchDivDetail" aria-expanded="false" aria-controls="searchDivDetail">
     課程搜尋
   </button>
   <a class="btn btn-outline-secondary my-3 mr-3" href="./editShopClass.php">新增課程</a>
@@ -209,10 +212,9 @@ $totalClass = $pdo->query($sqlTotalClass)->fetch(PDO::FETCH_NUM)[0];
         <label class="input-group-text" for="classDate">日期:</label>
         <input class="form-control" type="text" name='classDate' value="<?php echo $_SESSION['classDate'] ?>">
       </div>
-      <div>
-        <input class="btn btn-outline-secondary" type="submit" value="查詢">
-        <input class="btn btn-outline-secondary ml-2" type="reset" value="清空">
-        <a class="_btn btn btn-outline-secondary ml-5" href="javascript:;">重新搜尋</a>
+      <div class="d-flex">
+        <input class="btn btn-outline-info mr-3" type="submit" value="查詢">
+        <a class="_btn btn btn-outline-secondary" href="javascript:;">重新搜尋</a>
       </div>
     </div>
   </form>
@@ -276,15 +278,15 @@ if ($totalClass > 0) {
       </tbody>
       <tfoot>
         <tr>
-          <td class="border" colspan="8">
+          <td class="border text-left" colspan="8">
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-              <a href="?page=<?= $i ?>"><?= $i ?></a>
+              <a class="page p-2" href="?page=<?= $i ?>"><?= $i ?></a>
             <?php } ?>
           </td>
         </tr>
         <?php if ($total > 0) { ?>
           <tr>
-            <td class="border" colspan="8"><input class="btn btn-outline-secondary" type="submit" name="smb" value="下架"></td>
+            <td class="border text-left" colspan="8"><input class="btn btn-outline-danger" type="submit" name="smb" value="下架"></td>
           </tr>
         <?php } ?>
 
